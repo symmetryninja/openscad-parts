@@ -495,3 +495,62 @@ module component_make_square_fan(size=[40,40,10], include_screw_holes=true, scre
     }
   }
 }
+
+
+function get_toro32_proto_X() = 43.6;
+function get_toro32_proto_Y() = 63.6;
+
+
+module boards_make_torro32() {
+  //the board
+  difference() {
+    color("blue")
+      make_protoboard(size_X=get_toro32_proto_X(), size_Y=get_toro32_proto_Y(), corner_screws=3.1, corner_screw_edge=2.15);
+    //the drilled holes in the board
+  }
+  //terminal block
+  //15 x 7.5 x 12
+  translate([-(get_toro32_proto_X()/2 - 15), -(get_toro32_proto_Y()/2 - 6), 6]) {
+    cube([15, 7.5, 12], center=true);
+  }
+  //oofset 15 x 6
+  //pins top
+  translate([(get_toro32_proto_X()/2 - 5), 1, 0]) {
+    component_make_header_pin_range(rows = 17, cols = 3);
+  }
+  //pins end
+  translate([0, get_toro32_proto_Y()/2 - 5, 0]) {
+    rotate([0, 0, 90]){
+      component_make_header_pin_range(rows = 11, cols = 3);
+    }
+  }
+  //pins bottom
+  translate([-(get_toro32_proto_X()/2 - 5), 1, 0]) {
+    component_make_header_pin_range(rows = 17, cols = 3);
+  }
+}
+
+module boards_make_torro32_frame() {
+  make_protoboard_x_frame(size_X=37.2, size_Y=55.7, corner_screws=3.1, corner_screw_edge=2.15, spacer_H=5, spacer_D=6);
+}
+
+module boards_make_torro32_bolts(screw_D = 3.1, h = 20) {
+  //edge 3.7
+  offset = 3.7;
+
+  offset_X = get_toro32_proto_X() / 2 - offset;
+  offset_Y = get_toro32_proto_Y() / 2 - offset;
+
+  translate([offset_X,offset_Y,0]) {
+    cylinder(h = h, d = screw_D, center = true);
+  }
+  translate([-offset_X,offset_Y,0]) {
+    cylinder(h = h, d = screw_D, center = true);
+  }
+  translate([offset_X,-offset_Y,0]) {
+    cylinder(h = h, d = screw_D, center = true);
+  }
+  translate([-offset_X,-offset_Y,0]) {
+    cylinder(h = h, d = screw_D, center = true);
+  }
+}
