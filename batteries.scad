@@ -87,3 +87,52 @@ module battery_holder_dual_18650(withBatteries=true) {
 module battery_18650() {
   cylinder(h=18650_batteryH, d=18650_batteryD, center=true);
 }
+
+module battery_multistar_s3_52() {
+    bat_L = 98;
+    bat_L_2 = 107;
+    bat_W = 47;
+    bat_H = 36;
+
+    
+    bat_X = bat_L/2;
+    bat_XT = bat_X + bat_L_2 - bat_L;
+    bat_Y = bat_W/2;
+
+    bat_Z_T = bat_H/2;
+    bat_Z_B = -bat_Z_T;
+
+    /*
+    10 points:
+    Top
+    * tip, * box xy, box x-y, box -x-y, box -xy
+    bottom
+    * tip, * box xy, box x-y, box -x-y, box -xy
+    
+*/
+    green()
+    polyhedron( 
+    points = [
+        [ bat_XT, 0,   bat_Z_T],
+        [ bat_X, bat_Y,bat_Z_T],
+        [-bat_X, bat_Y,bat_Z_T],
+        [-bat_X,-bat_Y,bat_Z_T],
+        [ bat_X,-bat_Y,bat_Z_T],
+
+        [ bat_XT, 0,    bat_Z_B],
+        [ bat_X, bat_Y, bat_Z_B],
+        [-bat_X, bat_Y, bat_Z_B],
+        [-bat_X,-bat_Y, bat_Z_B],
+        [ bat_X,-bat_Y, bat_Z_B],
+    ], 
+    faces = [
+      [4, 3, 2, 1, 0],
+      [0, 1, 6, 5],
+      [1, 2, 7, 6],
+      [2, 3, 8, 7],
+      [3, 4, 9, 8],
+      [4, 0, 5, 9],
+      [5, 6, 7, 8, 9],
+    ]
+  );
+}

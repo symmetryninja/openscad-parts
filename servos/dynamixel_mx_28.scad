@@ -3,14 +3,14 @@
 dm28_horne_hub_D = 23.4899 * 2;
 dm28_horne_hub_outer_D = 70;
 dm28_horne_hub_space_H = 41;
-dm28_horne_screw_space = 6;
+dm28_horne_screw_space = 4;
 dm28_horne_hub_H = dm28_horne_hub_space_H + (2 * dm28_horne_screw_space);
 dm28_horne_hub_outer_angle = 55;
 dm28_horne_hub_arc_R = 30;
 
 
 module dm_mx_28_load_stl() {
-  import("../parts/servos/MX-28T_R.stl");
+  import("../../openscad-parts/servos/MX-28T_R.stl");
 }
 
 
@@ -21,8 +21,8 @@ module dm_mx_28_horne_hub_join() {
       translate([0,-5,0]) {
         cylinder(d = 42, h = dm28_horne_hub_H, center=true);
       }
-      translate([0,-20,0]) {
-        cube([42, 42, dm28_horne_hub_H], center=true);
+      translate([0,-25,0]) {
+        cube([42, 20, dm28_horne_hub_H], center=true);
       }
     }
     cylinder(h=41, d=100, center=true);
@@ -32,10 +32,23 @@ module dm_mx_28_horne_hub_join() {
 module dm_mx_28_horne_cutouts(with_cutout=true) {
   for (i = [0:7]) {
     rotate([0,0,135 - (i * 45)]) {
-      dm_mx_28_horne_bolt();
+      #dm_mx_28_horne_bolt();
     }
   }
-  cylinder(d=9, h=70, center = true);
+  
+  hull() {
+    cylinder(d=9, h=70, center = true);
+    if (with_cutout) {
+      translate([0,-15,0]) {
+        cylinder(d=9, h=70, center = true);
+      }
+    }
+  }
+  if (with_cutout) {
+    translate([0,-25,0]) {
+      cylinder(d=47, h=70, center = true);
+    }
+  }
 }
 
 module dm_mx_28_horne_bolt() {
@@ -132,10 +145,10 @@ module dm_mx_28_chassis_cutout(include_web=true) {
       }
     }
 
-    translate([22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    translate([22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    translate([-22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    translate([-22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
+    // translate([22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
+    // translate([22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
+    // translate([-22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
+    // translate([-22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
 
     translate([0,-13.35,0]) {
       cube([36.5,51.5,30.3], center=true);

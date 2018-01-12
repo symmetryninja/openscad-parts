@@ -3,7 +3,7 @@
 dm64_horne_hub_D = 38;
 dm64_horne_hub_outer_D = 90;
 dm64_horne_hub_space_H = 47;
-dm64_horne_screw_space = 5.5;
+dm64_horne_screw_space = 4;
 dm64_horne_hub_H = dm64_horne_hub_space_H + (dm64_horne_screw_space * 2);
 dm64_horne_hub_outer_angle = 55;
 dm64_horne_hub_arc_R = 30;
@@ -20,7 +20,7 @@ module dm_mx_64_horne_hub_join(rescale=1, for_shoulder=false) {
     scale([rescale, rescale, rescale]) {
       hull() {
         cylinder(d = dm64_horne_hub_D, h = dm64_horne_hub_H, center=true);
-        translate([0,-30,0]) {
+        translate([0,-29,0]) {
           cube([dm64_horne_hub_D, dm64_horne_hub_D, dm64_horne_hub_H], center=true);
         }
         if (for_shoulder) {
@@ -36,15 +36,15 @@ module dm_mx_64_horne_hub_join(rescale=1, for_shoulder=false) {
 }
 
 
-module dm_mx_64_horne_cutouts(with_cutout=false, for_shoulder=false) {
+module dm_mx_64_horne_cutouts(with_cutout=true, for_shoulder=false) {
   union() {
     for (i = [0:7]) {
       rotate([0,0,135 - (i * 45)]) {
         dm_mx_64_horne_bolt();
       }
     }
-    translate([0,-30,0])
     if (with_cutout) {
+      translate([0,-30,0])
       cylinder(d=35, h=70, center = true);
     }
     
@@ -61,7 +61,7 @@ module dm_mx_64_horne_cutouts(with_cutout=false, for_shoulder=false) {
       cylinder(d=11.2, h=70, center = true); // TODO: uncomment
       if (with_cutout) {
         translate([0,-20,0]) {
-          cylinder(d=10.2, h=70, center = true);
+          cylinder(d=11.2, h=70, center = true);
         }
       }
     }
@@ -78,7 +78,7 @@ module dm_mx_64_horne_bolt() {
 
 
 
-module yorick_mx64_horne_for_print(with_cutout=false, rescale=1, for_shoulder=false) {
+module yorick_mx64_horne_for_print(with_cutout=true, rescale=1, for_shoulder=false) {
   difference() {
     dm_mx_64_horne_hub_join(rescale=rescale, for_shoulder=for_shoulder);
     dm_mx_64_horne_cutouts(with_cutout, for_shoulder=for_shoulder);

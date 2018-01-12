@@ -26,36 +26,27 @@ module rotor_screws(length=100, height=20) {
 }
 
 module makeRotorScrewsFor100() {
-  union() {
-    translate([0, -100/2]) {
-      for (a =[5 : 20 : 50]) {
-        translate([0, a, 0])
-          cylinder(d=2.7, h=45, center=true);
-      }
-      for (b =[55 : 20 : 100]) {
-        translate([0, b, 0])
-          cylinder(d=2.7, h=45, center=true);
-      }
-    }
-  }
+  make_rotor_screws_for(size=100);
 }
 
 module makeRotorScrewsFor150() {
-  union() {
-    translate([0, -150/2]) {
-      for (a =[5 : 10 : 145]) {
-        translate([0, a, 0])
-          cylinder(d=2.7, h=45, center=true);
-      }
-    }
-  }
+  make_rotor_screws_for(size=150);
 }
+
 module makeRotorScrewsFor200() {
+  make_rotor_screws_for(size=200);
+}
+
+module make_rotor_screws_for(size=250) {
   union() {
-    translate([0, -200/2]) {
-      for (a =[5 : 10 : 195]) {
-        translate([0, a, 0])
+    translate([0, -size/2]) {
+      for (a =[5 : 10 : size-5]) {
+        translate([0, a, 0]) {
           cylinder(d=2.7, h=45, center=true);
+          // rotate([0,90,0]) {
+          //   cylinder(d=2.7, h=45, center=true);
+          // }
+        }
       }
     }
   }
