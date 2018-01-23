@@ -3,24 +3,7 @@ module rotor_shaft(length=100, includeScrews =true) {
   difference() {
     cube([10,length,10], center=true);
     if (includeScrews) {
-      rotor_screws(length=length);
-    }
-  }
-}
-
-module rotor_screws(length=100, height=20) {
-  union() {
-    translate([0, -length/2]) {
-      for (a =[5 : 10 : length - 5]) {
-        translate([0, a, 0])
-          cylinder(d=2.7, h=height, center=true);
-      }
-      rotate([0, 90, 0]) {
-        for (b =[5 : 10 : length - 5]) {
-          translate([0, b, 0])
-            cylinder(d=2.7, h=height, center=true);
-        }
-      }
+      make_rotor_screws_for(size=length);
     }
   }
 }

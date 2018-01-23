@@ -119,51 +119,17 @@ module dm_mx_28_chassis_cutout(include_web=true) {
         cylinder(d=2.7, h=60, center = true);
       }
 
-
-      translate([9,18,-1.5]) {
-        screw39M3Button(withHexBlank=true, hexBlankH=12, hexBlankD=7);
-      }
-      translate([-9,18,-1.5]) {
-        screw39M3Button(withHexBlank=true, hexBlankH=12, hexBlankD=7);
-      }
-
-      //front cable cutout
-      translate([0,20,0]) {
-        makeRoundedBox_rotate_90_X([35,50,10]);
-      }
-
+      // central cutout
       translate([0,-10.4,0]) {
-        cube([24.6,45.1,35.9], center=true);
+        cube([25,45.6,35.9], center=true);
       }
 
-      //side-cutout
-      translate([0,-5,1.6]) {
-        makeRoundedBox_rotate_90_Y([65,20,17]);
-      }
-      translate([0,-15,1.6]) {
-        cube([65,10,17], center = true);
-      }
     }
 
-    // translate([22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    // translate([22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    // translate([-22,-60,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-    // translate([-22,-30,-4]) rotate([0,0,90]) screwM3DoubleWithHex_m3_20_button_10mhex(hexBlankBuffer = 3, hexBlankD=7, screwPurchase=3);
-
+    // screw shelf box cutout (oversized)
     translate([0,-13.35,0]) {
       cube([36.5,51.5,30.3], center=true);
     }
-
-
-    // cable tunnel
-    translate([-12,-40,4.01]) {
-      cube([12,30,12], center=true);
-    }
-    translate([-12,-55,13.01]) {
-      cylinder(d = 12, h=30, center=true);
-    }
-
-
   }
 }
 
