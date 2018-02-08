@@ -88,11 +88,16 @@ module battery_18650() {
   cylinder(h=18650_batteryH, d=18650_batteryD, center=true);
 }
 
-module battery_multistar_s3_52(oversize=0) {
-    bat_L = 98 + oversize;
-    bat_L_2 = 107 + oversize;
-    bat_W = 47 + oversize;
-    bat_H = 36 + oversize;
+function battery_multistar_s3_52_L() = 98;
+function battery_multistar_s3_52_L_2() = 107;
+function battery_multistar_s3_52_W() = 47;
+function battery_multistar_s3_52_H() = 36;
+
+module battery_multistar_s3_52(oversize_L = 0, oversize_W = 0, oversize_H = 0) {
+    bat_L = battery_multistar_s3_52_L() + oversize_L;
+    bat_L_2 = battery_multistar_s3_52_L_2() + oversize_L;
+    bat_W = battery_multistar_s3_52_W() + oversize_W;
+    bat_H = battery_multistar_s3_52_H() + oversize_H;
 
     
     bat_X = bat_L/2;
