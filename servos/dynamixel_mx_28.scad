@@ -93,39 +93,43 @@ module dm_mx_28_chassis_cutout(include_web=true) {
 
       bolt_offset_1_Y = 4.5;
       bolt_offset_2_Y = -12.5;
+      bolt_offset_3_Y = -29.5;
       bolt_offset_4_Y = -35.8;
-
 
       //bolts - front
       translate([bolt_offset,bolt_offset_1_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
-      translate([bolt_offset, bolt_offset_2_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      // bolts - rear
-      translate([bolt_offset_2, bolt_offset_4_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      //bolts - front
       translate([-bolt_offset, bolt_offset_1_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
+      //bolts - middle
+      translate([bolt_offset, bolt_offset_2_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
       translate([-bolt_offset, bolt_offset_2_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
-      // bolts - rear
-      translate([-bolt_offset_2, bolt_offset_4_Y,0]) {
+      //bolts - end
+      translate([bolt_offset, bolt_offset_3_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
-
+      translate([-bolt_offset, bolt_offset_3_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
+      // bolts - rear
+      // translate([bolt_offset_2, bolt_offset_4_Y,0]) {
+      //   cylinder(d=2.7, h=60, center = true);
+      // }
+      // translate([-bolt_offset_2, bolt_offset_4_Y,0]) {
+      //   cylinder(d=2.7, h=60, center = true);
+      // }
       // central cutout
       translate([0,-10.4,0]) {
         cube([25,45.6,35.9], center=true);
       }
 
     }
-
     // screw shelf box cutout (oversized)
     translate([0,-13.35,0]) {
       cube([36.5,51.5,30.3], center=true);

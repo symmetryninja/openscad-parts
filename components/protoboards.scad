@@ -37,6 +37,25 @@ module make_protoboard_screws(size_X=30, size_Y=40, corner_screws=2.5, corner_sc
     screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = 5.2, screwheadHeight=3, withHexBlank = true, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
   }
 }
+
+module make_protoboard_screws_precice(size_X=30, size_Y=40, corner_screws=3.3, screw_length=20) {
+  offset_X = size_X / 2;
+  offset_Y = size_Y / 2;
+  offset_Z = -screw_length/2;
+  translate([ offset_X,  offset_Y, offset_Z]) {
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = corner_screws, screwheadHeight=3, withHexBlank = false);
+  }
+  translate([ offset_X, -offset_Y, offset_Z]) {
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = corner_screws, screwheadHeight=3, withHexBlank = false);
+  }
+  translate([-offset_X,  offset_Y, offset_Z]) {
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = corner_screws, screwheadHeight=3, withHexBlank = false);
+  }
+  translate([-offset_X, -offset_Y, offset_Z]) {
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = corner_screws, screwheadHeight=3, withHexBlank = false);
+  }
+}
+
 /// Node the sizes denote the centres!
 module make_protoboard_x_frame(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edge=1.3, screw_length=20, hex_size=[5,5], screw_purchase=2, spacer_H=3, spacer_D=5, thickness=2, diff_screws=true, diff_triangles=true, additional_spacers=[]) {
   useable_size_X = size_X - corner_screw_edge * 2;
