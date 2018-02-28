@@ -185,3 +185,22 @@ module progressive_hull(){
     children();
   }
 }
+
+function fn_arcs() = $fn * 5;
+
+module shape_balanced_arc( thickness, depth, radius, detail, degrees , rounded = false) {
+  rotate([0,0,-degrees/2])
+  render() {
+    rotate_extrude(angle = degrees, $fn = fn_arcs()) {
+      translate([radius, 0, 0]) {
+        if (rounded) {
+          resize(newsize=[thickness, depth, 0])
+          circle(thickness, center = true);
+        }
+        else {
+          square([thickness,depth], center = true);
+        }
+      }
+    }
+  }
+}

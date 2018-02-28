@@ -9,8 +9,10 @@ dm64_horne_hub_outer_angle = 55;
 dm64_horne_hub_arc_R = 30;
 dm64_horne_hub_cutout = 47;
 
+function get_dm64_horne_hub_cutout() = dm64_horne_hub_cutout;
+
 module dm_mx_64_load_stl() {
-  import("../parts/servos/MX-64R.stl");
+  import("../../openscad-parts/servos/MX-64R.stl");
 }
 
 
@@ -60,6 +62,29 @@ module dm_mx_64_horne_cutouts(with_cutout=true, for_shoulder=false) {
     hull() {
       cylinder(d=11.2, h=70, center = true); // TODO: uncomment
       if (with_cutout) {
+        translate([0,-20,0]) {
+          cylinder(d=11.2, h=70, center = true);
+        }
+      }
+    }
+  }
+}
+
+
+module dm_mx_64_horne_cutout_basic(with_key = false) {
+  union() {
+    for (i = [0:7]) {
+      rotate([0,0,135 - (i * 45)]) {
+        dm_mx_64_horne_bolt();
+      }
+    }
+    if (with_key) {
+      translate([0,-30,0])
+      cylinder(d=35, h=70, center = true);
+    }
+    hull() {
+      cylinder(d=11.2, h=70, center = true); // TODO: uncomment
+      if (with_key) {
         translate([0,-20,0]) {
           cylinder(d=11.2, h=70, center = true);
         }
@@ -127,6 +152,48 @@ module dm_mx_64_chassis_box(for_shoulder=false) {
   }
 }
 
+
+dm64_bolt_plate_X = 41;
+dm64_bolt_plate_Y = 63;
+dm64_bolt_plate_Z = 34.2;
+dm64_bolt_plate_size = [dm64_bolt_plate_X, dm64_bolt_plate_Y, dm64_bolt_plate_Z];
+function get_dm64_bolt_plate_size() = dm64_bolt_plate_size;
+
+dm64_bolt_plate_offset_X = 0;
+dm64_bolt_plate_offset_Y = -17.5;
+dm64_bolt_plate_offset_Z = 0;
+dm64_bolt_plate_offset = [dm64_bolt_plate_offset_X, dm64_bolt_plate_offset_Y, dm64_bolt_plate_offset_Z];
+function get_dm64_bolt_plate_offset() = dm64_bolt_plate_offset;
+
+dm64_body_plate_X = 30;
+dm64_body_plate_Y = 57.2;
+dm64_body_plate_Z = 42;
+dm64_body_plate_size = [dm64_body_plate_X, dm64_body_plate_Y, dm64_body_plate_Z];
+function get_dm64_body_plate_size() = dm64_body_plate_size;
+
+dm64_body_plate_offset_X = 0;
+dm64_body_plate_offset_Y = -14.6;
+dm64_body_plate_offset_Z = 0;
+dm64_body_plate_offset = [dm64_body_plate_offset_X, dm64_body_plate_offset_Y, dm64_body_plate_offset_Z];
+function get_dm64_body_plate_offset() = dm64_body_plate_offset;
+
+module dm_mx_64_chassis_basic_cutout() {
+  union () {
+    //bolt plate
+    translate(dm64_bolt_plate_offset) {
+      cube(dm64_bolt_plate_size, center=true);
+    }
+    // horne spacer
+    cylinder(d = 29.5, h = 60, center=true);
+
+    // core frame
+    translate(dm64_body_plate_offset) {
+      cube(dm64_body_plate_size, center=true);
+    }
+  }
+}
+
+
 module dm_mx_64_chassis_cutout(for_shoulder=false) {
   bolt_offset = 17.3;
   bolt_offset_2 = 11;
@@ -139,8 +206,9 @@ module dm_mx_64_chassis_cutout(for_shoulder=false) {
     }
     // horne spacer
     cylinder(d = 29.5, h = 60, center=true);
+
+    // core frame
     translate([0,-14.6,0]) {
-      // core frame
       cube([29,56.2,42], center=true);
     }
     //tail spacer

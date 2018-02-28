@@ -90,8 +90,8 @@ module battery_18650() {
 
 function battery_multistar_s3_52_L() = 98;
 function battery_multistar_s3_52_L_2() = 107;
-function battery_multistar_s3_52_W() = 50;
-function battery_multistar_s3_52_H() = 39;
+function battery_multistar_s3_52_W() = 49;
+function battery_multistar_s3_52_H() = 36;
 
 module battery_multistar_s3_52(oversize_L = 0, oversize_W = 0, oversize_H = 0) {
     bat_L = battery_multistar_s3_52_L() + oversize_L;
