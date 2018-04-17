@@ -243,10 +243,10 @@ module component_make_SSR(include_bolt_holes=true, include_terminal_cutouts=true
 }
 
 module component_make_SSR_boltholes() {
-  translate([component_ssr_bolt_hole_cutout_offset_X(),0,0]) {
+  translate([component_ssr_bolt_hole_cutout_offset_X(),0,-5]) {
     cylinder(h = component_ssr_bolt_hole_cutout_H(), d = component_ssr_bolt_hole_cutout_D(), center = true);
   }
-  translate([-(component_ssr_bolt_hole_cutout_offset_X()),0,0]) {
+  translate([-(component_ssr_bolt_hole_cutout_offset_X()),0,-5]) {
     cylinder(h = component_ssr_bolt_hole_cutout_H(), d = component_ssr_bolt_hole_cutout_D(), center = true);
   }
 }

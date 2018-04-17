@@ -29,3 +29,9 @@ module white() {
     children();
   }
 }
+
+module Peru() {
+  color("Peru") {
+    children();
+  }
+}

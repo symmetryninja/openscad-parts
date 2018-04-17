@@ -10,7 +10,7 @@ dm28_horne_hub_arc_R = 30;
 
 
 module dm_mx_28_load_stl() {
-  import("../../openscad-parts/servos/MX-28T_R.stl");
+  import("../openscad-parts/servos/MX-28T_R.stl");
 }
 
 
@@ -103,13 +103,13 @@ module dm_mx_28_chassis_cutout(include_web=true) {
       translate([-bolt_offset, bolt_offset_1_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
-      //bolts - middle
-      translate([bolt_offset, bolt_offset_2_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      translate([-bolt_offset, bolt_offset_2_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
+      // //bolts - middle
+      // translate([bolt_offset, bolt_offset_2_Y,0]) {
+      //   cylinder(d=2.7, h=60, center = true);
+      // }
+      // translate([-bolt_offset, bolt_offset_2_Y,0]) {
+      //   cylinder(d=2.7, h=60, center = true);
+      // }
       //bolts - end
       translate([bolt_offset, bolt_offset_3_Y,0]) {
         cylinder(d=2.7, h=60, center = true);

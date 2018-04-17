@@ -12,7 +12,7 @@ dm64_horne_hub_cutout = 47;
 function get_dm64_horne_hub_cutout() = dm64_horne_hub_cutout;
 
 module dm_mx_64_load_stl() {
-  import("../../openscad-parts/servos/MX-64R.stl");
+  import("../openscad-parts/servos/MX-64R.stl");
 }
 
 
@@ -177,6 +177,23 @@ dm64_body_plate_offset_Z = 0;
 dm64_body_plate_offset = [dm64_body_plate_offset_X, dm64_body_plate_offset_Y, dm64_body_plate_offset_Z];
 function get_dm64_body_plate_offset() = dm64_body_plate_offset;
 
+module dm_mx_64_chassis_basic_cutout_with_bolts(front = true, mid = true, end = true, tail = true) {
+  union() {
+    dm_mx_64_chassis_basic_cutout()
+    if (front) {
+      dm_mx_64_chassis_bolt_front();
+    }
+    if (mid) {
+      dm_mx_64_chassis_bolt_mid();
+    }
+    if (end) {
+      dm_mx_64_chassis_bolt_end();
+    }
+    if (tail) {
+      dm_mx_64_chassis_bolt_tail();
+    }
+  }
+}
 module dm_mx_64_chassis_basic_cutout() {
   union () {
     //bolt plate
@@ -193,10 +210,14 @@ module dm_mx_64_chassis_basic_cutout() {
   }
 }
 
-
-module dm_mx_64_chassis_cutout(for_shoulder=false) {
+module dm_mx_64_chassis_cutout(for_shoulder=true) {
   bolt_offset = 17.3;
   bolt_offset_2 = 11;
+
+  bolt_x1=4;
+  bolt_x2=bolt_x1 - 22; // 22
+  bolt_x3=bolt_x1 - 44; // 44
+
   union () {
     //bolt plate
     translate([0,-17.5,0]) {
@@ -226,12 +247,7 @@ module dm_mx_64_chassis_cutout(for_shoulder=false) {
       translate([0,-17.5,0]) {
         makeRoundedBox_rotate_90_Y([53.7,62,30]);
       }
-      translate([bolt_offset,4,0]) {
-        dm_mx_64_chassis_bolt();
-      }
-      translate([-bolt_offset,4,0]) {
-        dm_mx_64_chassis_bolt();
-      }
+
       translate([0,22,0]) {
         rotate([0,0,22]) {
           screwM3DoubleWithHex_m3_20_button_10mhex(headBuffer=0, hexBlankBuffer=2, screwPurchase=2, screwHeadD=6.5);
@@ -268,6 +284,52 @@ module dm_mx_64_chassis_cutout(for_shoulder=false) {
         }
       }
     }
+  }
+}
+
+
+  dm_mx_64_chassis_bolt_offset = 17.3;
+  dm_mx_64_chassis_bolt_offset_tail = 11;
+
+  dm_mx_64_chassis_bolt_x1=4;
+  dm_mx_64_chassis_bolt_x2=dm_mx_64_chassis_bolt_x1 - 22; // 22
+  dm_mx_64_chassis_bolt_x3=dm_mx_64_chassis_bolt_x1 - 44; // 44
+  dm_mx_64_chassis_bolt_x3=dm_mx_64_chassis_bolt_x1 - 44; // 44
+  dm_mx_64_chassis_bolt_x4=dm_mx_64_chassis_bolt_x1 - 49; // 44
+
+module dm_mx_64_chassis_bolt_front() {
+  translate([dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x1,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+  translate([-dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x1,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+}
+
+module dm_mx_64_chassis_bolt_mid() {
+  translate([dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x2,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+  translate([-dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x2,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+}
+
+module dm_mx_64_chassis_bolt_end() {
+  translate([dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x3,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+  translate([-dm_mx_64_chassis_bolt_offset,dm_mx_64_chassis_bolt_x3,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+}
+
+module dm_mx_64_chassis_bolt_tail() {
+  translate([dm_mx_64_chassis_bolt_offset_tail,dm_mx_64_chassis_bolt_x4,0]) {
+    dm_mx_64_chassis_bolt();
+  }
+  translate([-dm_mx_64_chassis_bolt_offset_tail,dm_mx_64_chassis_bolt_x4,0]) {
+    dm_mx_64_chassis_bolt();
   }
 }
 

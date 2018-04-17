@@ -25,7 +25,7 @@ module tools_clip_external_box() {
 }
 
 
-module tools_clip_internal(box_size=[50, 30, 10], arm_thickness = 2, box_thickness = 10, long_side = 5, short_side = 5) {
+module tools_clip_internal(box_size=[50, 30, 10], arm_thickness = 2, box_thickness = 4, long_side = 5, short_side = 5) {
   tools_clip(box_size=box_size, arm_thickness = arm_thickness, box_thickness = box_thickness, long_side = long_side, short_side = short_side, inverted = true);
 }
 
@@ -87,10 +87,10 @@ module tools_clip_arm(box_size=[50, 30, 10], arm_thickness = 2, short_side = 5, 
 
 module tools_clip_triangle(long_side=5, short_side=5, depth = 10, space = 40, inverted=true) {
   if (inverted) {
-    translate([-long_side/2,-(space/2 + 5),0]) {
+    translate([-long_side/2,-(space/2 + short_side),0]) {
       tools_clip_triangle_normal(long_side=long_side, short_side=short_side, depth = depth, space = space);
     }
-    translate([-long_side/2,(space/2 + 5),0]) {
+    translate([-long_side/2,(space/2 + short_side),0]) {
       tools_clip_triangle_inverted(long_side=long_side, short_side=short_side, depth = depth, space = space);
     }
   }
@@ -137,4 +137,34 @@ module tools_clip_triangle_base(long_side=20, short_side=10, depth = 5) {
       [5, 4, 1, 2],
     ]
   );
+}
+
+module tools_clip_circular(inner_D=30, thickness=3, height=15, block_long_side = 7.5, block_ends=true) {
+  cube_size = inner_D + 1 + (2 * thickness);
+  clip_ss = thickness * 2;
+  clip_ls = block_long_side;
+  union() {
+    difference() {
+      ccylinder(d = inner_D + 2 * thickness, h = height);
+      union() {
+        ccylinder(d = inner_D, h = height + 1);
+        translate([cube_size/2 + 0.1, 0, 0]) {
+          ccube([cube_size, cube_size, height + 1]);
+        }
+      }
+    }
+    if (block_ends) {
+      translate([clip_ls/2,  inner_D/2, 0]) {
+        ccube([clip_ls, clip_ss, height]);
+      }
+      translate([clip_ls/2, -inner_D/2, 0]) {
+        ccube([clip_ls, clip_ss, height]);
+      }
+    }
+    else {
+      translate([clip_ls/2, 0, 0]) {
+        tools_clip_triangle(long_side=clip_ls, short_side=clip_ss, depth = height, space = inner_D - clip_ss, inverted=true);
+      }
+    }
+  }
 }
