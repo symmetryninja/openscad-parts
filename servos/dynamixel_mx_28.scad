@@ -32,21 +32,21 @@ module dm_mx_28_horne_hub_join() {
 module dm_mx_28_horne_cutouts(with_cutout=true) {
   for (i = [0:7]) {
     rotate([0,0,135 - (i * 45)]) {
-      #dm_mx_28_horne_bolt();
+      dm_mx_28_horne_bolt();
     }
   }
   
   hull() {
-    cylinder(d=9, h=70, center = true);
+    cylinder(d=8.5, h=70, center = true);
     if (with_cutout) {
       translate([0,-15,0]) {
-        cylinder(d=9, h=70, center = true);
+        cylinder(d=8.5, h=70, center = true);
       }
     }
   }
   if (with_cutout) {
     translate([0,-25,0]) {
-      cylinder(d=47, h=70, center = true);
+      cylinder(d=34, h=70, center = true);
     }
   }
 }
@@ -103,13 +103,13 @@ module dm_mx_28_chassis_cutout(include_web=true) {
       translate([-bolt_offset, bolt_offset_1_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
-      // //bolts - middle
-      // translate([bolt_offset, bolt_offset_2_Y,0]) {
-      //   cylinder(d=2.7, h=60, center = true);
-      // }
-      // translate([-bolt_offset, bolt_offset_2_Y,0]) {
-      //   cylinder(d=2.7, h=60, center = true);
-      // }
+      //bolts - middle
+      translate([bolt_offset, bolt_offset_2_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
+      translate([-bolt_offset, bolt_offset_2_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
       //bolts - end
       translate([bolt_offset, bolt_offset_3_Y,0]) {
         cylinder(d=2.7, h=60, center = true);

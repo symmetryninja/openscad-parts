@@ -441,12 +441,12 @@ module component_make_square_fan_30() {
   component_make_square_fan(size = [30,30,10.5], include_screw_holes = true, screw_hole_size = 3.1, screw_hole_offset = 3.35);
 }
 
-module component_make_square_fan_40_bolts(left_only=false) {
-  component_make_square_fan_bolts(size = [40,40,30], screw_hole_size = 3.54, screw_hole_offset=4.3,left_only=left_only);
+module component_make_square_fan_40_bolts(left_only=false, oversize=0) {
+  component_make_square_fan_bolts(size = [40,40,30], screw_hole_size = 3.54 + oversize, screw_hole_offset=4.3,left_only=left_only);
 }
 
-module component_make_square_fan_30_bolts() {
-  component_make_square_fan_bolts(size = [30,30,10.5], screw_hole_size = 3.1, screw_hole_offset=3.35);
+module component_make_square_fan_30_bolts(oversize=0) {
+  component_make_square_fan_bolts(size = [30,30,10.5], screw_hole_size = 3.1 + oversize, screw_hole_offset=3.35);
 }
 
 module component_make_square_fan_40_tunnel() {
