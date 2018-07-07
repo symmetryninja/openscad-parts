@@ -46,3 +46,29 @@ module translateZ(z_offset) {
     children();
   }
 }
+
+module rotateX(x) {
+  rotate([x, 0, 0]) {
+    children();
+  }
+}
+
+module rotateY(y) {
+  rotate([0, y, 0]) {
+    children();
+  }
+}
+
+module rotateZ(z) {
+  rotate([0, 0, z]) {
+    children();
+  }
+}
+
+module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
+  for (position = positions) {
+    translate(position) {
+      children();
+    }
+  }
+}
