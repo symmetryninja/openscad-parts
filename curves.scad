@@ -7,7 +7,7 @@ module arc_base( height, depth, radius, detail = 100, degrees , rounded = false)
   // -- sucks up all memory and spins out of control 
   render() {
     // Outer ring
-    rotate_extrude(angle = degrees, $fn = detail) {
+    #rotate_extrude(angle = degrees, $fn = detail) {
       translate([radius - height, 0, 0]) {
         if (rounded) {
           translate([height/2, 0, 0])

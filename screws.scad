@@ -146,16 +146,24 @@ module screw40M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwP
   screwM4Button(height=40, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter);
 }
 
-module screw60M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 3, screwheadDiameter = 7.5) {
-  screwM4Button(height=60, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter);
+module screw20M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 3, screwheadDiameter = 7.5, screwheadHeight = 8) {
+  screwM4Button(height=20, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
+}
+
+module screw60M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 3, screwheadDiameter = 7.5, screwheadHeight = 8) {
+  screwM4Button(height=60, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
+}
+
+module screw30M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 3, screwheadDiameter = 7.5, screwheadHeight = 8) {
+  screwM4Button(height=30, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
 }
 
 module screwM4Button(height=16, screwheadDiameter=6.5, screwheadHeight = 8, withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadDiameter = 6.5) {
-  screwButton(screwthreadwidth = 4.2, height = height, withHexBlank = withHexBlank, hexBlankH = hexBlankH, hexBlankD = hexBlankD, screwPurchase = screwPurchase, screwheadDiameter=screwheadDiameter);
+  screwButton(screwthreadwidth = 4.2, height = height, withHexBlank = withHexBlank, hexBlankH = hexBlankH, hexBlankD = hexBlankD, screwPurchase = screwPurchase, screwheadDiameter=screwheadDiameter, screwheadHeight = screwheadHeight);
 }
 
 module screwM2Button(height=16, screwheadDiameter=6.5, screwheadHeight = 8, withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadDiameter = 6.5) {
-  screwButton(screwthreadwidth = 2.2, height = height, withHexBlank = withHexBlank, hexBlankH = hexBlankH, hexBlankD = hexBlankD, screwPurchase = screwPurchase, screwheadDiameter=screwheadDiameter);
+  screwButton(screwthreadwidth = 2.2, height = height, withHexBlank = withHexBlank, hexBlankH = hexBlankH, hexBlankD = hexBlankD, screwPurchase = screwPurchase, screwheadDiameter=screwheadDiameter, screwheadHeight = screwheadHeight);
 }
 
 module screw8M2Button(withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadDiameter = 6.5) {

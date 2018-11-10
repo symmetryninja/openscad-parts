@@ -171,3 +171,18 @@ module make_pie_slice(d=50, h = 50, angle=45) {
     }
   }
 }
+
+module torus(part_D=2, D = 4) {
+  rotate_extrude(convexity = 10) {
+    translate([D/2, 0, 0]) {
+      circle(r = part_D/2, $fn = 100);
+    }
+  }
+}
+
+module make_bearing(d1 = 40, d2 = 100, height = 40) {
+  difference() {
+    ccylinder(d=d2, h=height);
+    ccylinder(d=d1, h=height + 1);
+  }
+}
