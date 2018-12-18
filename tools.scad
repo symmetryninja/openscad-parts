@@ -14,6 +14,7 @@ include <graphics.scad>
 
 include <Springs.scad>
 include <clips.scad>
+include <shafts.scad>
 include <quick_colours.scad>
 include <publicDomainGearV1.1.scad>
 

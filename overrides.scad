@@ -2,6 +2,14 @@ module ccube(size=[10,10,10], center=true){
   cube(size, center);
 }
 
+module ccube_bezel(size=[10,10,10], bezel=2, center=true){
+  hull() {
+    cube([size[0], size[1] - (bezel * 2), size[2] - (bezel * 2)], center);
+    cube([size[0] - (bezel * 2), size[1], size[2] - (bezel * 2)], center);
+    cube([size[0] - (bezel * 2), size[1] - (bezel * 2), size[2]], center);
+  }
+}
+
 module ccylinder(d=10, r=-1, h=10, $fa=$fa, $fs=$fs, $fn=$fn) {
   if (r != -1) {
     cylinder(d = 2 * r, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
@@ -65,6 +73,26 @@ module rotateZ(z) {
   }
 }
 
+module mirrorX() {
+  mirror([1, 0, 0]) {
+    children();
+  }
+}
+
+module mirrorY() {
+  mirror([0, 1, 0]) {
+    children();
+  }
+}
+
+module mirrorZ() {
+  mirror([0, 0, 1]) {
+    children();
+  }
+}
+
+
+
 module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
   for (position = positions) {
     translate(position) {
@@ -72,3 +100,4 @@ module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
     }
   }
 }
+
