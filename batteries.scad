@@ -20,8 +20,8 @@
   18650TerminalZ = 0.4;
   18650CaseHeightWithBattery = 19.2;
 
-  18650_clip_thickness = 1.92;
-  18650_clip_size_space_X = 15;
+  18650_clip_thickness = 3;
+  18650_clip_size_space_X = 35;
   18650_clip_size_space_Y = 39;
   18650_clip_size_space_Z_cutout = 3.4;
   18650_clip_size_space_Z = 19;
@@ -100,13 +100,9 @@
 
   module battery_18650_retainer_clip(18650_clip_size_space_Y = 39) {
     difference() {
-      battery_18650_retainer_clip_unibody(18650_clip_size_space_Y);
+      ccube([18650_clip_size_space_X, 18650_clip_size_space_Y + 18650_clip_thickness * 2, 18650_clip_size_space_Z + 18650_clip_thickness + 3]);
       #battery_18650_retainer_clip_cutouts(18650_clip_size_space_Y);
     }
-  }
-
-  module battery_18650_retainer_clip_unibody(18650_clip_size_space_Y) {
-    ccube([18650_clip_size_space_X, 18650_clip_size_space_Y + 18650_clip_thickness * 2, 18650_clip_size_space_Z + 18650_clip_thickness + 3]);
   }
 
   module battery_18650_retainer_clip_cutouts(18650_clip_size_space_Y) {
@@ -114,7 +110,7 @@
       ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y, 18650_clip_size_space_Z ]);
     }
     translateZ(-(18650_clip_size_Z/2 - 18650_clip_size_space_Z_cutout / 2 + 0.01)) {
-      ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y - 4, 18650_clip_size_space_Z_cutout + 0.02]);
+      ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y - 6, 18650_clip_size_space_Z_cutout + 0.02]);
     }
   }
 

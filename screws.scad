@@ -7,6 +7,10 @@ module screw(height = 10, threadD = 3, headtype = "button", headD = 5, headH = 2
   }
 }
 
+module screw6M3Button(withHexBlank=false, hexBlankH = 4, hexBlankD=6.22, screwPurchase = 2, screwheadHeight = 3) {
+  screwM3Button(height=6, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadHeight=screwheadHeight);
+}
+
 module screw10M3Button(withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadHeight = 10) {
   screwM3Button(height=10, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadHeight=screwheadHeight);
 }
@@ -168,4 +172,16 @@ module screwM2Button(height=16, screwheadDiameter=6.5, screwheadHeight = 8, with
 
 module screw8M2Button(withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadDiameter = 6.5) {
   screwM2Button(height=8, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter);
+}
+
+module screw65M5Button(withHexBlank=false, hexBlankH = 4, hexBlankD=9.2, screwPurchase = 4, screwheadDiameter = 8.6, screwheadHeight = 8) {
+  screwM5Button(height=65, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
+}
+
+module screw20M5Button(withHexBlank=false, hexBlankH = 4, hexBlankD=9.2, screwPurchase = 4, screwheadDiameter = 8.6, screwheadHeight = 8) {
+  screwM5Button(height=20, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
+}
+
+module screwM5Button(height=16, screwheadDiameter=6.5, screwheadHeight = 8, withHexBlank=false, hexBlankH = 10, hexBlankD=6.22, screwPurchase = 3, screwheadDiameter = 6.5) {
+  screwButton(screwthreadwidth = 5.2, height = height, withHexBlank = withHexBlank, hexBlankH = hexBlankH, hexBlankD = hexBlankD, screwPurchase = screwPurchase, screwheadDiameter=screwheadDiameter, screwheadHeight = screwheadHeight);
 }

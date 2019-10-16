@@ -40,6 +40,32 @@ module makeRoundedBoxShafts(size=[50,50,50], d=6, shaftD=6, fn=$fn) {
       cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
   }
 }
+
+module make_drill_holes(size=[50,50,50], shaftD=6, fn=$fn) {
+  makeRoundedBoxShafts(size=size, d=0, shaftD=shaftD);
+}
+
+module make_bevelled_box(size=[50,50,50], bevel=3) {
+  hull() {
+    //x
+    ccube([size[0], size[1] - (2 * bevel), size[2] - (2 * bevel)]);
+
+    //y
+    ccube([size[0] - (2 * bevel), size[1], size[2] - (2 * bevel)]);
+
+    //z
+    ccube([size[0] - (2 * bevel), size[1] - (2 * bevel), size[2]]);
+  }
+}
+
+// not geometrically accurate but matches the above 
+module make_bevelled_cylinder(d = 20, h = 30, bevel=3) {
+  hull() {
+    ccylinder(d = d - (2 * bevel), h = h);
+    ccylinder(d = d, h = h - (2 * bevel));
+  }
+}
+
 module make_sphered_box(size=[50,50,50], d=6) {
   x = size[0]/2 - d/2;
   y = size[1]/2 - d/2;
@@ -177,6 +203,13 @@ module torus(part_D=2, D = 4) {
     translate([D/2, 0, 0]) {
       circle(r = part_D/2, $fn = 100);
     }
+  }
+}
+
+module torus_square(inner_D=2, outer_D = 4, h = 2) {
+  difference() {
+    ccylinder(d=outer_D, h = h);
+    ccylinder(d=inner_D, h = h + 1);
   }
 }
 

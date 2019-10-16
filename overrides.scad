@@ -101,3 +101,55 @@ module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
   }
 }
 
+module slide_hull_X(amount = 10) {
+  if ($children > 0) {
+    union() {
+      for ( child = [0:1:$children-1]) {
+        hull() {
+          translateX(amount/2)
+            children(child);
+          translateX(-amount/2)
+            children(child);
+        }
+      }
+    }
+  }
+  else {
+    children();
+  }
+}
+module slide_hull_Y(amount = 10) {  
+  if ($children > 0) {
+    union() {
+      for ( child = [0:1:$children-1]) {
+        hull() {
+          translateY(amount/2)
+            children(child);
+          translateY(-amount/2)
+            children(child);
+        }
+      }
+    }
+  }
+  else {
+    children();
+  }
+}
+
+module slide_hull_Z(amount = 10) { 
+  if ($children > 0) {
+    union() {
+      for ( child = [0:1:$children-1]) {
+        hull() {
+          translateZ(amount/2)
+            children(child);
+          translateZ(-amount/2)
+            children(child);
+        }
+      }
+    }
+  }
+  else {
+    children();
+  }
+}
