@@ -158,6 +158,10 @@ module screw60M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwP
   screwM4Button(height=60, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
 }
 
+module screw40M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 6, screwheadDiameter = 7.5, screwheadHeight = 8) {
+  screwM4Button(height=40, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
+}
+
 module screw30M4Button(withHexBlank=false, hexBlankH = 10, hexBlankD=8.2, screwPurchase = 3, screwheadDiameter = 7.5, screwheadHeight = 8) {
   screwM4Button(height=30, withHexBlank=withHexBlank, hexBlankH = hexBlankH, hexBlankD=hexBlankD, screwPurchase=screwPurchase, screwheadDiameter = screwheadDiameter, screwheadHeight = screwheadHeight);
 }

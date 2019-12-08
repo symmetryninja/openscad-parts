@@ -118,12 +118,12 @@ module dm_mx_28_chassis_cutout(include_web=true) {
         cylinder(d=2.7, h=60, center = true);
       }
       // bolts - rear
-      // translate([bolt_offset_2, bolt_offset_4_Y,0]) {
-      //   cylinder(d=2.7, h=60, center = true);
-      // }
-      // translate([-bolt_offset_2, bolt_offset_4_Y,0]) {
-      //   cylinder(d=2.7, h=60, center = true);
-      // }
+      translate([bolt_offset_2, bolt_offset_4_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
+      translate([-bolt_offset_2, bolt_offset_4_Y,0]) {
+        cylinder(d=2.7, h=60, center = true);
+      }
       // central cutout
       translate([0,-10.4,0]) {
         cube([25,45.6,35.9], center=true);

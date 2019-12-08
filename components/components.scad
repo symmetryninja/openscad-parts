@@ -95,7 +95,7 @@ module component_make_t03_reg() {
   }
 }
 
-module component_make_electrolytic_capacitor(cap_D, cap_H, leg_D, leg_H, case_color="black") {
+module component_make_electrolytic_capacitor(cap_D = 10, cap_H = 10, leg_D = 0.5, leg_H = 2, case_color="black") {
   union() {
     color(case_color)
     cylinder(d = cap_D, h = cap_H, center = true);
@@ -103,10 +103,10 @@ module component_make_electrolytic_capacitor(cap_D, cap_H, leg_D, leg_H, case_co
     cylinder(d = cap_D * (2/3), h = cap_H + 0.01, center = true);
 
     color("gray")
-    translate([4,0,15])
+    translate([(cap_D * 0.3),0,-cap_H/2 - leg_H * 0.4])
       cylinder(d = leg_D, h = leg_H, center = true);
     color("gray")
-    translate([-4,0,15])
+    translate([-(cap_D * 0.3),0,-cap_H/2 - leg_H * 0.4])
       cylinder(d = leg_D, h = leg_H, center = true);
   }
 }
@@ -142,7 +142,6 @@ function component_ssr_bolt_hole_cutout_end_space() = 8;
 function component_ssr_bolt_hole_cutout_H() = component_ssr_outer_case_Z() + 5;
 function component_ssr_bolt_hole_cutout_D() = 4.6;
 function component_ssr_bolt_hole_cutout_offset_X() = component_ssr_outer_case_X()/2 - component_ssr_bolt_hole_cutout_end_space() +  component_ssr_bolt_hole_cutout_D()/2;
-
 
 module component_make_SSR(include_bolt_holes=true, include_terminal_cutouts=true) {
   outer_case_X = component_ssr_outer_case_X();
@@ -493,6 +492,26 @@ module component_make_square_fan(size=[40,40,10], include_screw_holes=true, scre
       }
       component_make_square_fan_bolts(size = size, screw_hole_size = screw_hole_size, screw_hole_offset = screw_hole_offset);
     }
+  }
+}
+
+module component_momentary_switch_smd(button_X = 6, button_Y = 6, button_Z = 4, button_D = 3.8, button_H = 2) {
+  // legs
+  silver(){
+    translate([-button_X/3, 0, 0]) ccube([1, button_Y + 3, 0.5]);
+    translate([button_X/3, 0, 0]) ccube([1, button_Y + 3, 0.5]);
+  // silver top
+    translateZ(button_Z - 0.2) ccube([button_X, button_Y, 0.5]);
+  }
+  // black base
+  black() {
+    translateZ(button_Z/2) ccube([button_X, button_Y, button_Z]);
+
+    // button
+    translateZ(button_H/2 + button_Z - 0.05) ccylinder(d = button_D, h = button_H + 0.1);
+
+    // clip points
+    translate([button_X/4, button_Y/4, button_Z - 0.05]) ccylinder(d = 0.8, h = 0.1);
   }
 }
 

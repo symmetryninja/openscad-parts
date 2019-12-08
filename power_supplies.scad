@@ -1,4 +1,120 @@
 /****
+  3A non shielded bucky
+  ---------------------------
+****/
+module make_power_supply_bucky_3a() {
+  difference() {
+    union() {  
+      board_X = 21;
+      board_Y = 43;
+      board_Z = 1.6;
+      // board
+      green() {
+        ccube([board_X, board_Y, board_Z]);
+      }
+      // caps
+      offset_Y = (board_Y - 8)/2;
+      offset_Z = 4.5;
+      translate([0, offset_Y, offset_Z])
+        component_make_electrolytic_capacitor(cap_D = 8, cap_H = 9.5, case_color="silver");
+      translate([0, -offset_Y, offset_Z])
+        component_make_electrolytic_capacitor(cap_D = 8, cap_H = 9.5, case_color="silver");
+      // adjustment pot
+      blue() {
+        translate([-6.5, -7, 5])
+        ccube([4.5, 9.5, 10.5]);
+
+      }
+      // coil
+      black() {
+        translate([4, -6, 4])
+        ccube([12, 12, 8.5]);
+
+      // ic
+        translate([5.5,6,2.75]) ccube([8.5, 9.8, 6]);
+
+      }
+      // solderpads
+      pad_X = (board_X - 4.5)/2 - 0.1;
+      pad_Y = (board_Y - 4.5)/2 - 0.1;
+      pad_Z = 0.6;
+      silver() {
+        translate([pad_X, pad_Y, pad_Z]) ccube([4.5, 4.5, 0.5]);
+        translate([pad_X, -pad_Y, pad_Z]) ccube([4.5, 4.5, 0.5]);
+        translate([-pad_X, pad_Y, pad_Z]) ccube([4.5, 4.5, 0.5]);
+        translate([-pad_X, -pad_Y, pad_Z]) ccube([4.5, 4.5, 0.5]);
+        translate([-8, -15, pad_Z]) ccylinder(d = 4.5, h = pad_Z);
+        translate([8, 15, pad_Z]) ccylinder(d = 4.5, h = pad_Z);
+      }
+    }
+    #make_power_supply_bucky_3a_screws();
+  }
+}
+
+module make_power_supply_bucky_3a_screws(height = 5) {
+  translate([-8, -15, 0]) ccylinder(d = 3.5, h = height);
+  translate([8, 15, 0]) ccylinder(d = 3.5, h = height);
+}
+
+/****
+  5A non shielded bucky
+  ---------------------------
+****/
+module make_power_supply_bucky_5a() {
+  difference() {
+    union() {  
+      board_X = 38;
+      board_Y = 66;
+      board_Z = 1.6;
+      // board
+      green() ccube([board_X, board_Y, board_Z]);
+      // caps
+      offset_X = -11;
+      offset_Y = 20;
+      offset_Z = 4.5;
+      translate([offset_X, offset_Y, offset_Z])
+        component_make_electrolytic_capacitor(cap_D = 10, cap_H = 9.5, case_color="silver");
+      translate([offset_X, -offset_Y, offset_Z])
+        component_make_electrolytic_capacitor(cap_D = 10, cap_H = 9.5, case_color="silver");
+      // adjustment pot
+      blue() {
+        translate([-16.5, 6, 5])
+        ccube([4.5, 9.5, 10.5]);
+      }
+      // coil
+      peru() {
+        translate([-7.4, 7.6, 4])
+        torus_square(6, 12, 9);
+      }
+      // ic & heatsync
+      silver() {
+        translate([-7.4, -7.6, 4.9]) ccube([16, 12, 10]);
+      }
+      // wiring blocks
+      blue() {
+        translate([0, 27, 5.5]) {
+          cube([11, 8, 11], center=true);
+        }
+        translate([0, -27, 5.5]) {
+          cube([11, 8, 11], center=true);
+        }
+      }
+      // display box
+      white() translate([12, 0, 5]) ccube([14, 22, 9]);
+      // button
+      translate([15, 21, 0]) component_momentary_switch_smd();
+
+    }
+    #make_power_supply_bucky_5a_screws();
+  }
+}
+
+module make_power_supply_bucky_5a_screws(height = 5, screw_diameter = 3.5) {
+  make_drill_holes([31.8, 59.9, height], shaftD = screw_diameter);
+}
+
+
+/****
   10A non shielded bucky
   ---------------------------
 ****/
@@ -28,8 +144,6 @@ heatsync_box_offset_Y_3 = (heatsync_box_Y * 3) + (heatsync_box_offset_spacer_Y *
 
 heatsync_box_offset_X = (heatsync_box_X/2 + heatsync_box_offset_spacer_X) - (buck_10a_heatsync_X()/2);
 heatsync_box_offset_Z = 0;
-
-
 
 module make_power_supply_bucky_10a() {
   //board

@@ -32,9 +32,9 @@ tft_280_screw_H = 40;
 module tft_280_screen(for_cutout=false) {
   difference() {
     union() {
-      tft_280_base_board(for_cutout=for_cutout);
-      tft_280_screen_panel(for_cutout=for_cutout);
-      tft_280_back_chips_and_bits(for_cutout=for_cutout);
+      tft_280_base_board(for_cutout);
+      tft_280_screen_panel(for_cutout);
+      tft_280_back_chips_and_bits(for_cutout);
     }
     if (!for_cutout) {
       tft_280_screws();

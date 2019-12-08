@@ -19,11 +19,11 @@ module xht_power_plugs() {
 
   // thin terminal
   translate([centre_offset, 0, (plug_grip_end - 1)/2]) {
-    cylinder(d = outer_diameter_inset, h = complete_length - plug_grip_end  + 1, center = true);
+    ccylinder(d = outer_diameter_inset, h = complete_length - plug_grip_end  + 1);
   }
   // wide terminal
   translate([-centre_offset, 0, (plug_grip_end - 1)/2]) {
-    cylinder(d = xht_outer_diameter, h = complete_length - plug_grip_end  + 1, center = true);
+    ccylinder(d = xht_outer_diameter, h = complete_length - plug_grip_end  + 1);
   }
 
   base_offset_Z = -(complete_length/2 - plug_grip_end/2);
@@ -34,7 +34,7 @@ module xht_power_plugs() {
       xht_power_plug_base(diameter = xht_outer_diameter, height = plug_grip_end);
     }
     translate([0, 0, -(complete_length/2 - (plug_grip_end+1)/2)]) {
-      cube([6, join_thickness, plug_grip_end - 1.8], center = true);
+      ccube([6, join_thickness, plug_grip_end - 1.8]);
     }
     translate([-centre_offset, 0, base_offset_Z]) {
       xht_power_plug_base(diameter = xht_outer_diameter, height = plug_grip_end);
@@ -42,16 +42,16 @@ module xht_power_plugs() {
   }
   // cables
   translate([-centre_offset, 0, base_offset_Z - cable_length + 2]) {
-    cylinder(d = cable_thickness, h = cable_length, center = true);
+    ccylinder(d = cable_thickness, h = cable_length);
   }
   translate([centre_offset, 0, base_offset_Z - cable_length + 2]) {
-    cylinder(d = cable_thickness, h = cable_length, center = true);
+    ccylinder(d = cable_thickness, h = cable_length);
   }
 
 }
 
 module xht_power_plug_base(diameter, height){
-  cylinder(d = diameter-0.7, h=height, center = true);
+  ccylinder(d = diameter-0.7, h=height);
   bottom_thickness = 1.8;
   top_thickness = 2.3;
   rib_thickness = 1.2;
@@ -74,85 +74,133 @@ module xht_power_plug_base(diameter, height){
   union() {
     //topblock
     translate([0,0,offset_top]) {
-      cylinder(d = diameter, h = top_thickness, center = true);
+      ccylinder(d = diameter, h = top_thickness);
     }
 
     //ring 1
     translate([0,0,offset_1]) {
-      cylinder(d = diameter, h = rib_thickness, center = true);
+      ccylinder(d = diameter, h = rib_thickness);
     }
 
     //ring 2
     translate([0,0,offset_2]) {
-      cylinder(d = diameter, h = rib_thickness, center = true);
+      ccylinder(d = diameter, h = rib_thickness);
     }
 
     //ring 3
     translate([0,0,offset_3]) {
-      cylinder(d = diameter, h = rib_thickness, center = true);
+      ccylinder(d = diameter, h = rib_thickness);
     }
 
     //ring 4
     translate([0,0,offset_4]) {
-      cylinder(d = diameter, h = rib_thickness, center = true);
+      ccylinder(d = diameter, h = rib_thickness);
     }
 
     //bottomblock
     translate([0,0,-offset + bottom_thickness/2]) {
-      cylinder(d = diameter, h = bottom_thickness, center = true);
+      ccylinder(d = diameter, h = bottom_thickness);
     }
   }
 }
 
-module xt_60_plug() {
+module xt_60_plug(for_cutout = false) {
   front_side_X = 11;
   front_side_Y = 15.7;
   front_side_Z = 8.2;
   translate([front_side_X/2, 0, 0]) {
-
     hull() {
       translate([0,-(front_side_Y/2 -2.75),(front_side_Z/2 - 2.75)]) {
         rotate([0,90,0]) {
-          cylinder(d=5.5, h = front_side_X, center = true);
+          ccylinder(d=5.5, h = front_side_X);
         }
       }
       translate([0,-(front_side_Y/2 -2.75),-(front_side_Z/2 - 2.75)]) {
         rotate([0,90,0]) {
-          cylinder(d=5.5, h = front_side_X, center = true);
+          ccylinder(d=5.5, h = front_side_X);
         }
       }
       translate([0,front_side_Y/2 - 0.5, 0]) {
-        cube([front_side_X, 1, front_side_Z], center = true);
+        ccube([front_side_X, 1, front_side_Z]);
       }
     }
   }
 
+  // mount lip
   translate([-1.249,0,0]) {
     makeRoundedBox_rotate_90_Y([2.5,17.2, 9.5], d = 4);
   }
 
+  //cable mount point
   hull() {
     translate([-2.249, 3.6, 0]) {
       rotate([0,90,0]) {
-        cylinder(d = 7.8, h=10, center = true);
+        ccylinder(d = 7.8, h=10);
       }
     }
     translate([-2.249, -3.6, 0]) {
       rotate([0,90,0]) {
-        cylinder(d = 7.8, h=10, center = true);
+        ccylinder(d = 7.8, h=10);
       }
     }
   }
-  hull() {
-    translate([-8, 3.6, 0]) {
-      rotate([0,90,0]) {
-        cylinder(d = 6, h=20, center = true);
+  if (for_cutout) {
+    //cable tails
+    black()
+    hull() {
+      translate([-8, 3.6, 0]) {
+        rotate([0,90,0]) {
+          ccylinder(d = 6, h=20);
+        }
+      }
+      translate([-8, -3.6, 0]) {
+        rotate([0,90,0]) {
+          ccylinder(d = 6, h=20);
+        }
       }
     }
-    translate([-8, -3.6, 0]) {
-      rotate([0,90,0]) {
-        cylinder(d = 6, h=20, center = true);
+  }
+}
+
+module xt_60_plug_with_panel(cutouts_only = false) {
+  difference() {
+    union() {
+      // plug
+      translateZ(6)
+      rotateY(-90)
+      xt_60_plug(cutouts_only);
+      // panel
+      
+      if (cutouts_only) {
+        translateY(14.5) {
+          ccylinder(h=10, d = 3.5);
+        }
+        translateY(-14.5) {
+          ccylinder(h=10, d = 3.5);
+        }
       }
+      else {
+        green() {
+          makeRoundedBox([10.8, 38, 1.6], d = 4);
+        }
+      }
+    }
+    union() {
+      hull() {
+        if (!cutouts_only) {
+          translateY(14.5) {
+            make_rounded_slot(d = 3.5, l = 6.5, h = 3);
+          }
+        }
+      }
+      hull() {
+        if (!cutouts_only) {
+          translateY(-14.5) {
+            make_rounded_slot(d = 3.5, l = 6.5, h = 3);
+          }
+        }
+      }
+      //3.5 6.5 29
     }
   }
 }
