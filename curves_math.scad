@@ -13,3 +13,5 @@ function calc_arc_sag(radius, length) = radius - sqrt((radius * radius) - (lengt
 
 //get the arc slice angle from a length and radius **REM use 1/2 the overall length!
 function calc_arc_slice_from_length(radius, length) = asin(length/radius);
+
+function calc_arc_radius_from_sag_length(sag, length) = (sq(sag) + sq(length)) / (2 * sag);

@@ -42,6 +42,18 @@ module straight(thickness, depth, length, center = true, rounded = false) {
   }
 }
 
+module arc_from_sag_length(sag, length) {
+  radius = calc_arc_radius_from_sag_length(sag, length);
+  angle = calc_arc_slice_from_length(radius, length);
+
+  translateX(-radius)
+  rotateZ(-angle/2)
+    rotate_extrude(angle = angle, $fn = $fn * 2) {
+      translateX(radius) 
+        children();
+    }
+}
+
 module progressive_resize_rotate(scales=[0.01,0.1,0.3,1,2,3,5,8,13,8,3,2,1], resize_axis=[true,true,true], radius = 300, angle=90, detail=100) {
   // work out the resize amount and angle per step
   resize_offset = detail/(len(scales) - 1);

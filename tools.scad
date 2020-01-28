@@ -25,6 +25,8 @@ include <components/tft98.scad>
 include <components/tft280.scad>
 include <components/power_plugs.scad>
 
+include <boards/boards.scad>
+
 function sq(value_to_square) = value_to_square * value_to_square;
 
 module make_screw_spacer(height = 10, outer_D = 6, inner_D = 3) {

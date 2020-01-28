@@ -21,10 +21,10 @@ module ccylinder(d=10, r=-1, h=10, $fa=$fa, $fs=$fs, $fn=$fn) {
 
 module csphere(d=10, r=-1, $fa=$fa, $fs=$fs, $fn=$fn) {
   if (r != -1) {
-    sphere(d = 2 * r, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    sphere(d = 2 * r, $fa=$fa, $fs=$fs, $fn=$fn);
   }
   else {
-    sphere(d = d, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    sphere(d = d, $fa=$fa, $fs=$fs, $fn=$fn);
   }
 }
 
