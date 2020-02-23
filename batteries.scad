@@ -116,8 +116,8 @@
 
 /****************** multistar_s3_52 */
 
-  function battery_multistar_s3_52_L() = 98;
-  function battery_multistar_s3_52_L_2() = 107;
+  function battery_multistar_s3_52_L() = 103;
+  function battery_multistar_s3_52_L_2() = 112;
   function battery_multistar_s3_52_W() = 49;
   function battery_multistar_s3_52_H() = 36;
 

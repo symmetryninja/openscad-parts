@@ -77,18 +77,21 @@ module mirrorX() {
   mirror([1, 0, 0]) {
     children();
   }
+  children();
 }
 
 module mirrorY() {
   mirror([0, 1, 0]) {
     children();
   }
+  children();
 }
 
 module mirrorZ() {
   mirror([0, 0, 1]) {
     children();
   }
+  children();
 }
 
 

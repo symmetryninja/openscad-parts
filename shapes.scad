@@ -26,23 +26,29 @@ module makeRoundedBox(size=[50,50,50], d=6) {
 }
 
 module makeRoundedBoxShafts(size=[50,50,50], d=6, shaftD=6, fn=$fn) {
-  //make 4 cylinders
-  positionOffsetX = (size[0]-d) /2;
-  positionOffsetY = (size[1]-d) /2;
-  render() {
-    translate([-positionOffsetX, -positionOffsetY, 0 ])
-      cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
-    translate([-positionOffsetX, positionOffsetY, 0 ])
-      cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
-    translate([positionOffsetX, -positionOffsetY, 0 ])
-      cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
-    translate([positionOffsetX, positionOffsetY, 0 ])
+  makeBoxobjects(x=size[0], y=size[1], inset=d) {
       cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
   }
 }
 
 module make_drill_holes(size=[50,50,50], shaftD=6, fn=$fn) {
   makeRoundedBoxShafts(size=size, d=0, shaftD=shaftD);
+}
+
+module makeBoxobjects(x= 50, y=50, inset=0) {
+  //make 4 cylinders
+  positionOffsetX = (x-inset) /2;
+  positionOffsetY = (y-inset) /2;
+  render() {
+    translate([-positionOffsetX, -positionOffsetY, 0 ])
+      children();
+    translate([-positionOffsetX, positionOffsetY, 0 ])
+      children();
+    translate([positionOffsetX, -positionOffsetY, 0 ])
+      children();
+    translate([positionOffsetX, positionOffsetY, 0 ])
+      children();
+  }
 }
 
 module make_bevelled_box(size=[50,50,50], bevel=3) {

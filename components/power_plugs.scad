@@ -105,6 +105,15 @@ module xht_power_plug_base(diameter, height){
 }
 
 module xt_60_plug(for_cutout = false) {
+  if (for_cutout) {
+    xt_60_plug_sized(oversize = 2, for_cutout=for_cutout);
+  }
+  else {
+    xt_60_plug_sized(oversize = 0, for_cutout=for_cutout);
+  }
+}
+
+module xt_60_plug_sized(oversize = 0, for_cutout = false) {
   front_side_X = 11;
   front_side_Y = 15.7;
   front_side_Z = 8.2;
@@ -112,16 +121,16 @@ module xt_60_plug(for_cutout = false) {
     hull() {
       translate([0,-(front_side_Y/2 -2.75),(front_side_Z/2 - 2.75)]) {
         rotate([0,90,0]) {
-          ccylinder(d=5.5, h = front_side_X);
+          ccylinder(d=5.5 + oversize, h = front_side_X);
         }
       }
       translate([0,-(front_side_Y/2 -2.75),-(front_side_Z/2 - 2.75)]) {
         rotate([0,90,0]) {
-          ccylinder(d=5.5, h = front_side_X);
+          ccylinder(d=5.5 + oversize, h = front_side_X);
         }
       }
       translate([0,front_side_Y/2 - 0.5, 0]) {
-        ccube([front_side_X, 1, front_side_Z]);
+        ccube([front_side_X, 1, front_side_Z + oversize]);
       }
     }
   }
@@ -135,12 +144,12 @@ module xt_60_plug(for_cutout = false) {
   hull() {
     translate([-2.249, 3.6, 0]) {
       rotate([0,90,0]) {
-        ccylinder(d = 7.8, h=10);
+        ccylinder(d = 7.8 + oversize, h=10);
       }
     }
     translate([-2.249, -3.6, 0]) {
       rotate([0,90,0]) {
-        ccylinder(d = 7.8, h=10);
+        ccylinder(d = 7.8 + oversize, h=10);
       }
     }
   }
@@ -150,12 +159,12 @@ module xt_60_plug(for_cutout = false) {
     hull() {
       translate([-8, 3.6, 0]) {
         rotate([0,90,0]) {
-          ccylinder(d = 6, h=20);
+          ccylinder(d = 7, h=20);
         }
       }
       translate([-8, -3.6, 0]) {
         rotate([0,90,0]) {
-          ccylinder(d = 6, h=20);
+          ccylinder(d = 7, h=20);
         }
       }
     }
@@ -168,15 +177,15 @@ module xt_60_plug_with_panel(cutouts_only = false) {
       // plug
       translateZ(6)
       rotateY(-90)
-      xt_60_plug(cutouts_only);
+      xt_60_plug(for_cutout=cutouts_only);
       // panel
       
       if (cutouts_only) {
         translateY(14.5) {
-          ccylinder(h=10, d = 3.5);
+          ccylinder(h=20, d = 3.5);
         }
         translateY(-14.5) {
-          ccylinder(h=10, d = 3.5);
+          ccylinder(h=20, d = 3.5);
         }
       }
       else {
