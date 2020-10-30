@@ -2,7 +2,7 @@
 include <general_servo.scad>
 include <902S.scad>
 
-include <../tools.scad>
+include <../sn_tools.scad>
 
 /* TODO
 * servo position sensor

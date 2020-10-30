@@ -1,7 +1,7 @@
 /** includes **/
 include <general_servo.scad>
 // include <5932_hornes.scad>
-include <../tools.scad>
+include <../sn_tools.scad>
 
 /* TODO
 * servo position sensor

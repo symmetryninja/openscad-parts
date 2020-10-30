@@ -94,7 +94,23 @@ module mirrorZ() {
   children();
 }
 
+module place_at_corners_xy(x, y) {
+  mirrorY()
+  mirrorX()
+  translate([x/2, y/2, 0]) children();
+}
 
+module place_at_corners_xz(x, z) {
+  mirrorZ()
+  mirrorX()
+  translate([x/2, 0, z/2]) children();
+}
+
+module place_at_corners_yz(y, z) {
+  mirrorZ()
+  mirrorY()
+  translate([0, y/2, z/2]) children();
+}
 
 module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
   for (position = positions) {
