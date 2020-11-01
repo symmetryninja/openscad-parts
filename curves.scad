@@ -1,7 +1,5 @@
 include <curves_math.scad>
 
-
-
 module arc_base( height, depth, radius, detail = 100, degrees , rounded = false) {
   // This dies a horible death if it's not rendered here 
   // -- sucks up all memory and spins out of control 

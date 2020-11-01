@@ -50,6 +50,7 @@
   }
 
   module battery_holder_dual_18650(withBatteries=true) {
+    black()
     translate([0,0,18650CaseHeight/2])
     difference() {
       hull() {
@@ -83,6 +84,7 @@
     batteryOffsetY = (18650_batteryD / 2 + 18650CaseBatteryGapWidth/2);
     batteryOffsetZ = 18650_batteryD/2 + (18650CaseHeightWithBattery - 18650_batteryD);
     if (withBatteries) {
+      red()
       translate([0,0,batteryOffsetZ]) {
         rotate([0,90,0]) {
           translate([0,batteryOffsetY,0])

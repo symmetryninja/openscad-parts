@@ -43,7 +43,7 @@ module sphericon2_half_shell(r, ratio) {
 }
 
 module sphericon_4(radius=20) {
-  split_and_rotate(){
+  sts_split_and_rotate(){
     sphericon_4_base(radius);
   }
 }
@@ -78,8 +78,7 @@ module sphericon_4_base(radius=20) {
   }
 }
 
-module split_and_rotate(angle=120){
-  cubesize = 100;
+module sts_split_and_rotate(angle = 120, cubesize = 100){
   union() {
     difference(){
       union() {
