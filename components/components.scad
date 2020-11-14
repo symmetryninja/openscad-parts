@@ -573,3 +573,29 @@ module boards_make_torro32_bolts(screw_D = 3.1, h = 20) {
     cylinder(h = h, d = screw_D, center = true);
   }
 }
+
+
+  // resistors
+    module component_resistor_vertical() {
+      translateZ(5.5) {
+        blue()ccylinder(d = 2.2, h = 8); 
+        silver() {
+          ccylinder(d = 1, h = 14);
+          translate([0, 1.27, 7]) rotateX(90) ccylinder(d = 1, h = 2.54);
+          translate([0, 2.54, 0]) ccylinder(d = 1, h = 14);
+        }
+      }
+    }
+
+    module component_resistor_horizontal() {
+      translateZ(1.8) {
+        rotateX(90) {
+          blue() ccylinder(d = 2.2, h = 8); 
+          silver() ccylinder(d = 1, h = 10.16);
+        }
+        silver() {
+          translate([0,5.08,-1.5]) ccylinder(d = 1, h = 3);
+          translate([0,-5.08,-1.5]) ccylinder(d = 1, h = 3);
+        }
+      }
+    }

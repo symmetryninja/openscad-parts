@@ -15,8 +15,9 @@ module make_protoboard(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edg
   color("green")
   difference() {
     cube([size_X, size_Y, protoboard_get_Z()], center = true);
-    if(drill_holes)
+    if(drill_holes) {
       make_protoboard_screws(size_X = size_X, size_Y = size_Y, corner_screws = corner_screws, corner_screw_edge = corner_screw_edge);
+    }
   }
 }
 
@@ -56,7 +57,7 @@ module make_protoboard_screws_precice(size_X=30, size_Y=40, corner_screws=3.3, s
   }
 }
 
-/// Node the sizes denote the centres!
+/// Note the sizes denote the centres!
 module make_protoboard_x_frame(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edge=1.3, screw_length=20, hex_size=[5,5], screw_purchase=2, spacer_H=3, spacer_D=5, thickness=2, diff_screws=true, diff_triangles=true, additional_spacers=[]) {
   useable_size_X = size_X - corner_screw_edge * 2;
   useable_size_Y = size_Y - corner_screw_edge * 2;
@@ -191,4 +192,50 @@ module make_protoboard_x_frame(size_X=30, size_Y=40, corner_screws=2.5, corner_s
       }
     }
   }
+}
+
+module make_protoboard_pins(x, y) {
+  union() {
+      mirrorX() mirrorY()
+      translate([1.27, 1.27, 0]) {
+        for (i = [0:x]) {
+          for (o = [0:y]) {
+            translate([i*2.54, o * 2.54, 0]) ccylinder($fn=16,d=1, h = 10);
+          }
+        }
+      }
+    }
+
+}
+
+module make_protoboard_50_70(corner_screws=2.5, corner_screw_edge=1.3, drill_holes=true, pin_holes=false) {
+  if (pin_holes) {
+    green()
+    render() {
+      difference() {
+        make_protoboard(size_X=50, size_Y=70, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+        make_protoboard_pins(8, 11);
+      }
+    }
+  }
+  else {
+    make_protoboard(size_X=50, size_Y=70, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+  }
+
+}
+
+module make_protoboard_40_60(corner_screws=2.5, corner_screw_edge=1.3, drill_holes=true, pin_holes=false) {
+  if (pin_holes) {
+    green()
+    render() {
+      difference() {
+        make_protoboard(size_X=40, size_Y=60, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+        make_protoboard_pins(6, 9);
+      }
+    }
+  }
+  else {
+    make_protoboard(size_X=40, size_Y=60, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+  }
+
 }
