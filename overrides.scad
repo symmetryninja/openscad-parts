@@ -1,5 +1,10 @@
-module ccube(size=[10,10,10], center=true){
-  cube(size, center);
+module ccube(size=[10,10,10], d=-1, center=true){
+  if (d != -1) {
+    cube([d, d, d], center);
+  }
+  else {
+    cube(size, center);
+  }
 }
 
 module ccube_bezel(size=[10,10,10], bezel=2, center=true){

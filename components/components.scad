@@ -390,6 +390,48 @@ module component_make_surface_mount_pins_with_clip(pins=4, pin_D = 0.8, pin_spac
   }
 }
 
+module component_make_teensy_36(with_pins=true) {
+  //board
+  board_X = 61;
+  board_Y = 18;
+  board_Z = 1.6;
+  rotate([0,180,0]) {
+    union() {
+      //protoboard
+      make_protoboard(size_X=board_X, size_Y=board_Y, drill_holes=false);
+
+      //cpu
+      cpu_size = [10,10,1.8];
+      cpu_offset = [board_X/2 - (4 + cpu_size[0]), 0, -(protoboard_get_Z()/2 + cpu_size[2]/2)];
+      color("black") {
+        translate(cpu_offset) {
+          cube(cpu_size, center=true);
+        }
+      }
+
+      //usb mini
+      usb_size = [5.6,8.6,2.3];
+      usb_offset = [-(board_X/2 + 1.6 - usb_size[0]/2), 0, -(protoboard_get_Z()/2 + usb_size[2]/2)];
+      color("gray") {
+        translate(usb_offset) {
+          cube(usb_size, center=true);
+        }
+      }
+
+      if (with_pins) {
+        translate([0,0,protoboard_get_Z()/2]) {
+          translate([0,board_Y/2 - component_header_pin_range_Y(1)/2,0])
+          component_make_header_pin_range(rows=1, cols=24);
+          translate([board_X/2 - component_header_pin_range_Y(1)/2,0,0])
+          component_make_header_pin_range(rows=5, cols=1);
+          translate([0,-(board_Y/2 - component_header_pin_range_Y(1)/2),0])
+          component_make_header_pin_range(rows=1, cols=24);
+        }
+      }
+    }
+  }
+}
+
 
 module component_make_teensy_32(with_pins=true) {
   //board

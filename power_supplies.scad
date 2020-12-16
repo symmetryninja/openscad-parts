@@ -223,7 +223,7 @@ module make_power_supply_bucky_10a() {
   }
 }
 
-module make_bucky_10a_heatsync_screws() {
+module make_bucky_10a_heatsync_screw_single() {
   translate([-4, heatsync_box_offset_Y_3 + 0.4, 20]) {
     cylinder(d=2.7, h=30, center = true);
     
@@ -232,12 +232,12 @@ module make_bucky_10a_heatsync_screws() {
     cylinder(d=2.7, h=30, center = true);
   }
 }
+
 module make_bucky_10a_heatsync() {
   translate([buck_10a_heatsync_X()/2 + buck_10a_heatsync_space()/2, 0, buck_10a_heatsync_Z()/2 + buck_10a_board_Z() + 0.01]) {
     difference() {
       //outer box
       cube([buck_10a_heatsync_X(), buck_10a_heatsync_Y(), buck_10a_heatsync_Z()], center = true);
-
       union() {
         //inner boxes
         translate([heatsync_box_offset_X +3.2, heatsync_box_offset_Y_3, heatsync_box_offset_Z]) {
@@ -263,19 +263,22 @@ module make_bucky_10a_heatsync() {
         }
       }
     }
-    make_bucky_10a_heatsync_screws();
+    make_bucky_10a_heatsync_screw_single();
   }
 }
 
-// module make_bucky_10a_heatsync_screws() {
-//   translate([-4, heatsync_box_offset_Y_3 + 2, 20]) {
-//     cylinder(d=2.7, h=30, center = true);
-    
-//   }
-//   translate([-4, -heatsync_box_offset_Y_3, 20]) {
-//     cylinder(d=2.7, h=30, center = true);
-//   }
-// }
+module make_bucky_10a_heatsync_screws() {
+  translate([0, -2, 0]) {
+    translate([buck_10a_heatsync_X()/2 + buck_10a_heatsync_space()/2, 0, buck_10a_heatsync_Z()/2 + buck_10a_board_Z() + 0.01]) {
+      make_bucky_10a_heatsync_screw_single();
+    }
+  }
+  translate([0, -1, 0]) {
+    mirror([1, 0, 0]) translate([buck_10a_heatsync_X()/2 + buck_10a_heatsync_space()/2, 0, buck_10a_heatsync_Z()/2 + buck_10a_board_Z() + 0.01]) {
+      make_bucky_10a_heatsync_screw_single();
+    }
+  }
+}
 
 
 

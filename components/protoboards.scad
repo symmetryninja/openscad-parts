@@ -221,7 +221,21 @@ module make_protoboard_50_70(corner_screws=2.5, corner_screw_edge=1.3, drill_hol
   else {
     make_protoboard(size_X=50, size_Y=70, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
   }
+}
 
+module make_protoboard_70_90(corner_screws=2.5, corner_screw_edge=1.3, drill_holes=true, pin_holes=false) {
+  if (pin_holes) {
+    green()
+    render() {
+      difference() {
+        make_protoboard(size_X=70, size_Y=90, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+        make_protoboard_pins(8, 11);
+      }
+    }
+  }
+  else {
+    make_protoboard(size_X=70, size_Y=90, corner_screws=corner_screws, corner_screw_edge=corner_screw_edge, drill_holes=drill_holes);
+  }
 }
 
 module make_protoboard_40_60(corner_screws=2.5, corner_screw_edge=1.3, drill_holes=true, pin_holes=false) {

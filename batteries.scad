@@ -49,6 +49,13 @@
       screw16M3ButtonOversize(withHexBlank=withHexBlank, hexBlankH=hexBlankH);
   }
 
+  module battery_holder_dual_18650_part() {
+    translate([18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+      children();
+    translate([-18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+      children();
+  }
+
   module battery_holder_dual_18650(withBatteries=true) {
     black()
     translate([0,0,18650CaseHeight/2])
