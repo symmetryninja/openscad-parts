@@ -25,7 +25,7 @@ include <sn_tools.scad>
 cube_size = [20, 20, 20];
 ccube(cube_size);
 
-// Now I want to:
+// Now I want to:1
 // - put the cube at [30, 30, 30]
 // - create a cube in the same place but down 15
 // - mirror the cube on the XY & Z axis

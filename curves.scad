@@ -200,7 +200,6 @@ module progressive_hull_at_locations(locations = [[20,20,20], [20,-20,20], [20,-
   location_count = len(locations);
   
   for (i = [0:location_count -1]) {
-    echo (i)
     if (i + 1 == location_count) {
         hull() {
           translate(locations[i]) children();
