@@ -1,129 +1,99 @@
-module ccube(size=[10,10,10], d=-1, center=true){
-  if (d != -1) {
-    cube([d, d, d], center);
-  }
-  else {
-    cube(size, center);
-  }
-}
+// Some math functions
+  function sq(value_to_square) = value_to_square * value_to_square;
 
-module ccube_bezel(size=[10,10,10], bezel=2, center=true){
-  hull() {
-    cube([size[0], size[1] - (bezel * 2), size[2] - (bezel * 2)], center);
-    cube([size[0] - (bezel * 2), size[1], size[2] - (bezel * 2)], center);
-    cube([size[0] - (bezel * 2), size[1] - (bezel * 2), size[2]], center);
-  }
-}
+// Vector manipulation shortcuts.
+  // add a value in a vector
+  function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
+  function addY(input, Y=0, Z=0) =        [input[0],      input[1] + Y, input[2]];
+  function addZ(input, Z=0) =             [input[0],      input[1],     input[2] + Z];
+  function addXYZ(input, X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
 
-module ccylinder(d=10, r=-1, h=10, $fa=$fa, $fs=$fs, $fn=$fn) {
-  if (r != -1) {
-    cylinder(d = 2 * r, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
-  }
-  else {
-    cylinder(d = d, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
-  }
-}
+  // overrise a value in a vector
+  function setX(input, X=0) =             [X,         input[1],   input[2]];
+  function setY(input, Y=0, Z=0) =        [input[0],  Y,          input[2]];
+  function setZ(input, Z=0) =             [input[0],  input[1],   Z];
+  function setXYZ(input, X=0, Y=0, Z=0) = [X,Y,Z];
 
-module csphere(d=10, r=-1, $fa=$fa, $fs=$fs, $fn=$fn) {
-  if (r != -1) {
-    sphere(d = 2 * r, $fa=$fa, $fs=$fs, $fn=$fn);
-  }
-  else {
-    sphere(d = d, $fa=$fa, $fs=$fs, $fn=$fn);
-  }
-}
 
-module cfunnel(d=10, r=-1, h = 20, $fa=$fa, $fs=$fs, $fn=$fn) {
-  if (r != -1) {
-    cylinder(r1= r, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
-  }
-  else {
-    cylinder(r1 = d/2, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
-  }
-}
-
-module translateX(x_offset) {
-  translate([x_offset, 0, 0]) {
-    children();
-  }
-}
-
-module translateY(y_offset) {
-  translate([0, y_offset, 0]) {
-    children();
-  }
-}
-
-module translateZ(z_offset) {
-  translate([0, 0, z_offset]) {
-    children();
-  }
-}
-
-module rotateX(x) {
-  rotate([x, 0, 0]) {
-    children();
-  }
-}
-
-module rotateY(y) {
-  rotate([0, y, 0]) {
-    children();
-  }
-}
-
-module rotateZ(z) {
-  rotate([0, 0, z]) {
-    children();
-  }
-}
-
-module mirrorX() {
-  mirror([1, 0, 0]) {
-    children();
-  }
-  children();
-}
-
-module mirrorY() {
-  mirror([0, 1, 0]) {
-    children();
-  }
-  children();
-}
-
-module mirrorZ() {
-  mirror([0, 0, 1]) {
-    children();
-  }
-  children();
-}
-
-module place_at_corners_xy(x, y) {
-  mirrorY()
-  mirrorX()
-  translate([x/2, y/2, 0]) children();
-}
-
-module place_at_corners_xz(x, z) {
-  mirrorZ()
-  mirrorX()
-  translate([x/2, 0, z/2]) children();
-}
-
-module place_at_corners_yz(y, z) {
-  mirrorZ()
-  mirrorY()
-  translate([0, y/2, z/2]) children();
-}
-
-module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
-  for (position = positions) {
-    translate(position) {
+// Transform overrides, move/rotate/mirror on one axis
+  module translateX(x_offset) {
+    translate([x_offset, 0, 0]) {
       children();
     }
   }
-}
+
+  module translateY(y_offset) {
+    translate([0, y_offset, 0]) {
+      children();
+    }
+  }
+
+  module translateZ(z_offset) {
+    translate([0, 0, z_offset]) {
+      children();
+    }
+  }
+
+  module rotateX(x) {
+    rotate([x, 0, 0]) {
+      children();
+    }
+  }
+
+  module rotateY(y) {
+    rotate([0, y, 0]) {
+      children();
+    }
+  }
+
+  module rotateZ(z) {
+    rotate([0, 0, z]) {
+      children();
+    }
+  }
+
+  // note the mirror by default retains the origonal object
+  module mirrorX(retain=true) {
+    mirror([1, 0, 0]) children();
+    if (retain) children();
+  }
+
+  module mirrorY(retain=true) {
+    mirror([0, 1, 0]) children();
+    if (retain) children();
+  }
+
+  module mirrorZ(retain=true) {
+    mirror([0, 0, 1]) children();
+    if (retain) children();
+  }
+
+// Autoplacement at corners
+  module place_at_corners_xy(x, y) {
+    mirrorY()
+    mirrorX()
+    translate([x/2, y/2, 0]) children();
+  }
+
+  module place_at_corners_xz(x, z) {
+    mirrorZ()
+    mirrorX()
+    translate([x/2, 0, z/2]) children();
+  }
+
+  module place_at_corners_yz(y, z) {
+    mirrorZ()
+    mirrorY()
+    translate([0, y/2, z/2]) children();
+  }
+
+  module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
+    for (position = positions) {
+      translate(position) {
+        children();
+      }
+    }
+  }
 
 module slide_hull_X(amount = 10) {
   if ($children > 0) {
@@ -142,6 +112,7 @@ module slide_hull_X(amount = 10) {
     children();
   }
 }
+
 module slide_hull_Y(amount = 10) {  
   if ($children > 0) {
     union() {
@@ -177,13 +148,3 @@ module slide_hull_Z(amount = 10) {
     children();
   }
 }
-
-function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
-function addY(input, Y=0, Z=0) =        [input[0],      input[1] + Y, input[2]];
-function addZ(input, Z=0) =             [input[0],      input[1],     input[2] + Z];
-function addXYZ(input, X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
-
-function setX(input, X=0) =             [X,         input[1],   input[2]];
-function setY(input, Y=0, Z=0) =        [input[0],  Y,          input[2]];
-function setZ(input, Z=0) =             [input[0],  input[1],   Z];
-function setXYZ(input, X=0, Y=0, Z=0) = [X,Y,Z];

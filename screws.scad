@@ -1,3 +1,10 @@
+module make_screw_spacer(height = 10, outer_D = 6, inner_D = 3) {
+  difference() {
+    ccylinder(d = outer_D, h = height);
+    ccylinder(d = inner_D, h = height + 1);
+  }
+}
+
 module screw(height = 10, threadD = 3, headtype = "button", headD = 5, headH = 2.5) {
   union() {
     cylinder(d=threadD, h=height, center=true);

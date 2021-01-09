@@ -1,9 +1,10 @@
 // ShortCuts.scad 
+// used in springs.scad
+
 // Autor: Rudolf Huttary, Berlin 2015
 //
 
 //show_examples(); 
-
 module show_examples()
 	place_in_rect(30, 30)
 	{

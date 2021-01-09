@@ -1,3 +1,53 @@
+
+// Centered objects
+  // Cube
+  module ccube(size=[10,10,10], d=-1, center=true){
+    if (d != -1) {
+      cube([d, d, d], center);
+    }
+    else {
+      cube(size, center);
+    }
+  }
+
+  // Flat-bezeled cube
+  module ccube_bezel(size=[10,10,10], bezel=2, center=true){
+    hull() {
+      cube([size[0], size[1] - (bezel * 2), size[2] - (bezel * 2)], center);
+      cube([size[0] - (bezel * 2), size[1], size[2] - (bezel * 2)], center);
+      cube([size[0] - (bezel * 2), size[1] - (bezel * 2), size[2]], center);
+    }
+  }
+
+  // Cylinder
+  module ccylinder(d=10, r=-1, h=10, $fa=$fa, $fs=$fs, $fn=$fn) {
+    if (r != -1) {
+      cylinder(d = 2 * r, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    }
+    else {
+      cylinder(d = d, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    }
+  }
+
+  // Sphere
+  module csphere(d=10, r=-1, $fa=$fa, $fs=$fs, $fn=$fn) {
+    if (r != -1) {
+      sphere(d = 2 * r, $fa=$fa, $fs=$fs, $fn=$fn);
+    }
+    else {
+      sphere(d = d, $fa=$fa, $fs=$fs, $fn=$fn);
+    }
+  }
+
+  // Funnel
+  module cfunnel(d=10, r=-1, h = 20, $fa=$fa, $fs=$fs, $fn=$fn) {
+    if (r != -1) {
+      cylinder(r1= r, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    }
+    else {
+      cylinder(r1 = d/2, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+    }
+  }
 module makeRoundedBox_rotate_90_X(size=[50,50,50], d=6) {
   newsize_X = size[0];
   newsize_Y = size[2];

@@ -196,6 +196,26 @@ module progressive_hull(){
   }
 }
 
+module progressive_hull_at_locations(locations = [[20,20,20], [20,-20,20], [20,-20,-20],[20,20,-20]], close_end=true) {
+  location_count = len(locations);
+  
+  for (i = [0:location_count -1]) {
+    echo (i)
+    if (i + 1 == location_count) {
+        hull() {
+          translate(locations[i]) children();
+          if (close_end) translate(locations[0]) children();
+        }
+    }
+    else {
+      hull() {
+        translate(locations[i]) children();
+        translate(locations[i + 1]) children();
+      }
+    }
+  }
+}
+
 function fn_arcs() = $fn * 5;
 
 module shape_balanced_arc( thickness, depth, radius, detail, degrees , rounded = false) {
