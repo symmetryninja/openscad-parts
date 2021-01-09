@@ -177,3 +177,13 @@ module slide_hull_Z(amount = 10) {
     children();
   }
 }
+
+function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
+function addY(input, Y=0, Z=0) =        [input[0],      input[1] + Y, input[2]];
+function addZ(input, Z=0) =             [input[0],      input[1],     input[2] + Z];
+function addXYZ(input, X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
+
+function setX(input, X=0) =             [X,         input[1],   input[2]];
+function setY(input, Y=0, Z=0) =        [input[0],  Y,          input[2]];
+function setZ(input, Z=0) =             [input[0],  input[1],   Z];
+function setXYZ(input, X=0, Y=0, Z=0) = [X,Y,Z];

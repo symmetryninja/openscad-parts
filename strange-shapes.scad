@@ -1,17 +1,13 @@
-
-
 /** includes **/
-  include <sn_tools.scad>
+include <sn_tools.scad>
 
 $fn = 50;
 
+sts_radius=20;
+// sphericon2(sts_radius); 
+sphericon_4(radius = sts_radius);
 
-Radius=20;
-// sphericon2(Radius); 
-sphericon_4(radius = Radius);
-
-
-module ground(size=1000) {
+module sphericon_ground(size=1000) {
    translate([0,0,-size]) cube(2*size,center=true);
 }
 
@@ -21,7 +17,7 @@ module sphericon2_half(r) {
       cylinder(r1=r,r2=0,h=r);
       rotate([180,0,0]) cylinder(r1=r,r2=0,h=r);
     }
-    rotate([0,-90,0]) ground();
+    rotate([0,-90,0]) sphericon_ground();
   }
 }
 
@@ -32,13 +28,11 @@ module sphericon2(r) {
   }
 };
 
-
-
 module sphericon2_half_shell(r, ratio) {
    difference() {
       sphericon2(r);   
       sphericon2(ratio*r);
-      ground();
+      sphericon_ground();
    }
 }
 
