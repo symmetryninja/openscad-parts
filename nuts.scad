@@ -21,3 +21,7 @@ module rivnut_m3_48_9mm(oversize=0){
 module rivnut_m5_68_9mm(oversize=0){
   rivnut(bore_D = 6.7 + oversize, bore_H = 13, flange_D = 10, flange_H = 1);
 }
+
+module rivnut_m6_59_16mm(oversize=0){
+  rivnut(bore_D = 8.8 + oversize, bore_H = 16, flange_D = 10, flange_H = 1.5);
+}

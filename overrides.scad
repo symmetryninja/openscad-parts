@@ -4,13 +4,19 @@
 // Vector manipulation shortcuts.
   // add a value in a vector
   function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
-  function addY(input, Y=0, Z=0) =        [input[0],      input[1] + Y, input[2]];
+  function addXY(input, X=0, Y=0) =       [input[0] + X,  input[1] + Y,     input[2]];
+  function addXZ(input, X=0, Z=0) =       [input[0] + X,  input[1],     input[2] + Z];
+  function addY(input, Y=0) =             [input[0],      input[1] + Y, input[2]];
+  function addYZ(input, Y=0, Z=0) =       [input[0],      input[1] + Y, input[2] + Z];
   function addZ(input, Z=0) =             [input[0],      input[1],     input[2] + Z];
   function addXYZ(input, X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
 
-  // overrise a value in a vector
+  // override a value in a vector
   function setX(input, X=0) =             [X,         input[1],   input[2]];
-  function setY(input, Y=0, Z=0) =        [input[0],  Y,          input[2]];
+  function setXY(input, X=0, Y=0) =       [X,         Y,   input[2]];
+  function setXZ(input, X=0, Z=0) =       [X,         input[1],   Z];
+  function setY(input, Y=0) =             [input[0],  Y,          input[2]];
+  function setYZ(input, Y=0, Z=0) =       [input[0],  Y,          Z];
   function setZ(input, Z=0) =             [input[0],  input[1],   Z];
   function setXYZ(input, X=0, Y=0, Z=0) = [X,Y,Z];
 
