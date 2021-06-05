@@ -10,12 +10,10 @@ It came about because I typically model my robots all in one scad file and I use
 1. Clone down the repo
 2. Add the repo to the OpenSCAD path [instructions here](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Libraries#Setting_OPENSCADPATH) you can use powershell:
     ```powershell
-    # in an elevated shell
-    # from https://codingbee.net/powershell/powershell-make-a-permanent-change-to-the-path-environment-variable
-    $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
-    # IMPORTANT-this has to be a valid path!
-    $newpath = “$oldpath;C:\Development\symmetry.ninja\openscad-parts"
-    Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+    # from https://www.tachytelic.net/2019/03/powershell-environment-variables/
+    # in a non elevated shell
+    $openscad_parts_path = 'C:\path-to\openscad-parts'
+    [System.Environment]::SetEnvironmentVariable('OPENSCADPATH',$openscad_parts_path,[System.EnvironmentVariableTarget]::User)
     ```
 
 3. include the `sn_tools.scad` meta-import file like this:
