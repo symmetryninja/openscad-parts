@@ -8,13 +8,22 @@ It came about because I typically model my robots all in one scad file and I use
 ## Usage
 
 1. Clone down the repo
-2. Add the repo to the OpenSCAD path [instructions here](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Libraries#Setting_OPENSCADPATH)
-3. include the `sn_tools.scad` meta-import file like this:
-```
-include <sn_tools.scad>
+2. Add the repo to the OpenSCAD path [instructions here](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Libraries#Setting_OPENSCADPATH) you can use powershell:
+    ```powershell
+    # in an elevated shell
+    # from https://codingbee.net/powershell/powershell-make-a-permanent-change-to-the-path-environment-variable
+    $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+    # IMPORTANT-this has to be a valid path!
+    $newpath = “$oldpath;C:\Development\symmetry.ninja\openscad-parts"
+    Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+    ```
 
-// your awesome code here
-```
+3. include the `sn_tools.scad` meta-import file like this:
+    ```c
+    include <sn_tools.scad>
+
+    // your awesome code here
+    ```
 4. Endlessly search through this tools code in the hope to find something useful
 5. Use the code.
 
@@ -25,7 +34,7 @@ include <sn_tools.scad>
 cube_size = [20, 20, 20];
 ccube(cube_size);
 
-// Now I want to:1
+// Now I want to:
 // - put the cube at [30, 30, 30]
 // - create a cube in the same place but down 15
 // - mirror the cube on the XY & Z axis
@@ -54,7 +63,7 @@ progressive_hull() {
 
 // lastly, a sphere multiplied in a cube layout with the links between them hulled
 
-progressive_hull_at_locations(locations =cube_offsets) csphere(d=8);
+progressive_hull_at_locations(locations = cube_offsets) csphere(d=8);
 
 ```
 
