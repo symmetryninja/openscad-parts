@@ -1,7 +1,18 @@
+//smart defaults
+  // axis variables
+  X=0;
+  Y=1;
+  Z=2;
+
 // Some math functions
   function sq(value_to_square) = value_to_square * value_to_square;
 
 // Vector manipulation shortcuts.
+  // vector getters
+  function X(input) = input[0];
+  function Y(input) = input[1];
+  function Z(input) = input[2];
+
   // add a value in a vector
   function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
   function addXY(input, X=0, Y=0) =       [input[0] + X,  input[1] + Y,     input[2]];
