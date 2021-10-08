@@ -50,7 +50,9 @@ module stepper_nema_23(with_sprocket=false) {
   }
 }
 
-
+module stepper_nema_23_shafts(h=20) {
+  makeRoundedBoxShafts(size=[47,47,h + 3], d=0, shaftD=4.9);
+}
 module pulley_gt2_wheel_cutout(cutout_depth = 5, offset_X = 20, offset_Y = 20) {
   ccylinder( h = gt2_wheel_height + 1.6, d = gt2_wheel_outer_d + 2);
 }
