@@ -68,6 +68,24 @@
       children();
     }
   }
+  
+  module resizeX(x) {
+    resize([x, 0, 0]) {
+      children();
+    }
+  }
+
+  module resizeY(y) {
+    resize([0, y, 0]) {
+      children();
+    }
+  }
+
+  module resizeZ(z) {
+    resize([0, 0, z]) {
+      children();
+    }
+  }
 
   // note the mirror by default retains the origonal object
   module mirrorX(retain=true) {

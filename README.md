@@ -1,6 +1,6 @@
 # OpenSCAD parts
 
-## WTF? (whats this for?)
+## Purpose
 This repo started out as a way to share code across my robotics projects and turned into something quite a lot more complex.
 
 It came about because I typically model my robots all in one scad file and I use scripting to render multiple seperate parts. Included in all of my model files are the non-3d printed parts, components, servos, batteries etc, this helps me build things to the right scale - even though it's kinda nuts.
