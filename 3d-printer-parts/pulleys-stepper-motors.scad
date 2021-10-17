@@ -21,7 +21,7 @@ module stepper_nema_23(with_sprocket=false) {
   body_H = 82;
   total_H = shaft_H + body_H + balast_H;
   if (with_sprocket) {
-    translateZ(total_H/2 - 23.2/2 + 4) silver() pulley_gt2_10mm_sprocket_26();
+    translateZ(total_H/2 - 23.2/2 + 8) silver() pulley_gt2_10mm_sprocket_26();
   }
   
 
@@ -57,6 +57,10 @@ module pulley_gt2_wheel_cutout(cutout_depth = 5, offset_X = 20, offset_Y = 20) {
   ccylinder( h = gt2_wheel_height + 1.6, d = gt2_wheel_outer_d + 2);
 }
 
+gt2_wheel_inner_d = 12.2;
+gt2_wheel_height = 13;
+gt2_wheel_outer_d = gt2_wheel_inner_d + 6;
+
 module pulley_gt2_wheel() {
   silver()
   union() {
@@ -68,16 +72,19 @@ module pulley_gt2_wheel() {
   }
 }
 
+nema23_stepper_sprocket_26T_total_H = 23.2;
+nema23_stepper_sprocket_26T_D = 15.85;
+
 module pulley_gt2_10mm_sprocket_26() {
-  total_H = 23.2;
+  nema23_stepper_sprocket_26T_total_H = 23.2;
   silver()
   difference() {
     union(){
       
-      offset_Z = total_H/2;
+      offset_Z = nema23_stepper_sprocket_26T_total_H/2;
 
       // bump 12.9 0.4
-      ccylinder(d = 12.9, h=total_H);
+      ccylinder(d = 12.9, h=nema23_stepper_sprocket_26T_total_H);
 
       // hat 20 1
       translateZ(offset_Z - 0.4 - 0.5)
@@ -85,7 +92,7 @@ module pulley_gt2_10mm_sprocket_26() {
 
       // gear 15.85 11.1
       translateZ(offset_Z - 0.4 - 1 - 5.55)
-      ccylinder(d = 15.85, h = 12.1);
+      ccylinder(d = nema23_stepper_sprocket_26T_D, h = 12.1);
 
       // plate 20 1
       translateZ(offset_Z - 1.4 - 11.1 - 0.5)
@@ -95,7 +102,7 @@ module pulley_gt2_10mm_sprocket_26() {
 
     }
     union(){
-      ccylinder(d = 8, h = total_H +1);
+      ccylinder(d = 8, h = nema23_stepper_sprocket_26T_total_H +1);
     }
   }
 
