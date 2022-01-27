@@ -287,9 +287,9 @@ module make_bearing(d1 = 40, d2 = 100, height = 40) {
 
 module make_rounded_slot(d = 3, h = 10, l = 10) {
   hull() {
-    translateY((l - d) / 2)
+    Ty((l - d) / 2)
     ccylinder(d=d, h = h);
-    translateY(- (l - d) / 2)
+    Ty(- (l - d) / 2)
     ccylinder(d=d, h = h);
   }
 }

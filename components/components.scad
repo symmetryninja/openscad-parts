@@ -543,14 +543,14 @@ module component_momentary_switch_smd(button_X = 6, button_Y = 6, button_Z = 4, 
     translate([-button_X/3, 0, 0]) ccube([1, button_Y + 3, 0.5]);
     translate([button_X/3, 0, 0]) ccube([1, button_Y + 3, 0.5]);
   // silver top
-    translateZ(button_Z - 0.2) ccube([button_X, button_Y, 0.5]);
+    Tz(button_Z - 0.2) ccube([button_X, button_Y, 0.5]);
   }
   // black base
   black() {
-    translateZ(button_Z/2) ccube([button_X, button_Y, button_Z]);
+    Tz(button_Z/2) ccube([button_X, button_Y, button_Z]);
 
     // button
-    translateZ(button_H/2 + button_Z - 0.05) ccylinder(d = button_D, h = button_H + 0.1);
+    Tz(button_H/2 + button_Z - 0.05) ccylinder(d = button_D, h = button_H + 0.1);
 
     // clip points
     translate([button_X/4, button_Y/4, button_Z - 0.05]) ccylinder(d = 0.8, h = 0.1);
@@ -619,19 +619,19 @@ module boards_make_torro32_bolts(screw_D = 3.1, h = 20) {
 
   // resistors
     module component_resistor_vertical() {
-      translateZ(5.5) {
+      Tz(5.5) {
         blue()ccylinder(d = 2.2, h = 8); 
         silver() {
           ccylinder(d = 1, h = 14);
-          translate([0, 1.27, 7]) rotateX(90) ccylinder(d = 1, h = 2.54);
+          translate([0, 1.27, 7]) Rx(90) ccylinder(d = 1, h = 2.54);
           translate([0, 2.54, 0]) ccylinder(d = 1, h = 14);
         }
       }
     }
 
     module component_resistor_horizontal() {
-      translateZ(1.8) {
-        rotateX(90) {
+      Tz(1.8) {
+        Rx(90) {
           blue() ccylinder(d = 2.2, h = 8); 
           silver() ccylinder(d = 1, h = 10.16);
         }

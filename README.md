@@ -39,7 +39,7 @@ ccube(cube_size);
 
 cube_offset = [30, 30, 30];
 
-mirrorX() mirrorY() mirrorZ()
+Mx() My() Mz()
 translate(cube_offset)
 ccube(cube_size);
 
@@ -69,7 +69,7 @@ progressive_hull_at_locations(locations = cube_offsets) csphere(d=8);
 
 | file/folder | purpose |
 |-|-|
-| `overrides.scad` | simplification and expansion of existing functionality e.g.: `translateX(n) = translate([n, 0, 0])` |
+| `overrides.scad` | simplification and expansion of existing functionality e.g.: `Tx(n) = translate([n, 0, 0])` |
 | `shapes.scad` | Centered, beveled and curved edged objects. `ccube() == cube(center=true)` |
 | `quick_colours.scad` | Type `blue()` instead of `color("Blue")` |
 | `screws.scad` | Modules that make screws that are good for extraction using difference |

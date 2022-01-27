@@ -23,7 +23,7 @@ include <sn_tools.scad>
 module tb_castor_spacer() {
   difference() {
     union() {
-      translateZ(-3.7)
+      Tz(-3.7)
       makeRoundedBox([50,32,3]);
       makeRoundedBox([34, 40, 10.4]);
     }

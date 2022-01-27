@@ -11,12 +11,12 @@ module gizmo_corners(x = 40, y = 40, z = 40, depth = 5) {
       translate([(depth + oversize)/2, (depth + oversize)/2,  (depth/2 + oversize)]) {
         ccube([x, y, z]);
       }
-      translateX(10) rotateX(90) ccylinder(d = 7, h = y + depth + 2);
-      translateX(-10) rotateX(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(10) rotateY(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(-10) rotateY(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(10) ccylinder(d = 7, h = y + depth + 2);
-      translateY(-10) ccylinder(d = 7, h = y + depth + 2);
+      Tx(10) Rx(90) ccylinder(d = 7, h = y + depth + 2);
+      Tx(-10) Rx(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(10) Ry(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(-10) Ry(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(10) ccylinder(d = 7, h = y + depth + 2);
+      Ty(-10) ccylinder(d = 7, h = y + depth + 2);
     }
   }
 }
@@ -32,16 +32,16 @@ module gizmo_edges(x = 40, y = 40, z = 40, depth = 5) {
       translate([(depth + oversize)/2, (depth + oversize)/2, 0]) {
         ccube([x, y, z + depth*2]);
       }
-      translateX(10) rotateX(90) ccylinder(d = 7, h = y + depth + 2);
-      translateX(-10) rotateX(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(10) rotateY(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(-10) rotateY(90) ccylinder(d = 7, h = y + depth + 2);
-      translateY(10) ccylinder(d = 7, h = y + depth + 2);
-      translateY(-10) ccylinder(d = 7, h = y + depth + 2);
+      Tx(10) Rx(90) ccylinder(d = 7, h = y + depth + 2);
+      Tx(-10) Rx(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(10) Ry(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(-10) Ry(90) ccylinder(d = 7, h = y + depth + 2);
+      Ty(10) ccylinder(d = 7, h = y + depth + 2);
+      Ty(-10) ccylinder(d = 7, h = y + depth + 2);
     }
   }
 }
 
 
-translateX(30) gizmo_corners();
-translateX(-30) gizmo_edges();
+Tx(30) gizmo_corners();
+Tx(-30) gizmo_edges();

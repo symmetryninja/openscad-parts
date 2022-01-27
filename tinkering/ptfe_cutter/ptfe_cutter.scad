@@ -21,16 +21,16 @@ include <sn_tools.scad>
     difference() {
       union() {
         ccylinder(d=20, h = 40);
-        translateX(5)
+        Tx(5)
         ccube([20,10,40]);
       }
       #union() {
         ccylinder(d=4, h = 41);
-        translateX(7.5)
+        Tx(7.5)
         ccube([15.1,3,41]);
-        mirrorZ() {
+        Mz() {
           translate([12,0,15])
-          rotateX(90)
+          Rx(90)
           ccylinder(d = 3, h=30);
         }
       }

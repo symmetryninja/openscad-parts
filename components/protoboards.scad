@@ -196,7 +196,7 @@ module make_protoboard_x_frame(size_X=30, size_Y=40, corner_screws=2.5, corner_s
 
 module make_protoboard_pins(x, y) {
   union() {
-      mirrorX() mirrorY()
+      Mx() My()
       translate([1.27, 1.27, 0]) {
         for (i = [0:x]) {
           for (o = [0:y]) {
