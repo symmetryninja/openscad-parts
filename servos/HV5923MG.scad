@@ -127,7 +127,7 @@ module 5932_servo_cutout(undersize=0) {
 
 /* the side-ish loops */
   module 5932_servo_bolts(undersize=0) {
-    translateY(servoBoxSplineOffset) {
+    Ty(servoBoxSplineOffset) {
       translate([5932_bolt_spacer_X/2, 5932_bolt_spacer_Y/2, -1]) {
         ccylinder(d=5932_bolt_D - undersize, h = 40);
       }
@@ -159,7 +159,7 @@ module 5932_servo_cutout(undersize=0) {
   module 5932_spline() {
     union() {
       //the spline case spacer thing
-      translateZ(5)
+      Tz(5)
       cylinder(h=5932servoBoxZ + 2 * splineExtrusionHeight - 10, d=splineD, center=true);
     }
   }

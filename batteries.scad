@@ -115,10 +115,10 @@
   }
 
   module battery_18650_retainer_clip_cutouts(18650_clip_size_space_Y) {
-    translateZ(-(18650_clip_thickness/2 + 0.01) + 1 ) {
+    Tz(-(18650_clip_thickness/2 + 0.01) + 1 ) {
       ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y, 18650_clip_size_space_Z ]);
     }
-    translateZ(-(18650_clip_size_Z/2 - 18650_clip_size_space_Z_cutout / 2 + 0.01)) {
+    Tz(-(18650_clip_size_Z/2 - 18650_clip_size_space_Z_cutout / 2 + 0.01)) {
       ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y - 6, 18650_clip_size_space_Z_cutout + 0.02]);
     }
   }

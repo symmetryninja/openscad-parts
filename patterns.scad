@@ -14,7 +14,7 @@ include <sn_tools.scad>
   // kelvin_pod_unit(detail, bar_D, bar_L);
 
   module kelvin_pod_unit(detail, bar_D, bar_L) {
-    offset = sqrt(sq(bar_L) - sq(bar_L/2));
+    offset = sqrt(sqr(bar_L) - sqr(bar_L/2));
 
     progressive_hull() {
       kelvin_point(sequence = 0, detail = detail, bar_D = bar_D, offset = offset);
@@ -51,7 +51,7 @@ include <sn_tools.scad>
   }
 
   module kelvin_pod_unit_in_place(detail, bar_D, bar_L) {
-    offset = sqrt(sq(bar_L) - sq(bar_L/2));
+    offset = sqrt(sqr(bar_L) - sqr(bar_L/2));
     translate([-offset, 0, 0]) {
       rotate([0,55,0]) {
         kelvin_pod_unit(detail = detail, bar_D = bar_D, bar_L = bar_L);
@@ -60,7 +60,7 @@ include <sn_tools.scad>
   }
 
   module kelvin_pod(detail = 15, bar_D = 2, bar_L = 8) {
-    offset = sin(55) * sin(60) * sqrt(sq(bar_L) - sq(bar_L/2));
+    offset = sin(55) * sin(60) * sqrt(sqr(bar_L) - sqr(bar_L/2));
     translate([0,0,-(offset)]) {
       kelvin_pod_4(detail = detail, bar_D = bar_D, bar_L = bar_L);
     }

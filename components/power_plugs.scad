@@ -175,16 +175,16 @@ module xt_60_plug_with_panel(cutouts_only = false) {
   difference() {
     union() {
       // plug
-      translateZ(6)
-      rotateY(-90)
+      Tz(6)
+      Ry(-90)
       xt_60_plug(for_cutout=cutouts_only);
       // panel
       
       if (cutouts_only) {
-        translateY(14.5) {
+        Ty(14.5) {
           ccylinder(h=20, d = 3.5);
         }
-        translateY(-14.5) {
+        Ty(-14.5) {
           ccylinder(h=20, d = 3.5);
         }
       }
@@ -197,14 +197,14 @@ module xt_60_plug_with_panel(cutouts_only = false) {
     union() {
       hull() {
         if (!cutouts_only) {
-          translateY(14.5) {
+          Ty(14.5) {
             make_rounded_slot(d = 3.5, l = 6.5, h = 3);
           }
         }
       }
       hull() {
         if (!cutouts_only) {
-          translateY(-14.5) {
+          Ty(-14.5) {
             make_rounded_slot(d = 3.5, l = 6.5, h = 3);
           }
         }

@@ -42,7 +42,7 @@ echo("Primitives");
 echo(" circle :  Ci(r=10)"); 
 echo(" circle_half :  CiH(r=10, w=0)")
 echo(" circle_segment :  CiS(r=10, w1=0, w2=90)")
-echo(" square :  Sq(x=10, y=0, center=true))"); 
+echo(" square :  sqr(x=10, y=0, center=true))"); 
 echo(" cylinder :  Cy(r=10, h=1, center=true)"); 
 echo(" cylinder_half :  CyH(r=10, w=0)")
 echo(" cylinder_segment: CyS(r=10, h=1, w1=0, w2=90,center=true)"); 
@@ -59,31 +59,13 @@ echo("===============");
 
 // Euclidean Transformations
 
-module T(x=0, y=0, z=0){translate([x, y, z])children(); }
-module Tx(x) { translate([x, 0, 0])children(); }
-module Ty(y) { translate([0, y, 0])children(); }
-module Tz(z) { translate([0, 0, z])children(); }
 
-
-module R(x=0, y=0, z=0){rotate([x, y, z]) children();}
-module Rx(x=90){rotate([x, 0, 0]) children();}
-module Ry(y=90){rotate([0, y, 0]) children();}
-module Rz(z=90){rotate([0, 0, z]) children();}
-
-module S(x=1, y=1, z=1){scale([x, y, z]) children();}
-module Sx(x=1){scale([x, 1, 1]) children();}
-module Sy(y=1){scale([1, y, 1]) children();}
-module Sz(z=1){scale([1, 1, z]) children();}
-
-
-module D() difference(){children(0); children([1:$children-1]);}
-module U() children([0:$children-1]);
 // module I() intersection()children([0:$children-1]); // does not work for some reason
 
 
 // primitives - 2D
 
-module Sq(x =10, y = 0, center = true)
+module sqr(x =10, y = 0, center = true)
 {
    if(y==0)
 		square([x, x], center = center); 

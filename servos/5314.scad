@@ -3,38 +3,37 @@ include <general_servo.scad>
 include <5314_hornes.scad>
 
 
-function 5314ServoHorneHeight() = baseCubeHeight + (2 * baseToHorneOffset);
-function 5314GetbaseCubeHeight() = baseCubeHeight;
-function 5314GetbaseCubeY() = baseCubeY;
-function 5314GetbaseCubeX() = baseCubeX;
-function 5314GetbaseCubeHeight() = baseCubeHeight;
+function 5314ServoHorneZ() = 5314baseCubeZ + (2 * 5314baseToHorneOffset);
+function 5314GetbaseCubeX() = 5314baseCubeX;
+function 5314GetbaseCubeY() = 5314baseCubeY;
+function 5314GetbaseCubeZ() = 5314baseCubeZ;
 
-baseCubeY = 43.3;
-baseCubeHeight = 32.3;
-baseCubeX = 32.3;
-servoYoffset = 12.65;
-baseToHorneOffset = 3.2;
+5314baseCubeX = 32.3;
+5314baseCubeY = 43.3;
+5314baseCubeZ = 32.3;
+5314servoYoffset = 12.65;
+5314baseToHorneOffset = 3.2;
 
-baseCubeCurveY = 10;
-baseCubeCurveX = 20.29;
+5314baseCubeCurveY = 10;
+5314baseCubeCurveX = 20.29;
 
-cutoutCylinderR = 40;
-cutoutCylinderOffsetX = - 10;
-cutoutCylinderOffsetY = 8;
-cutoutCylinderHeight = baseCubeHeight + 0;
+5314cutoutCylinderR = 40;
+5314cutoutCylinderOffsetX = - 10;
+5314cutoutCylinderOffsetY = 8;
+5314cutoutCylinderHeight = 5314baseCubeZ + 0;
 
 module 5314Base(blunt_offset = -34.5) {
   hull() {
-    translate([0,(baseCubeY/2) + (baseCubeCurveY/2)]) {
-      cube([baseCubeX,baseCubeCurveY, baseCubeHeight], center = true);
+    translate([0,(5314baseCubeY/2) + (5314baseCubeCurveY/2)]) {
+      cube([5314baseCubeX,5314baseCubeCurveY, 5314baseCubeZ], center = true);
     }
     difference() {
-      cylinder(d = baseCubeX, h = baseCubeHeight, center = true);
+      cylinder(d = 5314baseCubeX, h = 5314baseCubeZ, center = true);
       union() {
         translate([0, 35/2, 0]) {
           cube([35,35,35], center = true);
         }
-        translate([0, (blunt_offset/2) - servoYoffset, 0]) {
+        translate([0, (blunt_offset/2) - 5314servoYoffset, 0]) {
           cube([35,35,35], center = true);
         }
       }
@@ -60,7 +59,7 @@ function get_5314_base_back_oversize_Z() = 5314BaseBackOversizeZ;
 
 5314BaseBackOversizeX = 45;
 5314BaseBackOversizeY = 20;
-5314BaseBackOversizeZ = 5314GetbaseCubeHeight() + 5;
+5314BaseBackOversizeZ = 5314GetbaseCubeZ() + 5;
 5314BaseBackOffsetY = 35;
 5314BucketExtensionBoltOffset = 5314BaseBackOffsetY + 1;
 

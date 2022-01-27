@@ -4,20 +4,20 @@ hole_fit = 20;
 
 module placeCyls() {
   translate([18,0,0]) {
-    rotateY(90) {
+    Ry(90) {
       children(); 
     }
   }
 
   translate([0,18,0]) {
-    rotateX(90) {
+    Rx(90) {
       children();
     }
   }
 
   translate([3, 3, 18]) {
-    rotateZ(45)
-      rotateY(20) {
+    Rz(45)
+      Ry(20) {
         children();
       }
   }
@@ -46,9 +46,9 @@ module shape2() {
     hull() {
       translate([0.75,0.75,10])
       sphere(d=18);
-      translateX(10)
+      Tx(10)
       sphere(d=18);
-      translateY(10)
+      Ty(10)
       sphere(d=18);
       sphere(d=18);
     }
@@ -72,9 +72,9 @@ module shape4() {
     hull() {
       translate([0.75,0.75,10])
       sphere(d=16);
-      translateX(10)
+      Tx(10)
       sphere(d=16);
-      translateY(10)
+      Ty(10)
       sphere(d=16);
       sphere(d=16);
     }

@@ -117,7 +117,7 @@ module base_bolt(bolt_D = 10, bolt_H = 4) {
 }
 
 module gizmo_top_panel_unibody() {
-  translateZ(-2.5) {
+  Tz(-2.5) {
     gizmo_resovior_base_oversize(oversize = 7, height_Z = 15);
   }
 
@@ -129,7 +129,7 @@ module gizmo_top_panel_unibody() {
   }
 }
 module gizmo_top_panel_cutouts() {
-  translateZ(-4.5) {
+  Tz(-4.5) {
     gizmo_resovior_base_oversize(oversize = 1, height_Z = 15);
   }
   //bucket cutouts
@@ -172,7 +172,7 @@ module gizmo_top_panel_cutter_box() {
 }
 
 module gizmo_top_panel_top() {
-  rotateY(-180)
+  Ry(-180)
   translate([65, 200, -9])
   intersection() {
     gizmo_top_panel_cutter_box();
@@ -180,7 +180,7 @@ module gizmo_top_panel_top() {
   }
 }
 module gizmo_top_panel_base() {
-  rotateY(-180)
+  Ry(-180)
   difference() {
     gizmo_top_panel();
     gizmo_top_panel_cutter_box();

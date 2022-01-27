@@ -68,7 +68,7 @@ module tft_280_base_board(for_cutout=false) {
   if (!for_cutout)
   color("white") {
     //solder pins
-    translateZ((tft_280_base_board_Z/2 - tft_280_base_pin_size_Y/2)) {
+    Tz((tft_280_base_board_Z/2 - tft_280_base_pin_size_Y/2)) {
       hull() {
         translate([(tft_280_base_pin_size_X/2), -(tft_280_base_pin_size_Y/2 + 0.01 - tft_280_base_board_Y/2), 0])
             rotate([90, 0, 0])
@@ -78,7 +78,7 @@ module tft_280_base_board(for_cutout=false) {
               ccylinder(h=tft_280_base_pin_size_Z, d=tft_280_base_pin_size_Y);
       }
     }
-    translateZ(-(tft_280_base_board_Z/2 - tft_280_base_pin_size_Y/2)) {
+    Tz(-(tft_280_base_board_Z/2 - tft_280_base_pin_size_Y/2)) {
       hull() {
         translate([(tft_280_base_pin_size_X/2), -(tft_280_base_pin_size_Y/2 + 0.01 - tft_280_base_board_Y/2), 0])
             rotate([90, 0, 0])
