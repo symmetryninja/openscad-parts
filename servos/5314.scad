@@ -46,10 +46,13 @@ module 5314BaseScale(newSize = [10,10,10], positionOffset = [0,0,0], blunt_offse
     resize(newSize) 5314Base(blunt_offset = blunt_offset);
 }
 
-module 5314CubeBaseWithHub() {
+module 5314CubeBaseWithHub(with_screws=true) {
   union(){
     5314HubWithOffset();
     5314Base();
+    if (with_screws) {
+      5314MountScrews();
+    }
   }
 }
 
@@ -83,4 +86,9 @@ module 5314CubeBaseBackstopBolts() {
     translate([-xCenter, 5314BucketExtensionBoltOffset, 0])
       screwM3Button(height=29, withHexBlank=true, hexBlankH = CubeBaseBackstopBoltBlankHeight, hexBlankD = CubeBaseBackstopNutDiameter, screwPurchase=2);
   }
+}
+
+module 5314MountScrews() {
+  translate([0,(5314baseCubeY/2) - 6.4])
+  make_drill_holes(size=[27,27,50], shaftD=2.5);
 }
