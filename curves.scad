@@ -9,8 +9,8 @@ module arc_base( height, depth, radius, detail = 100, degrees , rounded = false)
       translate([radius - height, 0, 0]) {
         if (rounded) {
           translate([height/2, 0, 0])
-          resize(newsize=[height, depth, 0])
-          circle(height);
+          resize([height, depth, 0])
+            circle(height);
         }
         else {
           translate([0, -depth/2, 0])

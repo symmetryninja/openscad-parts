@@ -39,26 +39,27 @@
   module Tz(z) { translate([0, 0, z])children(); }
 
   // Rotate shorthand
-  module R(t=[0,0,0]){rotate(t) children();}
-  module Rx(x=90){rotate([x, 0, 0]) children();}
-  module Ry(y=90){rotate([0, y, 0]) children();}
-  module Rz(z=90){rotate([0, 0, z]) children();}
+  module R(t=[0,0,0]){ rotate(t) children(); }
+  module Rx(x=90) { rotate([x, 0, 0]) children(); }
+  module Ry(y=90) { rotate([0, y, 0]) children(); }
+  module Rz(z=90) { rotate([0, 0, z]) children(); }
 
   // Scale shorthand
-  module S(t=[0,0,0]){scale(t) children();}
-  module Sx(x=1){scale([x, 1, 1]) children();}
-  module Sy(y=1){scale([1, y, 1]) children();}
-  module Sz(z=1){scale([1, 1, z]) children();}
+  module S(t=[0,0,0]) { scale(t) children();}
+  module Sx(x=1) { scale([x, 1, 1]) children(); }
+  module Sy(y=1) { scale([1, y, 1]) children(); }
+  module Sz(z=1) { scale([1, 1, z]) children(); }
 
   // Resize shorthand
   module RS(t=[0,0,0]){resize(t) children();}
-  module RSx(x=90){resize([x, 0, 0]) children();}
-  module RSy(y=90){resize([0, y, 0]) children();}
-  module RSz(z=90){resize([0, 0, z]) children();}
+  module RSx(x=90) { resize([x, 0, 0]) children(); }
+  module RSy(y=90) { resize([0, y, 0]) children(); }
+  module RSz(z=90) { resize([0, 0, z]) children(); }
 
   // Diff/Union shorthand
-  module D() difference(){children(0); children([1:$children-1]);}
-  module U() children([0:$children-1]);
+  module D() { difference() { children(0); if($children>1) children([1:$children-1]); } }
+  module U() { union() { children(); } }
+  module H() { hull() { children();  } }
 
   // note the mirror by default retains the origonal object
   module Mx(retain=true) {mirror([1, 0, 0]) children(); if (retain) children();}
@@ -311,3 +312,29 @@
       }
     }
   }
+
+
+/* legacy for compatability */
+  module translateX(x) { Tx(x) children(); }
+  module translateY(y) { Ty(y) children(); }
+  module translateZ(z) { Tz(z) children(); }
+
+  // Rotate shorthand
+  module rotateX(x=90) { Rx(x) children(); }
+  module rotateY(y=90) { Ry(y) children(); }
+  module rotateZ(z=90) { Rz(z) children(); }
+
+  // Scale shorthand
+  module scaleX(x=1) { Sx(x) children(); }
+  module scaleY(y=1) { Sy(y) children(); }
+  module scaleZ(z=1) { Sz(z) children(); }
+
+  // Resize shorthand
+  module resizeX(x=90){  RSx(x) children(); }
+  module resizeY(y=90){ RSy(y) children(); }
+  module resizeZ(z=90){ RSz(z) children(); }
+
+  // note the mirror by default retains the origonal object
+  module mirrorX(retain=true) { Mx(retain=retain) children(); }
+  module mirrorY(retain=true) { My(retain=retain) children(); }
+  module mirrorZ(retain=true) { Mz(retain=retain) children(); }

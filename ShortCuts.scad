@@ -65,7 +65,7 @@ echo("===============");
 
 // primitives - 2D
 
-module sqr(x =10, y = 0, center = true)
+module Sq(x =10, y = 0, center = true)
 {
    if(y==0)
 		square([x, x], center = center); 
