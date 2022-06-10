@@ -10,6 +10,15 @@
     }
   }
 
+  module ccube_multi(size1=[10,10], size2=[20,20], h=20) {
+    hull() {
+      Tz(h/2 - 0.0005)
+      ccube(setZ(size1, 0.001));
+      Tz(-(h/2 - 0.0005))
+      ccube(setZ(size2, 0.001));
+    }
+  }
+
   // Flat-bezeled cube
   module ccube_bezel(size=[10,10,10], bezel=2, center=true){
     hull() {
