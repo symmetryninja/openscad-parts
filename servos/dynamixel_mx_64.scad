@@ -294,7 +294,6 @@ module dm_mx_64_chassis_cutout(for_shoulder=true) {
   dm_mx_64_chassis_bolt_x1=4;
   dm_mx_64_chassis_bolt_x2=dm_mx_64_chassis_bolt_x1 - 22; // 22
   dm_mx_64_chassis_bolt_x3=dm_mx_64_chassis_bolt_x1 - 44; // 44
-  dm_mx_64_chassis_bolt_x3=dm_mx_64_chassis_bolt_x1 - 44; // 44
   dm_mx_64_chassis_bolt_x4=dm_mx_64_chassis_bolt_x1 - 49; // 44
 
 module dm_mx_64_chassis_bolt_front() {
