@@ -60,6 +60,7 @@
   module D() { difference() { children(0); if($children>1) children([1:$children-1]); } }
   module U() { union() { children(); } }
   module H() { hull() { children();  } }
+  module I() { intersection() {children(); } }
 
   // note the mirror by default retains the origonal object
   module Mx(retain=true) {mirror([1, 0, 0]) children(); if (retain) children();}
