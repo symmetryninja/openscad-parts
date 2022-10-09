@@ -1,6 +1,7 @@
 # OpenSCAD parts
 
 ## Purpose
+
 This repo started out as a way to share code across my robotics projects and turned into something quite a lot more complex.
 
 It came about because I typically model my robots all in one scad file and I use scripting to render multiple seperate parts. Included in all of my model files are the non-3d printed parts, components, servos, batteries etc, this helps me build things to the right scale - even though it's kinda nuts.
@@ -9,6 +10,7 @@ It came about because I typically model my robots all in one scad file and I use
 
 1. Clone down the repo
 2. Add the repo to the OpenSCAD path [instructions here](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Libraries#Setting_OPENSCADPATH) you can use powershell:
+
     ```powershell
     # from https://www.tachytelic.net/2019/03/powershell-environment-variables/
     # in a non elevated shell
@@ -17,11 +19,13 @@ It came about because I typically model my robots all in one scad file and I use
     ```
 
 3. include the `sn_tools.scad` meta-import file like this:
-    ```c
+
+    ```c++
     include <sn_tools.scad>
 
     // your awesome code here
     ```
+
 4. Endlessly search through this tools code in the hope to find something useful
 5. Use the code.
 
@@ -105,7 +109,7 @@ progressive_hull_at_locations(locations = cube_offsets) csphere(d=8);
 
 I like beer, so buy me a beer if you want and I'm not responsible for how you use this code.
 
-```
+```text
 /* 
  * — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — — 
  * “THE BEER-WARE LICENSE” (Revision 42):
