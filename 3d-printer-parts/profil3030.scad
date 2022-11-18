@@ -17,6 +17,13 @@ module tslotmodel2(h=10){
 }
 // tslotmodel2();
 
+module angleBar5050x5(length=100) {
+  Tz(22.5)
+  ccube([length,50,5]);
+  Ty(-22.5)
+  ccube([length,5,50]);
+}
+
 module nutholder2(m=6,h=4.5){
 for(i=[0:2]){
 rotate([0,0,i* 360/6])cube([m+4,5.7,h],true);
