@@ -14,13 +14,13 @@
   function Z(input) = input[2];
 
   // add a value in a vector
-  function addX(input, X=0) =             [input[0] + X,  input[1],     input[2]];
-  function addXY(input, X=0, Y=0) =       [input[0] + X,  input[1] + Y,     input[2]];
-  function addXZ(input, X=0, Z=0) =       [input[0] + X,  input[1],     input[2] + Z];
-  function addY(input, Y=0) =             [input[0],      input[1] + Y, input[2]];
-  function addYZ(input, Y=0, Z=0) =       [input[0],      input[1] + Y, input[2] + Z];
-  function addZ(input, Z=0) =             [input[0],      input[1],     input[2] + Z];
-  function addXYZ(input, X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
+  function addX(input,    X=0) =             [input[0] + X,  input[1],     input[2]];
+  function addXY(input,   X=0, Y=0) =       [input[0] + X,  input[1] + Y,     input[2]];
+  function addXZ(input,   X=0, Z=0) =       [input[0] + X,  input[1],     input[2] + Z];
+  function addY(input,    Y=0) =             [input[0],      input[1] + Y, input[2]];
+  function addYZ(input,   Y=0, Z=0) =       [input[0],      input[1] + Y, input[2] + Z];
+  function addZ(input,    Z=0) =             [input[0],      input[1],     input[2] + Z];
+  function addXYZ(input,  X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
 
   // override a value in a vector
   function setX(input, X=0) =             [X,         input[1],   input[2]];
@@ -34,15 +34,18 @@
 // translate/rotate/scale/resize etc
   // Translate shorthand
   module T(t=[0,0,0]){translate(t)children(); }
-  module Tx(x) { translate([x, 0, 0])children(); }
-  module Ty(y) { translate([0, y, 0])children(); }
-  module Tz(z) { translate([0, 0, z])children(); }
+  module Tx(x) { T([x, 0, 0])children(); }
+  module Ty(y) { T([0, y, 0])children(); }
+  module Tz(z) { T([0, 0, z])children(); }
 
   // Rotate shorthand
   module R(t=[0,0,0]){ rotate(t) children(); }
   module Rx(x=90) { rotate([x, 0, 0]) children(); }
   module Ry(y=90) { rotate([0, y, 0]) children(); }
   module Rz(z=90) { rotate([0, 0, z]) children(); }
+
+  // Translate and rotate
+  module TR(t=[0,0,0], r=[0,0,0]) { T(t) R(r) children(); }
 
   // Scale shorthand
   module S(t=[0,0,0]) { scale(t) children();}
@@ -63,48 +66,43 @@
   module I() { intersection() {children(); } }
 
   // note the mirror by default retains the origonal object
-  module Mx(retain=true) {mirror([1, 0, 0]) children(); if (retain) children();}
-  module My(retain=true) {mirror([0, 1, 0]) children(); if (retain) children();}
-  module Mz(retain=true) {mirror([0, 0, 1]) children(); if (retain) children();}
+  module Mx(retain=true) { mirror([1, 0, 0]) children(); if (retain) children(); }
+  module My(retain=true) { mirror([0, 1, 0]) children(); if (retain) children(); }
+  module Mz(retain=true) { mirror([0, 0, 1]) children(); if (retain) children(); }
+
+  module Mxy(retain=true) { Mx(retain=retain) My(retain=retain) children(); }
+  module Mxz(retain=true) { Mx(retain=retain) Mz(retain=retain) children(); }
+  module Myz(retain=true) { My(retain=retain) Mz(retain=retain) children(); }
+  module Mxyz(retain=true) { Mx(retain=retain) My(retain=retain) Mz(retain=retain) children(); }
 
 
 // Autoplacement at corners
   module place_at_corners_xy(x, y) {
-    My()
-    Mx()
-    translate([x/2, y/2, 0]) children();
+    My() Mx() T([x/2, y/2, 0]) children();
   }
 
   module place_at_corners_xz(x, z) {
-    Mz()
-    Mx()
-    translate([x/2, 0, z/2]) children();
+    Mz() Mx() T([x/2, 0, z/2]) children();
   }
 
   module place_at_corners_yz(y, z) {
-    Mz()
-    My()
-    translate([0, y/2, z/2]) children();
+    Mz() My() T([0, y/2, z/2]) children();
   }
 
   module place_at_positions(positions = [[0,0,0], [1,1,1]]) {
     for (position = positions) {
-      translate(position) {
-        children();
-      }
+      T(position) children();
     }
   }
 
 // Weird hulling stuff i ended up making
   module slide_hull_X(amount = 10) {
     if ($children > 0) {
-      union() {
-        for ( child = [0:1:$children-1]) {
+      U() {
+        for ( item = [0:1:$children-1]) {
           hull() {
-            Tx(amount/2)
-              children(child);
-            Tx(-amount/2)
-              children(child);
+            Tx(amount/2) children(item);
+            Tx(-amount/2) children(item);
           }
         }
       }
@@ -116,13 +114,11 @@
 
   module slide_hull_Y(amount = 10) {  
     if ($children > 0) {
-      union() {
-        for ( child = [0:1:$children-1]) {
+      U() {
+        for ( item = [0:1:$children-1]) {
           hull() {
-            Ty(amount/2)
-              children(child);
-            Ty(-amount/2)
-              children(child);
+            Ty(amount/2) children(item);
+            Ty(-amount/2) children(item);
           }
         }
       }
@@ -134,13 +130,11 @@
 
   module slide_hull_Z(amount = 10) { 
     if ($children > 0) {
-      union() {
-        for ( child = [0:1:$children-1]) {
+      U() {
+        for ( item = [0:1:$children-1]) {
           hull() {
-            Tz(amount/2)
-              children(child);
-            Tz(-amount/2)
-              children(child);
+            Tz(amount/2) children(item);
+            Tz(-amount/2) children(item);
           }
         }
       }
@@ -158,12 +152,12 @@
     parts_offset = detail/$children;
 
     render() {
-      union() {
+      U() {
         //loop with the end chopped off - this is because the second to last item merges with the last item
         for(i = [0 : 1 : detail - 1]) {
           hull() {
             rotate([0, 0, movement * i]) {
-              translate([radius, 0, 0]) {
+              T([radius, 0, 0]) {
                 scale([
                   resize_axis[0]? resize_ration_from_scale(scales, i, resize_offset) : 1,
                   resize_axis[1]? resize_ration_from_scale(scales, i, resize_offset) : 1,
@@ -181,7 +175,7 @@
               }
             }
             rotate([0, 0, movement * (i + 1)]) {
-              translate([radius, 0, 0]) {
+              T([radius, 0, 0]) {
                 scale([
                   resize_axis[0]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                   resize_axis[1]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
@@ -208,17 +202,17 @@
   module progressive_rotate(scales=[1,2,3.8,14,5,6,4,3,2,1], radius = 300, angle=90, detail=100) {
     // work out the rotation amount per step
     movement=angle/detail;
-    union() {
+    U() {
       //loop with the end chopped off - this is because the second to last item merges with the last item
       for(i = [0 : 1 : detail - 1]) {
         hull() {
           rotate([0, 0, movement * i]) {
-            translate([radius, 0, 0]) {
+            T([radius, 0, 0]) {
             children(0);
             }
           }
           rotate([0, 0, movement * (i + 1)]) {
-            translate([radius, 0, 0]) {
+            T([radius, 0, 0]) {
             children(0);
             }
           }
@@ -232,11 +226,11 @@
     movement=distance/detail;
     resize_offset = detail/(len(scales));
 
-    union() {
+    U() {
       //loop with the end chopped off - this is because the second to last item merges with the last item
       for(i = [0 : 1 : detail - 1]) {
         hull() {
-          translate([i * movement,0,0]) { // move it
+          T([i * movement,0,0]) { // move it
             scale([ //scale it
                 resize_axis[0]? resize_ration_from_scale(scales, i, resize_offset) : 1,
                 resize_axis[1]? resize_ration_from_scale(scales, i, resize_offset) : 1,
@@ -244,7 +238,7 @@
             children(0);
             }
           }
-          translate([(i + 1) * movement,0,0]) {
+          T([(i + 1) * movement,0,0]) {
             scale([
                 resize_axis[0]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                 resize_axis[1]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
@@ -258,7 +252,6 @@
       }
     }
   }
-
 
   function resize_ration_from_scale(scales, i, resize_offset) = 
     find_scale_ratio(
@@ -279,12 +272,12 @@
   module progressive_hull(){
     if ($children > 1) {
       number_of_children = $children;
-      union() {
-        for ( child = [0:1:$children-1]) {
-          if (child + 1 < number_of_children) {
+      U() {
+        for ( item = [0:1:$children-1]) {
+          if (item + 1 < number_of_children) {
           hull(){
-              children(child);
-              children(child + 1);
+              children(item);
+              children(item + 1);
             }
           }
         }
@@ -301,19 +294,18 @@
     for (i = [0:location_count -1]) {
       if (i + 1 == location_count) {
           hull() {
-            translate(locations[i]) children();
-            if (close_end) translate(locations[0]) children();
+            T(locations[i]) children();
+            if (close_end) T(locations[0]) children();
           }
       }
       else {
         hull() {
-          translate(locations[i]) children();
-          translate(locations[i + 1]) children();
+          T(locations[i]) children();
+          T(locations[i + 1]) children();
         }
       }
     }
   }
-
 
 /* legacy for compatability */
   module translateX(x) { Tx(x) children(); }
@@ -331,7 +323,7 @@
   module scaleZ(z=1) { Sz(z) children(); }
 
   // Resize shorthand
-  module resizeX(x=90){  RSx(x) children(); }
+  module resizeX(x=90){ RSx(x) children(); }
   module resizeY(y=90){ RSy(y) children(); }
   module resizeZ(z=90){ RSz(z) children(); }
 

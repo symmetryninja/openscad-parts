@@ -390,6 +390,10 @@ module component_make_surface_mount_pins_with_clip(pins=4, pin_D = 0.8, pin_spac
   }
 }
 
+module component_make_teensy_41(with_pins=true) {
+  component_make_teensy_36(with_pins=with_pins);
+}
+
 module component_make_teensy_36(with_pins=true) {
   //board
   board_X = 61;
