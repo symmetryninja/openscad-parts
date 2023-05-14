@@ -15,7 +15,9 @@ if (is_undef(batch_rendering)) {
   // hexo_box_display();
   // projection() hexo_box_for_cut_3();
   // projection() hexo_box_for_cut_4();
-  projection() hexo_box_for_cut_10();
+  // projection() hexo_box_for_cut_10();
+
+  hexo_stand_for_cut();
 
 }
 
@@ -173,5 +175,47 @@ module hexo_box_bottom(h=6){
 module hexo_screws(d=3.1, h = 11) {
   place_at_positions(hb_screw_positions) {
     ccylinder(d=d, h = h);
+  }
+}
+
+module hexo_stand_side(positive=true, h = 10) {
+
+  {
+    D() {
+      U() {
+        progressive_hull() {
+          T([0,-20,21]) Ry(90) ccylinder(d=6, h=h);
+          T([0,-10,21]) Ry(90) ccylinder(d=6, h=h);
+          T([0,-3,10]) Ry(90) ccylinder(d=20, h=h);
+          T([0,-8,5]) Ry(90) ccylinder(d=10, h=h);
+          // T([0,-10,0]) Ry(90) ccylinder(d=6, h=h);
+          T([0,-10,-20]) Ry(90) ccylinder(d=6, h=h);
+          T([0,-15,-50]) Ry(90) ccylinder(d=16, h=h);
+          T([0,-20,-26]) Ry(90) ccylinder(d=16, h=h);
+          T([0,-40,-23]) Ry(90) ccylinder(d=10, h=h);
+          T([0,-90,-23]) Ry(90) ccylinder(d=10, h=h);
+        }
+      }
+      #U() {
+        if (positive) T([4.65,-73,-20.5]) Rz(0) ccube([50,18,5.1]);
+        else T([4.65,-73,-25.5]) Rz(0) ccube([50,18,5.1]);
+      }
+    }
+  }
+
+  // #ccube([120,172,36]);
+  
+}
+
+module hexo_stand() {
+//  T([10,90,-00])
+  Tx(36.5) Rz(-30) hexo_stand_side(positive=false);
+  Tx(-36.5) Rz(30) hexo_stand_side(positive=true);
+}
+
+module hexo_stand_for_cut() {
+  projection() {
+    T([22,0,0]) Ry(90) hexo_stand_side(positive=false);
+    T([-22,20,0]) Ry(90) hexo_stand_side(positive=true);
   }
 }
