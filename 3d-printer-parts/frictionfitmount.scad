@@ -11,7 +11,7 @@ module friction_fit_mount_3030_clip(depth=10) {
       children();
     }
 
-    #union() {
+    union() {
       // rail box
       ccube(setZ(ffm3030_space, depth +1));
 
