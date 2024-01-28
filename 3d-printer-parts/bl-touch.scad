@@ -75,7 +75,7 @@ module bl_touch(pin_h = 11) {
       Tz(-pin_h/2)
       ccylinder(h = pin_h + full_height, d = 2);
     }
-    #union() {
+    union() {
       bl_touch_screws();
     }
   }
