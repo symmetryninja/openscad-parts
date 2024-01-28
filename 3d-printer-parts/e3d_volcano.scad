@@ -123,7 +123,7 @@ e3d_volcano_height = 24;
   e3d_h_X = 44;
   e3d_h_Y = 80;
   e3d_h_Z = 44;
-
+  e3d_h_offset_X = 7.5;
   e3d_h_offset_Y = 11;
   e3d_h_offset_Z = - 9;
   
@@ -134,12 +134,10 @@ e3d_volcano_height = 24;
       e3d_volcano();
   }
 
-  module e3d_hermera_cutouts(screw_size = 3.2, height = 30) {
+  module e3d_hermera_cutouts(screw_size = 3.2, height = 80) {
     // 34sq, 3mm in from end
-    e3d_hermera_place()
-    translate([-52.5, 20.75, 0])
-    Ry(90)
-    make_drill_holes([34, 34, height], shaftD = screw_size);
+    e3d_hermera_place() 
+    translate([0,29,0]) Ry(90)  make_drill_holes([34, 34, height], shaftD = screw_size);
   }
 
   module e3d_hermera() {
@@ -148,7 +146,7 @@ e3d_volcano_height = 24;
   }
 
   module e3d_hermera_place() {
-    translate([7.5, 11, e3d_h_offset_Z]) {
+    translate([e3d_h_offset_X, e3d_h_offset_Y, e3d_h_offset_Z]) {
       children();
     }
   }
