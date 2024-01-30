@@ -7,7 +7,7 @@ module linear_rail_20mm(length=600, for_cutout = false, cutout_height = 30, bolt
 
   bolt_space = 60;
 
-  difference() {
+  D() {
     U(){
       if (!for_cutout) ccube([linear_rail_20mm_rail_X, linear_rail_20mm_rail_Y, length]);
     }
@@ -28,13 +28,17 @@ linear_rail_20mm_bearing_Y = 25.5;
 linear_rail_20mm_bearing_offset_Y = 4.88 + linear_rail_20mm_bearing_Y/2 - linear_rail_20mm_rail_Y/2;
 
 module linear_rail_20mm_bearing(for_cutout = false, cutout_height = 30) {
-  Ty(linear_rail_20mm_bearing_offset_Y) difference() {
+  Ty(linear_rail_20mm_bearing_offset_Y) D() {
     U() {
-      if (!for_cutout) ccube([linear_rail_20mm_bearing_X, linear_rail_20mm_bearing_Y, 76.2]);
+      ccube([linear_rail_20mm_bearing_X, linear_rail_20mm_bearing_Y, 76.2]);
+      if (for_cutout) {
+        Rx(90) makeBoxobjects(x= 32, y=35, inset=0) 
+        ccylinder(h=60, d=5);
+      }
     }
     U() {
-      Rx(90)
-      makeBoxobjects(x= 32, y=35, inset=0) {
+      if (!for_cutout) 
+      Rx(90) makeBoxobjects(x= 32, y=35, inset=0) {
         ccylinder(h=cutout_height, d=5);
       }
     }
