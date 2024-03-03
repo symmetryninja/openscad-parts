@@ -21,7 +21,7 @@ module stepper_nema_23(with_sprocket=false, for_cutout=false) {
   body_H = 82;
   total_H = shaft_H + body_H + balast_H;
   if (with_sprocket) {
-    Tz(total_H/2 - 23.2/2 + 8) silver() pulley_gt2_10mm_sprocket_26();
+    Tz(total_H/2 - 23.2/2 + 3) silver() pulley_gt2_10mm_sprocket_32();
   }
 
   // body height 82
@@ -108,6 +108,39 @@ module pulley_gt2_10mm_sprocket_26() {
       ccylinder(d = 8, h = nema23_stepper_sprocket_26T_total_H +1);
     }
   }
+}
 
+nema23_stepper_sprocket_32T_total_H = 21.1;
+nema23_stepper_sprocket_32T_D = 22.35;
 
+module pulley_gt2_10mm_sprocket_32() {
+  nema23_stepper_sprocket_32T_total_H = 23.2;
+  silver()
+  D() {
+    U(){
+      
+      offset_Z = nema23_stepper_sprocket_32T_total_H/2;
+
+      // bump 12.9 0.4
+      ccylinder(d = 12.9, h=nema23_stepper_sprocket_32T_total_H);
+
+      // hat 20 1
+      Tz(offset_Z - 0.4 - 0.5)
+      ccylinder(d = 25.6, h = 1);
+
+      // gear 15.85 11.1
+      Tz(offset_Z - 0.4 - 1 - 5.55)
+      ccylinder(d = nema23_stepper_sprocket_32T_D, h = 12.1);
+
+      // plate 20 1
+      Tz(offset_Z - 1.4 - 11.1 - 0.5)
+      ccylinder(d = 25.6, h = 1);
+
+      // lower_shaft 12.9 9.7
+
+    }
+    U(){
+      ccylinder(d = 8, h = nema23_stepper_sprocket_32T_total_H +1);
+    }
+  }
 }

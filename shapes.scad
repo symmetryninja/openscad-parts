@@ -96,18 +96,8 @@ module make_drill_holes(size=[50,50,50], shaftD=6, fn=$fn) {
 
 module makeBoxobjects(x= 50, y=50, inset=0) {
   //make 4 cylinders
-  positionOffsetX = (x-inset) /2;
-  positionOffsetY = (y-inset) /2;
-  render() {
-    translate([-positionOffsetX, -positionOffsetY, 0 ])
-      children();
-    translate([-positionOffsetX, positionOffsetY, 0 ])
-      children();
-    translate([positionOffsetX, -positionOffsetY, 0 ])
-      children();
-    translate([positionOffsetX, positionOffsetY, 0 ])
-      children();
-  }
+  Mx() My() translate([(x - inset) /2, (y - inset) /2, 0 ])
+    children();
 }
 
 module make_bevelled_box(size=[50,50,50], bevel=3) {
