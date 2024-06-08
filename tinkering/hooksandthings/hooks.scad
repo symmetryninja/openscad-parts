@@ -1,4 +1,4 @@
-  include <../../openscad-parts/tools.scad>
+include <sn_tools.scad>
 
 // bannister hook
 
@@ -22,7 +22,7 @@ hh_cutout_2_offset = [15.5, hh_cube_offset_Y, 0];
 headphone_hook();
 module headphone_hook() {
   $fn = 100;
-  difference() {
+  D() {
     hh_hook();
     #hh_cutout();
   }
@@ -30,28 +30,29 @@ module headphone_hook() {
 
 module hh_hook() {
   union() {
-    translate([hh_cube_offset_X, hh_cube_offset_Y, 0]) {
+    T([hh_cube_offset_X, hh_cube_offset_Y, 0]) {
       ccube ([hh_cube_size_X, hh_cube_size_Y,hh_hook_depth]);
     }
-    translate([40, -10, 0]) {
-      rotate([0, 0, 180]) {
+    T([40, 40, 0]) {
+      R([0, 0, 180]) {
         
-        difference() {
+        D() {
           rotate_extrude(angle = 180, convexity = 10) {
-            translate([22/2, 0, 0]) {
+            T([22/2, 0, 0]) {
               square(size=[20, hh_hook_depth], center=true);
             }
           }
-          translate([0,-0.01,0])
+          T([0,-0.01,0])
           rotate_extrude(angle = 180, convexity = 10) {
-            translate([15/2, 0, 0]) {
+            T([15/2, 0, 0]) {
               square(size=[15, hh_hook_depth + 1], center=true);
             }
           }
         }
       }
-      translate([18, 7, 0]) {
-        ccube([6, 15, hh_hook_depth]);
+      T([18, 2, 0]) ccube([6, 5, hh_hook_depth]);
+      T([-18, -10, 0]) {
+        ccube([6, 29, hh_hook_depth]);
       }
     }
   }
@@ -59,6 +60,6 @@ module hh_hook() {
 
 module hh_cutout() {
   ccube (hh_cutout_1);
-  translate(hh_cutout_2_offset)
+  T(hh_cutout_2_offset)
   ccube (hh_cutout_2);
 }

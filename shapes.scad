@@ -94,6 +94,12 @@ module make_drill_holes(size=[50,50,50], shaftD=6, fn=$fn) {
   makeRoundedBoxShafts(size=size, d=0, shaftD=shaftD);
 }
 
+module make_drill_holes_with_children(size=[50,50,50], inset=0) {
+  makeBoxobjects(x=size[0], y=size[1], inset=inset) {
+    children();
+  }
+}
+
 module makeBoxobjects(x= 50, y=50, inset=0) {
   //make 4 cylinders
   Mx() My() translate([(x - inset) /2, (y - inset) /2, 0 ])
