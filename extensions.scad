@@ -63,7 +63,7 @@
   module D() { difference() { children(0); if($children>1) children([1:$children-1]); } }
   module U() { union() { children(); } }
   module H() { hull() { children();  } }
-  module I() { intersection() {children(); } }
+  module I() { intersection() { children(); } }
 
   // note the mirror by default retains the origonal object
   module Mx(retain=true) { mirror([1, 0, 0]) children(); if (retain) children(); }
@@ -75,6 +75,9 @@
   module Myz(retain=true) { My(retain=retain) Mz(retain=retain) children(); }
   module Mxyz(retain=true) { Mx(retain=retain) My(retain=retain) Mz(retain=retain) children(); }
 
+  module Mtx(x=10, retain=true) { mirror([1, 0, 0]) Tx(x) children(); if (retain) Tx(x)children(); }
+  module Mty(y=10, retain=true) { mirror([0, 1, 0]) Ty(y) children(); if (retain) Ty(y)children(); }
+  module Mtz(z=10, retain=true) { mirror([0, 0, 1]) Tz(z) children(); if (retain) Tz(z)children(); }
 
 // Autoplacement at corners
   module place_at_corners_xy(x, y) {
