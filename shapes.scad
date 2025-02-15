@@ -6,7 +6,8 @@
       cube([d, d, d], center);
     }
     else {
-      cube(size, center);
+      // accounting for negative numbers
+      cube(all_positive(size), center);
     }
   }
 
@@ -57,52 +58,66 @@
       cylinder(r1 = d/2, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
     }
   }
-module makeRoundedBox_rotate_90_X(size=[50,50,50], d=6) {
-  newsize_X = size[0];
-  newsize_Y = size[2];
-  newsize_Z = size[1];
 
-  rotate([90, 0, 0])
-    makeRoundedBox(size=[newsize_X,newsize_Y,newsize_Z], d=d);
+
+module makeRoundedBox_rotate_90_X(size=[50,50,50], d=6) {
+  echo ("makeRoundedBox_rotate_90_X naming convention deprecated")
+  make_rounded_box_rotate_90_X(size, d);
 }
 
 module makeRoundedBox_rotate_90_Y(size=[50,50,50], d=6) {
-  newsize_X = size[2];
-  newsize_Y = size[1];
-  newsize_Z = size[0];
-
-  rotate([0, 90, 0])
-    makeRoundedBox(size=[newsize_X,newsize_Y,newsize_Z], d=d);
+  echo ("makeRoundedBox_rotate_90_Y naming convention deprecated")
+  make_rounded_box_rotate_90_Y(size, d);
 }
 
 module makeRoundedBox(size=[50,50,50], d=6) {
-  //make 4 cylinders
-  render() {
-    hull() {
-      makeRoundedBoxShafts(size=size, d=d, shaftD=d);
-    }
-  }
+  echo ("makeRoundedBox naming convention deprecated")
+  make_rounded_box(size, d);
 }
 
 module makeRoundedBoxShafts(size=[50,50,50], d=6, shaftD=6, fn=$fn) {
-  makeBoxobjects(x=size[0], y=size[1], inset=d) {
-      cylinder(d=shaftD, h=size[2], center=true, $fn=fn);
+  echo ("makeRoundedBoxShafts naming convention deprecated")
+  make_rounded_box_shafts(size, d, shaftD, fn);
+}
+
+module make_rounded_box_rotate_90_X(size=[50,50,50], d=6) {
+  rotate([90, 0, 0])
+    make_rounded_box(size=[size[0],size[2],size[1]], d=d);
+}
+
+module make_rounded_box_rotate_90_Y(size=[50,50,50], d=6) {
+  rotate([0, 90, 0])
+    make_rounded_box(size=[size[2],size[1],size[0]], d=d);
+}
+
+module make_rounded_box(size=[50,50,50], d=6) {
+  //make 4 cylinders
+  hull() {
+    make_rounded_box_shafts(size=size, inset=d, d=d);
   }
 }
 
-module make_drill_holes(size=[50,50,50], shaftD=6, fn=$fn) {
-  makeRoundedBoxShafts(size=size, d=0, shaftD=shaftD);
+module make_rounded_box_shafts(size=[50,50,50], inset=6, d=6, fn=$fn) {
+  make_box_objects(x=size[0], y=size[1], inset=inset) {
+      cylinder(d=d, h=size[2], center=true, $fn=fn);
+  }
+}
+
+module make_drill_holes(size=[50,50,50], d=6, fn=$fn) {
+  make_rounded_box_shafts(size=size, inset=0, d=d);
 }
 
 module make_drill_holes_with_children(size=[50,50,50], inset=0) {
-  makeBoxobjects(x=size[0], y=size[1], inset=inset) {
+  make_box_objects(x=size[0], y=size[1], inset=inset) {
     children();
   }
 }
 
-module makeBoxobjects(x= 50, y=50, inset=0) {
+module makeBoxobjects(x = 50, y = 50, inset = 0) { // for backwards compatibility
+}
+module make_box_objects(x = 50, y = 50, inset = 0) {
   //make 4 cylinders
-  Mx() My() translate([(x - inset) /2, (y - inset) /2, 0 ])
+  Mtxy((x - inset) /2, (y - inset) /2)
     children();
 }
 
@@ -132,34 +147,34 @@ module make_sphered_box(size=[50,50,50], d=6) {
   y = size[1]/2 - d/2;
   z = size[2]/2 - d/2;
   hull() {
-    translate([-x, y, z]) sphere(d=d);
-    translate([-x,-y, z]) sphere(d=d);
-    translate([ x,-y, z]) sphere(d=d);
-    translate([ x, y, z]) sphere(d=d);
+    T([-x, y, z]) sphere(d=d);
+    T([-x,-y, z]) sphere(d=d);
+    T([ x,-y, z]) sphere(d=d);
+    T([ x, y, z]) sphere(d=d);
 
-    translate([-x, y,-z]) sphere(d=d);
-    translate([-x,-y,-z]) sphere(d=d);
-    translate([ x,-y,-z]) sphere(d=d);
-    translate([ x, y,-z]) sphere(d=d);
+    T([-x, y,-z]) sphere(d=d);
+    T([-x,-y,-z]) sphere(d=d);
+    T([ x,-y,-z]) sphere(d=d);
+    T([ x, y,-z]) sphere(d=d);
   }
 }
 
 module makeRoundedRhombus(positionX, positionY, roundedBoxD, centerOffsetX, retainerH) {
   hull() {
     //back1
-    translate([positionX - centerOffsetX, positionY/2, 0]) {
+    T([positionX - centerOffsetX, positionY/2, 0]) {
       cylinder(h = retainerH, d = roundedBoxD, center=true);
     }
     //back2
-    translate([-positionX, -positionY/2, 0]) {
+    T([-positionX, -positionY/2, 0]) {
       cylinder(h = retainerH, d = roundedBoxD, center=true);
     }
     //front1
-    translate([positionX, -positionY/2, 0]) {
+    T([positionX, -positionY/2, 0]) {
       cylinder(h = retainerH, d = roundedBoxD, center=true);
     }
     //front2
-    translate([-(positionX - centerOffsetX), positionY/2, 0]) {
+    T([-(positionX - centerOffsetX), positionY/2, 0]) {
       cylinder(h = retainerH, d = roundedBoxD, center=true);
     }
   }
@@ -203,13 +218,13 @@ module make_round_triangle_270(size = [30, 30, 5], d = 6) {
 module make_round_triangle(size = [30, 30, 5], d = 6, offset_rotation_Z = 0) {
   rotate([0,0,offset_rotation_Z]) {
     hull() {
-      translate([size[0]/2, size[1]/2, 0]) {
+      T([size[0]/2, size[1]/2, 0]) {
         cylinder(d=d, h=size[2], center = true);
       }
-      translate([-size[0]/2, size[1]/2, 0]) {
+      T([-size[0]/2, size[1]/2, 0]) {
         cylinder(d=d, h=size[2], center = true);
       }
-      translate([0, -size[1]/2, 0]) {
+      T([0, -size[1]/2, 0]) {
         cylinder(d=d, h=size[2], center = true);
       }
     }
@@ -222,9 +237,9 @@ module make_rhombus(size=[20,20,20], long_side=5, rotate_z=0) {
   tri_Z = size[2];
   rotate([0,0,rotate_z]) {
     hull() {
-      translate([-size[0]/2,0,0])
+      T([-size[0]/2,0,0])
         make_triangle(size = [tri_X, tri_Y, tri_Z]);
-      translate([size[0]/2,0,0])
+      T([size[0]/2,0,0])
         make_triangle(size = [tri_X, tri_Y, tri_Z]);
     }
   }
@@ -246,12 +261,12 @@ module make_pie_slice(d=50, h = 50, angle=45) {
     cylinder(d = d, h = h, center = true);
     union() {
       rotate([0,0,angle/2]) {
-        translate([cube_X/2,0,0]) {
+        T([cube_X/2,0,0]) {
           cube([cube_X, cube_Y, cube_Z], center = true);
         }
       }
       rotate([0,0,-angle/2]) {
-        translate([-cube_X/2,0,0]) {
+        T([-cube_X/2,0,0]) {
           cube([cube_X, cube_Y, cube_Z], center = true);
         }
       }
@@ -261,7 +276,7 @@ module make_pie_slice(d=50, h = 50, angle=45) {
 
 module torus(part_D=2, D = 4) {
   rotate_extrude(convexity = 10) {
-    translate([D/2, 0, 0]) {
+    T([D/2, 0, 0]) {
       circle(r = part_D/2, $fn = 100);
     }
   }

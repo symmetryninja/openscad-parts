@@ -7,6 +7,9 @@
 // Some math functions
   function sqr(value_to_square) = value_to_square * value_to_square;
 
+// make an xyz array positive
+  function all_positive(coordinate) = [sqrt(sqr(X(coordinate))), sqrt(sqr(Y(coordinate))), sqrt(sqr(Z(coordinate)))];
+
 // Vector manipulation shortcuts.
   // vector getters
   function X(input) = input[0];
@@ -63,7 +66,7 @@
   module D() { difference() { children(0); if($children>1) children([1:$children-1]); } }
   module U() { union() { children(); } }
   module H() { hull() { children();  } }
-  module I() { intersection() { children(); } }
+  module I() { intersection() { children(0); if($children>1) children([1:$children-1]); } }
 
   // note the mirror by default retains the origonal object
   module Mx(retain=true) { mirror([1, 0, 0]) children(); if (retain) children(); }
@@ -74,6 +77,11 @@
   module Mxz(retain=true) { Mx(retain=retain) Mz(retain=retain) children(); }
   module Myz(retain=true) { My(retain=retain) Mz(retain=retain) children(); }
   module Mxyz(retain=true) { Mx(retain=retain) My(retain=retain) Mz(retain=retain) children(); }
+
+  module Mtxy(x = 10, y = 10, retain=true) { Mxy(retain=retain) T([x, y, 0]) children(); }
+  module Mtxz(x = 10, z = 10, retain=true) { Mxz(retain=retain) T([x, 0, z]) children(); }
+  module Mtyz(y = 10, z = 10, retain=true) { Myz(retain=retain) T([0, y, z]) children(); }
+  module Mtxyz(x = 10, y = 10, z = 10, retain=true) { Mxyz(retain=retain) T([x, y, z]) children(); }
 
   module Mtx(x=10, retain=true) { mirror([1, 0, 0]) Tx(x) children(); if (retain) Tx(x)children(); }
   module Mty(y=10, retain=true) { mirror([0, 1, 0]) Ty(y) children(); if (retain) Ty(y)children(); }
