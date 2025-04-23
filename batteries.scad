@@ -1,86 +1,86 @@
 
 /****************** 18650 */
-  18650_batteryH = 65;
-  18650_batteryD = 18.4;
+  battery_18650_H = 65;
+  battery_18650_D = 18.4;
 
-  18650CaseLength = 76.60;
-  18650CaseWidth = 39.92;
-  18650CaseHeight = 15.24;
-  18650CaseEndThickness = 3.6;
-  18650CaseSideThickness = 2.2;
-  18650CaseBaseThickness = 1.2;
-  18650CaseSubSpaceZ = 7;
-  18650CaseSubSpacex = 35;
-  18650CaseScrewOffsetX = 10.7;
-  18650CaseScrewOffsetZ = 5;
-  18650CaseBatteryGapWidth = 1;
-  18650CaseCutoutWidth = 8.1;
-  18650TerminalX = 5;
-  18650TerminalY = 7;
-  18650TerminalZ = 0.4;
-  18650CaseHeightWithBattery = 19.2;
+  battery_18650_case_length = 76.60;
+  battery_18650_case_width = 39.92;
+  battery_18650_case_height = 15.24;
+  battery_18650_case_end_thickness = 3.6;
+  battery_18650_case_side_thickness = 2.2;
+  battery_18650_case_base_thickness = 1.2;
+  battery_18650_case_sub_space_Z = 7;
+  battery_18650_case_sub_space_X = 35;
+  battery_18650_case_screw_offset_X = 10.7;
+  battery_18650_case_screw_offset_Z = 5;
+  battery_18650_case_battery_gap_width = 1;
+  battery_18650_case_cutout_width = 8.1;
+  battery_18650_case_terminal_X = 5;
+  battery_18650_case_terminal_Y = 7;
+  battery_18650_case_terminal_Z = 0.4;
+  battery_18650_case_heightWithBattery = 19.2;
 
-  18650_clip_thickness = 3;
-  18650_clip_size_space_X = 35;
-  18650_clip_size_space_Y = 39;
-  18650_clip_size_space_Z_cutout = 3.4;
-  18650_clip_size_space_Z = 19;
+  battery_18650_clip_thickness = 3;
+  battery_18650_clip_size_space_X = 35;
+  battery_18650_clip_size_space_Y = 39;
+  battery_18650_clip_size_space_Z_cutout = 3.4;
+  battery_18650_clip_size_space_Z = 19;
 
-  18650_clip_size_X = 18650_clip_size_space_X;
-  18650_clip_size_Y = 18650_clip_size_space_Y + 18650_clip_thickness * 2;
-  18650_clip_size_Z = 18650_clip_size_space_Z + 18650_clip_thickness + 3;
-  18650_clip_size = [18650_clip_size_X, 18650_clip_size_Y, 18650_clip_size_Z];
+  battery_18650_clip_size_X = battery_18650_clip_size_space_X;
+  battery_18650_clip_size_Y = battery_18650_clip_size_space_Y + battery_18650_clip_thickness * 2;
+  battery_18650_clip_size_Z = battery_18650_clip_size_space_Z + battery_18650_clip_thickness + 3;
+  battery_18650_clip_size = [battery_18650_clip_size_X, battery_18650_clip_size_Y, battery_18650_clip_size_Z];
 
-  function 18650DualCaseTerminalX() = 18650TerminalX;
-  function 18650DualCaseTerminalY() = 18650TerminalY;
-  function 18650DualCaseTerminalZ() = 18650TerminalZ;
+  function BatteryBattery18650DualCaseTerminalX() = battery_18650_case_terminal_X;
+  function BatteryBattery18650DualCaseTerminalY() = battery_18650_case_terminal_Y;
+  function BatteryBattery18650DualCaseTerminalZ() = battery_18650_case_terminal_Z;
 
 
-  function 18650DualCaseHeight() = 18650CaseHeightWithBattery;
-  function 18650DualCaseWidth() = 18650CaseWidth;
-  function 18650DualCaseLength() = 18650CaseLength;
-  function 18650DualCaseScrewOffsetX() = 18650CaseLength/2 - 18650CaseScrewOffsetX;
-  function 18650DualCaseScrewOffsetZ() = 16/2 - (16-18650CaseScrewOffsetZ);
+  function Battery18650DualCaseHeight() = battery_18650_case_heightWithBattery;
+  function Battery18650DualCaseWidth() = battery_18650_case_width;
+  function Battery18650DualCaseLength() = battery_18650_case_length;
+  function Battery18650DualCaseScrewOffsetX() = battery_18650_case_length/2 - battery_18650_case_screw_offset_X;
+  function Battery18650DualCaseScrewOffsetZ() = 16/2 - (16-battery_18650_case_screw_offset_Z);
 
   module battery_holder_dual_18650_bolts(withHexBlank=false, hexBlankH=10) {
-    translate([18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+    translate([Battery18650DualCaseScrewOffsetX(), 0, Battery18650DualCaseScrewOffsetZ()])
       screw16M3ButtonOversize(withHexBlank=withHexBlank, hexBlankH=hexBlankH);
-    translate([-18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+    translate([-Battery18650DualCaseScrewOffsetX(), 0, Battery18650DualCaseScrewOffsetZ()])
       screw16M3ButtonOversize(withHexBlank=withHexBlank, hexBlankH=hexBlankH);
   }
 
   module battery_holder_dual_18650_part() {
-    translate([18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+    translate([Battery18650DualCaseScrewOffsetX(), 0, Battery18650DualCaseScrewOffsetZ()])
       children();
-    translate([-18650DualCaseScrewOffsetX(), 0, 18650DualCaseScrewOffsetZ()])
+    translate([-Battery18650DualCaseScrewOffsetX(), 0, Battery18650DualCaseScrewOffsetZ()])
       children();
   }
 
   module battery_holder_dual_18650(withBatteries=true) {
     black()
-    translate([0,0,18650CaseHeight/2])
+    translate([0,0,battery_18650_case_height/2])
     difference() {
       hull() {
         //make the bottom box
-        translate([0,0,(18650CaseHeight - 18650CaseSubSpaceZ)/2 - (18650CaseHeight/2)]) {
-          cube([18650CaseLength, 18650CaseWidth, 18650CaseHeight - 18650CaseSubSpaceZ], center=true);
+        translate([0,0,(battery_18650_case_height - battery_18650_case_sub_space_Z)/2 - (battery_18650_case_height/2)]) {
+          cube([battery_18650_case_length, battery_18650_case_width, battery_18650_case_height - battery_18650_case_sub_space_Z], center=true);
         }
 
         //make the topbox
-        translate([0,0,18650CaseHeight/2 + 0.5]) {
-          cube([18650CaseLength, 18650CaseSubSpacex, 1], center=true);
+        translate([0,0,battery_18650_case_height/2 + 0.5]) {
+          cube([battery_18650_case_length, battery_18650_case_sub_space_X, 1], center=true);
         }
       }
       union() {
         //box cutout
         translate([0,0,1.2])
-          cube([18650CaseLength - (18650CaseEndThickness * 2), 18650CaseWidth - (18650CaseSideThickness * 2), 18650CaseHeight], center=true);
+          cube([battery_18650_case_length - (battery_18650_case_end_thickness * 2), battery_18650_case_width - (battery_18650_case_side_thickness * 2), battery_18650_case_height], center=true);
         //side cutout 1
-        translate([0,18650CaseWidth/3,0])
-          cube([18650CaseLength - (18650CaseEndThickness * 2), 18650CaseCutoutWidth, 18650CaseHeight * 2], center=true);
+        translate([0,battery_18650_case_width/3,0])
+          cube([battery_18650_case_length - (battery_18650_case_end_thickness * 2), battery_18650_case_cutout_width, battery_18650_case_height * 2], center=true);
         //side cutout 2
-        translate([0,-18650CaseWidth/3,0])
-          cube([18650CaseLength - (18650CaseEndThickness * 2), 18650CaseCutoutWidth, 18650CaseHeight * 2], center=true);
+        translate([0,-battery_18650_case_width/3,0])
+          cube([battery_18650_case_length - (battery_18650_case_end_thickness * 2), battery_18650_case_cutout_width, battery_18650_case_height * 2], center=true);
         //make the screws
         battery_holder_dual_18650_bolts();
       }
@@ -88,8 +88,8 @@
 
 
     //make the batteries if we want them
-    batteryOffsetY = (18650_batteryD / 2 + 18650CaseBatteryGapWidth/2);
-    batteryOffsetZ = 18650_batteryD/2 + (18650CaseHeightWithBattery - 18650_batteryD);
+    batteryOffsetY = (battery_18650_D / 2 + battery_18650_case_battery_gap_width/2);
+    batteryOffsetZ = battery_18650_D/2 + (battery_18650_case_heightWithBattery - battery_18650_D);
     if (withBatteries) {
       red()
       translate([0,0,batteryOffsetZ]) {
@@ -104,22 +104,22 @@
   }
 
   module battery_18650() {
-    cylinder(h=18650_batteryH, d=18650_batteryD, center=true);
+    cylinder(h=battery_18650_H, d=battery_18650_D, center=true);
   }
 
-  module battery_18650_retainer_clip(18650_clip_size_space_Y = 39) {
+  module battery_18650_retainer_clip(battery_18650_clip_size_space_Y = 39) {
     difference() {
-      ccube([18650_clip_size_space_X, 18650_clip_size_space_Y + 18650_clip_thickness * 2, 18650_clip_size_space_Z + 18650_clip_thickness + 3]);
-      #battery_18650_retainer_clip_cutouts(18650_clip_size_space_Y);
+      ccube([battery_18650_clip_size_space_X, battery_18650_clip_size_space_Y + battery_18650_clip_thickness * 2, battery_18650_clip_size_space_Z + battery_18650_clip_thickness + 3]);
+      #battery_18650_retainer_clip_cutouts(battery_18650_clip_size_space_Y);
     }
   }
 
-  module battery_18650_retainer_clip_cutouts(18650_clip_size_space_Y) {
-    Tz(-(18650_clip_thickness/2 + 0.01) + 1 ) {
-      ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y, 18650_clip_size_space_Z ]);
+  module battery_18650_retainer_clip_cutouts(battery_18650_clip_size_space_Y) {
+    Tz(-(battery_18650_clip_thickness/2 + 0.01) + 1 ) {
+      ccube([battery_18650_clip_size_space_X + 0.1, battery_18650_clip_size_space_Y, battery_18650_clip_size_space_Z ]);
     }
-    Tz(-(18650_clip_size_Z/2 - 18650_clip_size_space_Z_cutout / 2 + 0.01)) {
-      ccube([18650_clip_size_space_X + 0.1, 18650_clip_size_space_Y - 6, 18650_clip_size_space_Z_cutout + 0.02]);
+    Tz(-(battery_18650_clip_size_Z/2 - battery_18650_clip_size_space_Z_cutout / 2 + 0.01)) {
+      ccube([battery_18650_clip_size_space_X + 0.1, battery_18650_clip_size_space_Y - 6, battery_18650_clip_size_space_Z_cutout + 0.02]);
     }
   }
 

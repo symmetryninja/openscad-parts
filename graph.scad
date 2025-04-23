@@ -13,12 +13,12 @@ e = 2.718281828;
 
 module sineWave(){
     linear_extrude(height=5)
-    2dgraph([-50, 50], 3, steps=50);
+    graph2d([-50, 50], 3, steps=50);
 }
 
 module  parabola (){
     linear_extrude(height=5)
-    2dgraph([-50, 50], 6, steps=40);
+    graph2d([-50, 50], 6, steps=40);
 }
 
 /* Ellipsoid - use a cartesion equation for a half ellipse, 
@@ -27,7 +27,7 @@ then rotate extrude it */
 module ellipsoid(){
     rotate_extrude(convexity=10, $fn=100) 
     rotate([0, 0, -90]) 
-    2dgraph([-50, 50], 3, steps=100);
+    graph2d([-50, 50], 3, steps=100);
 }
 
 /*************************
@@ -37,19 +37,19 @@ module ellipsoid(){
 
 module rose(){
     scale([20, 20, 20]) linear_extrude(height=0.15)
-    2dgraph([0, 720], 0.1, steps=160, polar=true);
+    graph2d([0, 720], 0.1, steps=160, polar=true);
 }
 
 /* Archimedes spiral */
 module archimedesSpiral(){
     scale([0.02, 0.02, 0.02]) linear_extrude(height=150)
-    2dgraph([0, 360*3], 50, steps=100, polar=true);
+    graph2d([0, 360*3], 50, steps=100, polar=true);
 }
 
 /* Golden spiral */
 module goldenSpiral(){
     linear_extrude(height=50)
-    2dgraph([0, 7*180], 1, steps=300, polar=true);
+    graph2d([0, 7*180], 1, steps=300, polar=true);
 }
 
 /**************************
@@ -58,7 +58,7 @@ module goldenSpiral(){
 /* 9-pointed star */
 module ninePointedStar(s,h){
     scale(s) linear_extrude(height=h)
-    2dgraph([10, 1450], 0.1, steps=9, parametric=true);
+    graph2d([10, 1450], 0.1, steps=9, parametric=true);
 }
 
 /*************************/
@@ -115,7 +115,7 @@ module nextPolygon(x1, y1, x2, y2, x3, y3, th) {
     }
 }
 
-module 2dgraph(bounds=[-10,10], th=2, steps=10, polar=false, parametric=false) {
+module graph2d(bounds=[-10,10], th=2, steps=10, polar=false, parametric=false) {
 
     step = (bounds[1]-bounds[0])/steps;
     union() {
