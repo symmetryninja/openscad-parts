@@ -110,7 +110,7 @@ module make_power_supply_bucky_5a() {
 }
 
 module make_power_supply_bucky_5a_screws(height = 5, screw_diameter = 3.5) {
-  make_drill_holes([31.8, 59.9, height], shaftD = screw_diameter);
+  make_drill_holes([31.8, 59.9, height], d = screw_diameter);
 }
 
 

@@ -137,7 +137,7 @@ e3d_volcano_height = 24;
   module e3d_hermera_cutouts(screw_size = 3.2, height = 80) {
     // 34sq, 3mm in from end
     e3d_hermera_place() 
-    translate([0,29,0]) Ry(90)  make_drill_holes([34, 34, height], shaftD = screw_size);
+    translate([0,29,0]) Ry(90)  make_drill_holes([34, 34, height], d = screw_size);
   }
 
   module e3d_hermera() {

@@ -38,23 +38,23 @@ module stepper_nema_23(with_sprocket=false, for_cutout=false) {
        if (for_cutout) {
           // bolts 9.9d 47 square
           Tz(total_H/2 - shaft_H -1.6 - body_H /2 )
-          makeRoundedBoxShafts(size=[47,47,body_H + 30], d=0, shaftD=5.5);
+          make_rounded_box_shafts(size=[47,47,body_H + 30], d=0, shaft_d=5.5);
        }
     }
     U() {
        if (!for_cutout) {
         // bolts 9.9d 47 square
-        Tz(total_H/2 - shaft_H -1.6 - body_H /2 ) makeRoundedBoxShafts(size=[47,47,body_H + 3], d=0, shaftD=4.9);
+        Tz(total_H/2 - shaft_H -1.6 - body_H /2 ) make_rounded_box_shafts(size=[47,47,body_H + 3], d=0, shaft_d=4.9);
 
         // base cutout 8.6
-        Tz(total_H/2 - shaft_H -1.6 - body_H /2 -1.51) makeRoundedBoxShafts(size=[47,47,body_H - 3], d=-7, shaftD=17.2);
+        Tz(total_H/2 - shaft_H -1.6 - body_H /2 -1.51) make_rounded_box_shafts(size=[47,47,body_H - 3], d=-7, shaft_d=17.2);
        }
     }
   }
 }
 
 module stepper_nema_23_shafts(h=20) {
-  makeRoundedBoxShafts(size=[47,47,h + 3], d=0, shaftD=4.9);
+  make_rounded_box_shafts(size=[47,47,h + 3], d=0, shaft_d=4.9);
 }
 module pulley_gt2_wheel_cutout(cutout_depth = 5, offset_X = 20, offset_Y = 20) {
   ccylinder( h = gt2_wheel_height + 1.6, d = gt2_wheel_outer_d + 2);

@@ -75,9 +75,9 @@ module makeRoundedBox(size=[50,50,50], d=6) {
   make_rounded_box(size, d);
 }
 
-module makeRoundedBoxShafts(size=[50,50,50], d=6, shaftD=6, fn=$fn) {
+module makeRoundedBoxShafts(size=[50,50,50], d=6, shaft_d=6, fn=$fn) {
   echo ("makeRoundedBoxShafts naming convention deprecated")
-  make_rounded_box_shafts(size, d, shaftD, fn);
+  make_rounded_box_shafts(size, d, shaft_d, fn);
 }
 
 module make_rounded_box_rotate_90_X(size=[50,50,50], d=6) {
