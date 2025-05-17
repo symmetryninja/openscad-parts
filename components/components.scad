@@ -1,3 +1,58 @@
+module component_mini_power_switch(cutout_oversize = 0, for_cutout=false) {
+  U() {
+    if (!for_cutout) {
+      // main box
+      black() ccube([8 + cutout_oversize,8 + cutout_oversize,8 + cutout_oversize]);
+
+      // clicker-outcrop
+      blue() Tz(5) ccube([4,4,8]);
+
+      // pins
+      Mtxy(3, 2.4) Tz(-3) ccylinder(d=1, h = 8);
+      Mty(2.4) Tz(-3) ccylinder(d=1, h = 8);
+    }
+    else {
+      // cutout
+      ccube([8 + cutout_oversize,8 + cutout_oversize,16]);
+    }
+  }
+
+}
+
+module component_rocker_power_switch(cutout_oversize = 0) {
+  U() {
+    blue() T([5,0,-0.5]) ccylinder(d = 1.8, h = 3);
+    black() {
+      // rocker
+      Tz(0.5) D() {
+        csphere(d=17);
+        T([5,0,25]) rotateX(90) ccylinder(d = 50, h=20);
+      }
+      // dome
+      hull(){
+        ccylinder(d=18, h = 0.5);
+        Tz(-2) ccylinder(d=23, h = 0.5);
+      }
+      // shellcyl
+      D() {
+        Tz(-3.7) ccylinder(d = 21, h = 5.5);
+        Mx() T([11, 0, -4]) ccube([4, 15, 6]);
+      }
+      // boxbase
+      Tz(-9.6)
+      ccube([17, 12, 11]);
+      // pins
+      Tz(-19)
+      ccube([15,5,8]);
+      // clips
+      progressive_hull() {
+        Tz(-2) ccube([20 + cutout_oversize, 5, 0.5]);
+        Tz(-5) ccube([23, 5, 0.5]);
+        Tz(-14.5) ccube([17 + cutout_oversize, 5, 0.5]);
+      }
+    };
+  }
+}
 
 module component_make_t0_220_reg() {
   box_over_offset_X = 0.8;

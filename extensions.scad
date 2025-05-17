@@ -17,22 +17,31 @@
   function Z(input) = input[2];
 
   // add a value in a vector
-  function addX(input,    X=0) =             [input[0] + X,  input[1],     input[2]];
-  function addXY(input,   X=0, Y=0) =       [input[0] + X,  input[1] + Y,     input[2]];
-  function addXZ(input,   X=0, Z=0) =       [input[0] + X,  input[1],     input[2] + Z];
-  function addY(input,    Y=0) =             [input[0],      input[1] + Y, input[2]];
-  function addYZ(input,   Y=0, Z=0) =       [input[0],      input[1] + Y, input[2] + Z];
-  function addZ(input,    Z=0) =             [input[0],      input[1],     input[2] + Z];
-  function addXYZ(input,  X=0, Y=0, Z=0) = [input[0] + X,  input[1] + Y, input[2] + Z];
+  function addX(input,    X=0) =              [input[0] + X,  input[1],     input[2]];
+  function addXY(input,   X=0, Y=0) =         [input[0] + X,  input[1] + Y,     input[2]];
+  function addXZ(input,   X=0, Z=0) =         [input[0] + X,  input[1],     input[2] + Z];
+  function addY(input,    Y=0) =              [input[0],      input[1] + Y, input[2]];
+  function addYZ(input,   Y=0, Z=0) =         [input[0],      input[1] + Y, input[2] + Z];
+  function addZ(input,    Z=0) =              [input[0],      input[1],     input[2] + Z];
+  function addXYZ(input,  X=0, Y=0, Z=0) =    [input[0] + X,  input[1] + Y, input[2] + Z];
+
+  // invert a value in a vector
+  function invX(input) =                      [input[0] * -1,  input[1],     input[2]];
+  function invXY(input) =                     [input[0] * -1,  input[1] * -1,input[2]];
+  function invXZ(input) =                     [input[0] * -1,  input[1],     input[2] * -1];
+  function invY(input) =                      [input[0],       input[1] * -1,input[2]];
+  function invYZ(input) =                     [input[0],       input[1] * -1,input[2] * -1];
+  function invZ(input) =                      [input[0],       input[1],     input[2] * -1];
+  function invXYZ(input) =                    [input[0] * -1,  input[1] * -1,input[2] * -1];
 
   // override a value in a vector
-  function setX(input, X=0) =             [X,         input[1],   input[2]];
-  function setXY(input, X=0, Y=0) =       [X,         Y,   input[2]];
-  function setXZ(input, X=0, Z=0) =       [X,         input[1],   Z];
-  function setY(input, Y=0) =             [input[0],  Y,          input[2]];
-  function setYZ(input, Y=0, Z=0) =       [input[0],  Y,          Z];
-  function setZ(input, Z=0) =             [input[0],  input[1],   Z];
-  function setXYZ(input, X=0, Y=0, Z=0) = [X,Y,Z];
+  function setX(input, X=0) =                 [X,         input[1],   input[2]];
+  function setXY(input, X=0, Y=0) =           [X,         Y,   input[2]];
+  function setXZ(input, X=0, Z=0) =           [X,         input[1],   Z];
+  function setY(input, Y=0) =                 [input[0],  Y,          input[2]];
+  function setYZ(input, Y=0, Z=0) =           [input[0],  Y,          Z];
+  function setZ(input, Z=0) =                 [input[0],  input[1],   Z];
+  function setXYZ(input, X=0, Y=0, Z=0) =     [X,Y,Z];
 
 // translate/rotate/scale/resize etc
   // Translate shorthand
@@ -111,7 +120,7 @@
     if ($children > 0) {
       U() {
         for ( item = [0:1:$children-1]) {
-          hull() {
+          H() {
             Tx(amount/2) children(item);
             Tx(-amount/2) children(item);
           }
@@ -127,7 +136,7 @@
     if ($children > 0) {
       U() {
         for ( item = [0:1:$children-1]) {
-          hull() {
+          H() {
             Ty(amount/2) children(item);
             Ty(-amount/2) children(item);
           }
@@ -143,7 +152,7 @@
     if ($children > 0) {
       U() {
         for ( item = [0:1:$children-1]) {
-          hull() {
+          H() {
             Tz(amount/2) children(item);
             Tz(-amount/2) children(item);
           }
@@ -166,8 +175,8 @@
       U() {
         //loop with the end chopped off - this is because the second to last item merges with the last item
         for(i = [0 : 1 : detail - 1]) {
-          hull() {
-            rotate([0, 0, movement * i]) {
+          H() {
+            R([0, 0, movement * i]) {
               T([radius, 0, 0]) {
                 scale([
                   resize_axis[0]? resize_ration_from_scale(scales, i, resize_offset) : 1,
@@ -187,7 +196,7 @@
             }
             rotate([0, 0, movement * (i + 1)]) {
               T([radius, 0, 0]) {
-                scale([
+                S([
                   resize_axis[0]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                   resize_axis[1]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                   resize_axis[2]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1]) {
@@ -216,7 +225,7 @@
     U() {
       //loop with the end chopped off - this is because the second to last item merges with the last item
       for(i = [0 : 1 : detail - 1]) {
-        hull() {
+        H() {
           rotate([0, 0, movement * i]) {
             T([radius, 0, 0]) {
             children(0);
@@ -240,9 +249,9 @@
     U() {
       //loop with the end chopped off - this is because the second to last item merges with the last item
       for(i = [0 : 1 : detail - 1]) {
-        hull() {
+        H() {
           T([i * movement,0,0]) { // move it
-            scale([ //scale it
+            S([ //scale it
                 resize_axis[0]? resize_ration_from_scale(scales, i, resize_offset) : 1,
                 resize_axis[1]? resize_ration_from_scale(scales, i, resize_offset) : 1,
                 resize_axis[2]? resize_ration_from_scale(scales, i, resize_offset) : 1]) {
@@ -250,7 +259,7 @@
             }
           }
           T([(i + 1) * movement,0,0]) {
-            scale([
+            S([
                 resize_axis[0]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                 resize_axis[1]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1,
                 resize_axis[2]? resize_ration_from_scale(scales, (i + 1), resize_offset) : 1]) {
@@ -286,7 +295,7 @@
       U() {
         for ( item = [0:1:$children-1]) {
           if (item + 1 < number_of_children) {
-          hull(){
+          H(){
               children(item);
               children(item + 1);
             }
@@ -304,13 +313,13 @@
     
     for (i = [0:location_count -1]) {
       if (i + 1 == location_count) {
-          hull() {
+          H() {
             T(locations[i]) children();
             if (close_end) T(locations[0]) children();
           }
       }
       else {
-        hull() {
+        H() {
           T(locations[i]) children();
           T(locations[i + 1]) children();
         }

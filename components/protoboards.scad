@@ -21,21 +21,21 @@ module make_protoboard(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edg
   }
 }
 
-module make_protoboard_screws(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edge=1.3, screw_length=20, hex_size=[5,5], screw_purchase=2) {
+module make_protoboard_screws(size_X=30, size_Y=40, corner_screws=2.5, corner_screw_edge=1.3, screw_length=20, hex_size=[5,5], screw_purchase=2, screwheadDiameter = 5.2, withHexBlank=true) {
   offset_X = (size_X - (2*corner_screw_edge + corner_screws/2)) / 2;
   offset_Y = (size_Y - (2*corner_screw_edge + corner_screws/2)) / 2;
   offset_Z = -screw_length/2 + protoboard_get_Z()/2;
   translate([ offset_X,  offset_Y, 0]) {
-    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = 5.2, screwheadHeight=3, withHexBlank = true, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = screwheadDiameter, screwheadHeight=3, withHexBlank = withHexBlank, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
   }
   translate([ offset_X, -offset_Y, 0]) {
-    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = 5.2, screwheadHeight=3, withHexBlank = true, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = screwheadDiameter, screwheadHeight=3, withHexBlank = withHexBlank, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
   }
   translate([-offset_X,  offset_Y, 0]) {
-    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = 5.2, screwheadHeight=3, withHexBlank = true, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = screwheadDiameter, screwheadHeight=3, withHexBlank = withHexBlank, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
   }
   translate([-offset_X, -offset_Y, 0]) {
-    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = 5.2, screwheadHeight=3, withHexBlank = true, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
+    screwButton(screwthreadwidth=corner_screws, height=screw_length, screwheadDiameter = screwheadDiameter, screwheadHeight=3, withHexBlank = withHexBlank, hexBlankH = hex_size[0], hexBlankD = hex_size[1], screwPurchase = screw_purchase);
   }
 }
 
