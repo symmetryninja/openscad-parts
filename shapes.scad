@@ -52,10 +52,10 @@
   // Funnel
   module cfunnel(d=10, r=-1, h = 20, $fa=$fa, $fs=$fs, $fn=$fn) {
     if (r != -1) {
-      cylinder(r1= r, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+      ccylinder(r1= r, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn);
     }
     else {
-      cylinder(r1 = d/2, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn, center=true);
+      ccylinder(r1 = d/2, r2 = 0, h = h, $fa=$fa, $fs=$fs, $fn=$fn);
     }
   }
 
@@ -99,7 +99,7 @@ module make_rounded_box(size=[50,50,50], d=6) {
 
 module make_rounded_box_shafts(size=[50,50,50], inset=6, d=6, fn=$fn) {
   make_box_objects(x=size[0], y=size[1], inset=inset) {
-      cylinder(d=d, h=size[2], center=true, $fn=fn);
+      ccylinder(d=d, h=size[2], $fn=fn);
   }
 }
 
@@ -163,19 +163,19 @@ module makeRoundedRhombus(positionX, positionY, roundedBoxD, centerOffsetX, reta
   hull() {
     //back1
     T([positionX - centerOffsetX, positionY/2, 0]) {
-      cylinder(h = retainerH, d = roundedBoxD, center=true);
+      ccylinder(h = retainerH, d = roundedBoxD);
     }
     //back2
     T([-positionX, -positionY/2, 0]) {
-      cylinder(h = retainerH, d = roundedBoxD, center=true);
+      ccylinder(h = retainerH, d = roundedBoxD);
     }
     //front1
     T([positionX, -positionY/2, 0]) {
-      cylinder(h = retainerH, d = roundedBoxD, center=true);
+      ccylinder(h = retainerH, d = roundedBoxD);
     }
     //front2
     T([-(positionX - centerOffsetX), positionY/2, 0]) {
-      cylinder(h = retainerH, d = roundedBoxD, center=true);
+      ccylinder(h = retainerH, d = roundedBoxD);
     }
   }
 }
@@ -248,8 +248,8 @@ module make_rhombus(size=[20,20,20], long_side=5, rotate_z=0) {
 module make_drilled_cylinder(d=5, i_d=3, h=4, detail = $fn) {
   //main 
   difference() {
-    cylinder(h=h, d=d, center=true, $fn=detail);
-    cylinder(h=h + 4, d=i_d, center=true, $fn=detail);
+    ccylinder(h=h, d=d, $fn=detail);
+    ccylinder(h=h + 4, d=i_d, $fn=detail);
   }
 }
 
