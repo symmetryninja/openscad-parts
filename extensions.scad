@@ -43,6 +43,12 @@
   function setZ(input, Z=0) =                 [input[0],  input[1],   Z];
   function setXYZ(input, X=0, Y=0, Z=0) =     [X,Y,Z];
 
+  // quick difference calcs
+  function diffX(input_1, input_2) = diff_number(X(input_1), X(input_2));
+  function diffY(input_1, input_2) = diff_number(Y(input_1), Y(input_2));
+  function diffZ(input_1, input_2) = diff_number(Z(input_1), Z(input_2));
+  function diff_number(input_1, input_2) = input_1 < input_2 ? input_2 - input_1 : input_1 - input_2;
+
 // translate/rotate/scale/resize etc
   // Translate shorthand
   module T(t=[0,0,0]){translate(t)children(); }

@@ -186,12 +186,12 @@ module make_triangle(size=[20,20,5]) {
   tri_Z = size[2];
   polyhedron( 
     points = [
-      [tri_X/2, -tri_Y/2, tri_Z/2],
-      [-tri_X/2, -tri_Y/2, tri_Z/2],
-      [0, tri_Y/2, tri_Z/2],
-      [tri_X/2, -tri_Y/2, -tri_Z/2],
-      [-tri_X/2, -tri_Y/2, -tri_Z/2],
-      [0, tri_Y/2, -tri_Z/2],
+      [tri_X/2,   -tri_Y/2, tri_Z/2],
+      [-tri_X/2,  -tri_Y/2, tri_Z/2],
+      [0,          tri_Y/2, tri_Z/2],
+      [tri_X/2,   -tri_Y/2, -tri_Z/2],
+      [-tri_X/2,  -tri_Y/2, -tri_Z/2],
+      [0,          tri_Y/2, -tri_Z/2],
     ], 
     faces = [
       [0, 1, 2],
