@@ -114,6 +114,8 @@ module make_drill_holes_with_children(size=[50,50,50], inset=0) {
 }
 
 module makeBoxobjects(x = 50, y = 50, inset = 0) { // for backwards compatibility
+  echo ("makeBoxObjects depracated");
+  make_box_objects(x = x, y = y, inset = inset);
 }
 module make_box_objects(x = 50, y = 50, inset = 0) {
   //make 4 cylinders
