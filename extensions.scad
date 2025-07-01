@@ -62,6 +62,7 @@
   module Ry(y=90) { rotate([0, y, 0]) children(); }
   module Rz(z=90) { rotate([0, 0, z]) children(); }
 
+
   // Translate and rotate
   module TR(t=[0,0,0], r=[0,0,0]) { T(t) R(r) children(); }
 
@@ -101,6 +102,24 @@
   module Mtx(x=10, retain=true) { mirror([1, 0, 0]) Tx(x) children(); if (retain) Tx(x)children(); }
   module Mty(y=10, retain=true) { mirror([0, 1, 0]) Ty(y) children(); if (retain) Ty(y)children(); }
   module Mtz(z=10, retain=true) { mirror([0, 0, 1]) Tz(z) children(); if (retain) Tz(z)children(); }
+
+  module array_repeatX(count=2, offset=30) { array_repeat(count=[count, 1, 1,], offset=[offset, 1, 1]) children(); }
+  module array_repeatY(count=2, offset=30) { array_repeat(count=[1, count, 1,], offset=[1, offset, 1]) children(); }
+  module array_repeatZ(count=2, offset=30) { array_repeat(count=[1, 1, count,], offset=[1, 1, offset]) children(); }
+  module array_repeatXY(count=[2,2], offset=[30,30]) { array_repeat(count=[count[0], count[1], 1,], offset=[offset[0], offset[1], 1]) children(); }
+  module array_repeatYZ(count=[2,2], offset=[30,30]) { array_repeat(count=[1, count[0], count[1],], offset=[1, offset[0], offset[1]]) children(); }
+  module array_repeatXZ(count=[2,2], offset=[30,30]) { array_repeat(count=[count[0], 1, count[1],], offset=[offset[0], 1, offset[1]]) children(); }
+  module array_repeat(count=[2,2,2], offset=[30,30,30]) {
+    for (i_x = [1:1:count[X]]) {
+      for (i_y = [1:1:count[Y]]) {
+        for (i_z = [1:1:count[Z]]) {
+          T([offset[X] * (i_x -1), offset[Y] * (i_y -1), offset[Z] * (i_z -1)]) {
+            children();
+          }
+        }
+      }
+    }
+  }
 
 // Autoplacement at corners
   module place_at_corners_xy(x, y) {
