@@ -28,6 +28,13 @@
       cube([size[0] - (bezel * 2), size[1] - (bezel * 2), size[2]], center);
     }
   }
+  // Flat-bezeled cube
+  module ccube_bezel_Z(size=[10,10,10], bezel=2, center=true){
+    hull() {
+      cube([size[0], size[1] - (bezel * 2), size[2]], center);
+      cube([size[0] - (bezel * 2), size[1], size[2]], center);
+    }
+  }
 
   // Cylinder
   module ccylinder(d=10, r=-1, h=10, $fa=$fa, $fs=$fs, $fn=$fn) {
