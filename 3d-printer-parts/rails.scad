@@ -45,7 +45,7 @@ module linear_rail_20mm_bearing(for_cutout = false, cutout_height = 30, cutout_s
       ccube([linear_rail_20mm_bearing_X, linear_rail_20mm_bearing_Y, 76.2]);
       if (for_cutout) {
         if (cutout_slot == 0) {
-          Rx(90) makeBoxobjects(x= linear_rail_20mm_bearing_mount_offset_X, y=linear_rail_20mm_bearing_mount_offset_Y, inset=0) ccylinder(h=cutout_height, d=5.5);
+          Rx(90) make_box_objects(x= linear_rail_20mm_bearing_mount_offset_X, y=linear_rail_20mm_bearing_mount_offset_Y, inset=0) ccylinder(h=cutout_height, d=5.5);
         }
         else {
           // 1
@@ -73,7 +73,7 @@ module linear_rail_20mm_bearing(for_cutout = false, cutout_height = 30, cutout_s
       }
     }
     U() {
-      if (!for_cutout) Rx(90) makeBoxobjects(x= linear_rail_20mm_bearing_mount_offset_X, y=linear_rail_20mm_bearing_mount_offset_Y, inset=0) ccylinder(h=cutout_height, d=5.5);
+      if (!for_cutout) Rx(90) make_box_objects(x= linear_rail_20mm_bearing_mount_offset_X, y=linear_rail_20mm_bearing_mount_offset_Y, inset=0) ccylinder(h=cutout_height, d=5.5);
     }
   }
 }

@@ -283,10 +283,10 @@ module make_pie_slice(d=50, h = 50, angle=45) {
   }
 }
 
-module torus(part_D=2, D = 4) {
+module torus(inner_D = 2, outer_D = 4) {
   rotate_extrude(convexity = 10) {
-    T([D/2, 0, 0]) {
-      circle(r = part_D/2, $fn = 100);
+    T([outer_D/2, 0, 0]) {
+      circle(r = inner_D/2, $fn = 100);
     }
   }
 }

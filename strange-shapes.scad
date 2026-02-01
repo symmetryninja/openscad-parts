@@ -8,28 +8,28 @@ sts_radius=20;
 sphericon_4(radius = sts_radius);
 
 module sphericon_ground(size=1000) {
-   translate([0,0,-size]) cube(2*size,center=true);
+   T([0,0,-size]) cube(2*size,center=true);
 }
 
 module sphericon2_half(r) {
-  difference() {
+  D() {
     union() {
       cylinder(r1=r,r2=0,h=r);
-      rotate([180,0,0]) cylinder(r1=r,r2=0,h=r);
+      R([180,0,0]) cylinder(r1=r,r2=0,h=r);
     }
-    rotate([0,-90,0]) sphericon_ground();
+    R([0,-90,0]) sphericon_ground();
   }
 }
 
 module sphericon2(r) {
   render() {
   sphericon2_half(r);
-  rotate([90,0,0]) rotate([0,0,180]) sphericon2_half(r);
+  R([90,0,0]) R([0,0,180]) sphericon2_half(r);
   }
 };
 
 module sphericon2_half_shell(r, ratio) {
-   difference() {
+   D() {
       sphericon2(r);   
       sphericon2(ratio*r);
       sphericon_ground();
@@ -50,23 +50,23 @@ module sphericon_4_base(radius=20) {
   offset_donut_ends_d  = cyl_H*1.867;
   offset_donut_ends_part_d  = cyl_H*1.5;
   echo (offset);
-  difference() {
-    hull() {
-      translate([0,0,offset]) {
+  D() {
+    H() {
+      T([0,0,offset]) {
         cylinder(r1=radius,r2=0,h=cyl_H, center=true);
       }
       
-      translate([0,0,-offset]) {
+      T([0,0,-offset]) {
         cylinder(r2=radius,r1=0,h=cyl_H, center=true);
       }
     }
     union() {
-      translate([0,0,-offset_donut_ends]) {
-        torus(part_D=offset_donut_ends_part_d, D = offset_donut_ends_d);
+      T([0,0,-offset_donut_ends]) {
+        torus(inner_D=offset_donut_ends_part_d, outer_D = offset_donut_ends_d);
       }
-      torus(part_D=offset_donut_ends_part_d, D = offset_donut_d);
-      translate([0,0,offset_donut_ends]) {
-        torus(part_D=offset_donut_ends_part_d, D = offset_donut_ends_d);
+      torus(inner_D=offset_donut_ends_part_d, outer_D = offset_donut_d);
+      T([0,0,offset_donut_ends]) {
+        torus(inner_D=offset_donut_ends_part_d, outer_D = offset_donut_ends_d);
       }
     }
   }
@@ -74,20 +74,20 @@ module sphericon_4_base(radius=20) {
 
 module sts_split_and_rotate(angle = 120, cubesize = 100){
   union() {
-    difference(){
+    D(){
       union() {
         children();
       }
-      translate([cubesize/2 - 0.0001, 0, 0]) {
+      T([cubesize/2 - 0.0001, 0, 0]) {
         ccube([cubesize,cubesize,cubesize]);
       }
     }
-    rotate([angle,0,0])
-    difference(){
+    R([angle,0,0])
+    D(){
       union() {
         children();
       }
-      translate([-cubesize/2 + 0.0001, 0, 0]) {
+      T([-cubesize/2 + 0.0001, 0, 0]) {
         ccube([cubesize,cubesize,cubesize]);
       }
     }

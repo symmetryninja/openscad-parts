@@ -7,7 +7,7 @@ ffm3030_tab = 6.2;
 module friction_fit_mount_3030_clip(depth=10) {
   difference() {
     hull() {
-      makeRoundedBox(setZ(addXY(ffm3030_space, ffm3030_tab*2 -0.01, ffm3030_tab*2 -0.01), depth));
+      make_rounded_box(setZ(addXY(ffm3030_space, ffm3030_tab*2 -0.01, ffm3030_tab*2 -0.01), depth));
       children();
     }
 
