@@ -145,7 +145,7 @@ function get_tft_280_18_Z() = tft_280_18_Z;
 
 module tft_280_18_base(with_screws=true) {
   difference() {
-    makeRoundedBox([tft_280_18_X, tft_280_18_Y, tft_280_18_Z], d = 2);
+    makeRounmake_rounded_boxdedBox([tft_280_18_X, tft_280_18_Y, tft_280_18_Z], d = 2);
     if (with_screws) {
       tft_280_18_screws();
     }

@@ -245,7 +245,7 @@ module dm_mx_64_chassis_cutout(for_shoulder=true) {
     if (for_shoulder) {
       // side-holes
       translate([0,-17.5,0]) {
-        makeRoundedBox_rotate_90_Y([53.7,62,30]);
+        make_rounded_box_rotate_90_Y([53.7,62,30]);
       }
 
       translate([0,22,0]) {
@@ -255,10 +255,10 @@ module dm_mx_64_chassis_cutout(for_shoulder=true) {
       }
       hull() {
         translate([0,13,0]) {
-          makeRoundedBox_rotate_90_Y([60,10, 20]);
+          make_rounded_box_rotate_90_Y([60,10, 20]);
         }
         translate([0,7,0]) {
-          makeRoundedBox_rotate_90_Y([60,10, 30]);
+          make_rounded_box_rotate_90_Y([60,10, 30]);
         }
       }
     }
@@ -267,7 +267,7 @@ module dm_mx_64_chassis_cutout(for_shoulder=true) {
       // side-holes
       difference() {
         translate([0,-17.5,0]) {
-          makeRoundedBox_rotate_90_Y([53.7,62,30]);
+          make_rounded_box_rotate_90_Y([53.7,62,30]);
         }
          translate([-28,-40, 0]) {
           cube([8,22,31], center=true);

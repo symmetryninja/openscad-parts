@@ -137,7 +137,7 @@ module xt_60_plug_sized(oversize = 0, for_cutout = false) {
 
   // mount lip
   translate([-1.249,0,0]) {
-    makeRoundedBox_rotate_90_Y([2.5,17.2, 9.5], d = 4);
+    make_rounded_box_rotate_90_Y([2.5,17.2, 9.5], d = 4);
   }
 
   //cable mount point
@@ -181,16 +181,13 @@ module xt_60_plug_with_panel(cutouts_only = false) {
       // panel
       
       if (cutouts_only) {
-        Ty(14.5) {
-          ccylinder(h=20, d = 3.5);
-        }
-        Ty(-14.5) {
-          ccylinder(h=20, d = 3.5);
+        Mty(14.5) {
+          ccylinder(h=20, d = 4.1);
         }
       }
       else {
         green() {
-          makeRoundedBox([10.8, 38, 1.6], d = 4);
+          make_rounded_box([10.8, 38, 1.6], d = 4);
         }
       }
     }
@@ -209,7 +206,6 @@ module xt_60_plug_with_panel(cutouts_only = false) {
           }
         }
       }
-      //3.5 6.5 29
     }
   }
 }

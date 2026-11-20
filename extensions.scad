@@ -16,7 +16,7 @@
   function Y(input) = input[1];
   function Z(input) = input[2];
 
-  // add a value in a vector
+  // add a value in a 3d vector
   function addX(input,    X=0) =              [input[0] + X,  input[1],     input[2]];
   function addXY(input,   X=0, Y=0) =         [input[0] + X,  input[1] + Y,     input[2]];
   function addXZ(input,   X=0, Z=0) =         [input[0] + X,  input[1],     input[2] + Z];
@@ -25,7 +25,12 @@
   function addZ(input,    Z=0) =              [input[0],      input[1],     input[2] + Z];
   function addXYZ(input,  X=0, Y=0, Z=0) =    [input[0] + X,  input[1] + Y, input[2] + Z];
 
-  // invert a value in a vector
+  // add a value in a 2d vector
+  function add2DX(input,    X=0) =              [input[0] + X,  input[1]];
+  function add2DXY(input,   X=0, Y=0) =         [input[0] + X,  input[1] + Y];
+  function add2DY(input,    Y=0) =              [input[0],      input[1] + Y];
+
+  // invert a value in a 3d vector
   function invX(input) =                      [input[0] * -1,  input[1],     input[2]];
   function invXY(input) =                     [input[0] * -1,  input[1] * -1,input[2]];
   function invXZ(input) =                     [input[0] * -1,  input[1],     input[2] * -1];
@@ -33,6 +38,11 @@
   function invYZ(input) =                     [input[0],       input[1] * -1,input[2] * -1];
   function invZ(input) =                      [input[0],       input[1],     input[2] * -1];
   function invXYZ(input) =                    [input[0] * -1,  input[1] * -1,input[2] * -1];
+
+  // invert a value in a 2d vector
+  function inv2DX(input) =                      [input[0] * -1,  input[1],];
+  function inv2DXY(input) =                     [input[0] * -1,  input[1] * -1,];
+  function inv2DY(input) =                      [input[0],       input[1] * -1,];
 
   // override a value in a vector
   function setX(input, X=0) =                 [X,         input[1],   input[2]];
@@ -352,27 +362,3 @@
     }
   }
 
-/* legacy for compatability */
-  module translateX(x) { Tx(x) children(); }
-  module translateY(y) { Ty(y) children(); }
-  module translateZ(z) { Tz(z) children(); }
-
-  // Rotate shorthand
-  module rotateX(x=90) { Rx(x) children(); }
-  module rotateY(y=90) { Ry(y) children(); }
-  module rotateZ(z=90) { Rz(z) children(); }
-
-  // Scale shorthand
-  module scaleX(x=1) { Sx(x) children(); }
-  module scaleY(y=1) { Sy(y) children(); }
-  module scaleZ(z=1) { Sz(z) children(); }
-
-  // Resize shorthand
-  module resizeX(x=90){ RSx(x) children(); }
-  module resizeY(y=90){ RSy(y) children(); }
-  module resizeZ(z=90){ RSz(z) children(); }
-
-  // note the mirror by default retains the origonal object
-  module mirrorX(retain=true) { Mx(retain=retain) children(); }
-  module mirrorY(retain=true) { My(retain=retain) children(); }
-  module mirrorZ(retain=true) { Mz(retain=retain) children(); }

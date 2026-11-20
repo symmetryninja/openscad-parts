@@ -175,7 +175,7 @@ function get_tft_98_18_Z() = tft_98_18_Z;
 
 module tft_98_18_base(with_screws=true) {
   difference() {
-    makeRoundedBox([tft_98_18_X, tft_98_18_Y, tft_98_18_Z], d = 2);
+    make_rounded_box([tft_98_18_X, tft_98_18_Y, tft_98_18_Z], d = 2);
     if (with_screws) {
       tft_98_18_screws();
     }

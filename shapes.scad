@@ -66,27 +66,6 @@
     }
   }
 
-
-module makeRoundedBox_rotate_90_X(size=[50,50,50], d=6) {
-  echo ("makeRoundedBox_rotate_90_X naming convention deprecated")
-  make_rounded_box_rotate_90_X(size, d);
-}
-
-module makeRoundedBox_rotate_90_Y(size=[50,50,50], d=6) {
-  echo ("makeRoundedBox_rotate_90_Y naming convention deprecated")
-  make_rounded_box_rotate_90_Y(size, d);
-}
-
-module makeRoundedBox(size=[50,50,50], d=6) {
-  echo ("makeRoundedBox naming convention deprecated")
-  make_rounded_box(size, d);
-}
-
-module makeRoundedBoxShafts(size=[50,50,50], d=6, shaft_d=6, fn=$fn) {
-  echo ("makeRoundedBoxShafts naming convention deprecated")
-  make_rounded_box_shafts(size, d, shaft_d, fn);
-}
-
 module make_rounded_box_rotate_90_X(size=[50,50,50], d=6) {
   rotate([90, 0, 0])
     make_rounded_box(size=[size[0],size[2],size[1]], d=d);
@@ -120,10 +99,6 @@ module make_drill_holes_with_children(size=[50,50,50], inset=0) {
   }
 }
 
-module makeBoxobjects(x = 50, y = 50, inset = 0) { // for backwards compatibility
-  echo ("makeBoxObjects depracated");
-  make_box_objects(x = x, y = y, inset = inset);
-}
 module make_box_objects(x = 50, y = 50, inset = 0) {
   //make 4 cylinders
   Mtxy((x - inset) /2, (y - inset) /2)
@@ -284,7 +259,7 @@ module make_pie_slice(d=50, h = 50, angle=45) {
 }
 
 module torus(inner_D = 2, outer_D = 4) {
-  rotate_extrude(convexity = 10) {
+  rotate_extrude(convexity = 10, start = 180) {
     T([outer_D/2, 0, 0]) {
       circle(r = inner_D/2, $fn = 100);
     }
@@ -313,3 +288,51 @@ module make_rounded_slot(d = 3, h = 10, l = 10) {
     ccylinder(d=d, h = h);
   }
 }
+
+// Extrude a 2D outline into a solid.
+//   points: [[x,y], [x,y], ...] outline, in order (clockwise or anticlockwise), not self-intersecting.
+//           The last point joins back to the first automatically, so don't repeat it.
+//   h:      height on Z
+//   center: true (default, like the rest of this library) puts the solid from -h/2 to h/2;
+//           false puts it from 0 to h.
+//   e.g. make_polygon_solid([[0,0], [30,0], [30,10], [10,25]], h = 5);
+module make_polygon_solid(points = [[0,0], [10,0], [0,10]], h = 10, center = true) {
+  assert(len(points) >= 3, "make_polygon_solid: need at least 3 points");
+  assert(h > 0, "make_polygon_solid: h must be > 0");
+  linear_extrude(height = h, center = center, convexity = 10) {
+    polygon(points = points);
+  }
+}
+
+// Build a point list from a start point and relative steps (like a turtle / "relative move" path).
+//   start:  [x,y] or [x,y,z]
+//   deltas: [[dx,dy], ...] (or [[dx,dy,dz], ...]), each the same size as start
+//   returns [start, start+d0, start+d0+d1, ...]  (len(deltas) + 1 points)
+//   e.g. points_from_deltas([0,0], [[30,0], [0,10], [-20,15]]) == [[0,0], [30,0], [30,10], [10,25]]
+//   Pairs with make_polygon_solid:
+//     make_polygon_solid(points_from_deltas([0,0], [[30,0], [0,10], [-20,15]]), h = 5);
+//
+//   mirror: optional normal vector, same convention as OpenSCAD's mirror() - [1,0] flips X, [0,1] flips Y,
+//           [0,0,1] flips Z; the mirror plane goes through the origin. When given, the points are followed
+//           by their mirror images in reverse order, so you draw half an outline and get the other half:
+//           the last point is the mirror of start (start [10,0] with [1,0] -> last point [-10,0]).
+//           A point that sits on the mirror plane (e.g. x == 0 with [1,0]) isn't repeated at the turn
+//           or at the end.
+//   e.g. half a shape on the +X side, mirrored across the Y axis:
+//     points_from_deltas([10,0], [[0,20], [-10,10]], mirror = [1,0])
+//       == [[10,0], [10,20], [0,30], [-10,20], [-10,0]]
+function _reflect_vector(v, n) = v - 2 * (v * n) / (n * n) * n;
+
+function points_from_deltas(start, deltas, mirror = undef) =
+  assert(len(start) == 2 || len(start) == 3, "points_from_deltas: start must be [x,y] or [x,y,z]")
+  assert(len([for (d = deltas) if (len(d) != len(start)) d]) == 0,
+         "points_from_deltas: every delta must be the same size as start")
+  let(out = [for (i = 0, p = start; i <= len(deltas); p = i < len(deltas) ? p + deltas[i] : p, i = i + 1) p])
+  is_undef(mirror) ? out :
+  assert(len(mirror) == len(start) && mirror * mirror > 0,
+         "points_from_deltas: mirror must be a non-zero vector the same size as start")
+  concat(out, [
+    for (i = [len(out) - 1 : -1 : 0])
+      let(m = _reflect_vector(out[i], mirror))
+      if (norm(m - out[i]) > 1e-6) m   // on the mirror plane -> already in the list
+  ]);

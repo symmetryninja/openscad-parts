@@ -582,7 +582,7 @@ module component_make_square_fan_bolts(size=[40,40,10], screw_hole_size = 3, scr
 }
 module component_make_square_fan(size=[40,40,10], include_screw_holes=true, screw_hole_size = 3, screw_hole_offset=3) {
   difference() {
-    makeRoundedBox(size);
+    make_rounded_box(size);
     union() {
       difference() {
         cylinder(h = size[2] + 10, d = size[0] * 0.9, center = true);
@@ -700,3 +700,9 @@ module boards_make_torro32_bolts(screw_D = 3.1, h = 20) {
         }
       }
     }
+
+  module component_rpilidar() {
+
+    T([-35, 35, 0]) Rx(90) import("rplidar_main.stl", convexity=10);
+    
+  }

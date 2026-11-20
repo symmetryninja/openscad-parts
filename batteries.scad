@@ -177,3 +177,57 @@
       ]
     );
   }
+/****************** multistar_s3_50 */
+
+  function battery_multistar_s3_50_L() = 144;
+  function battery_multistar_s3_50_L_2() = 146;
+  function battery_multistar_s3_50_W() = 23;
+  function battery_multistar_s3_50_H() = 51;
+
+  module battery_multistar_s3_50(oversize_L = 0, oversize_W = 0, oversize_H = 0) {
+      bat_L = battery_multistar_s3_50_L() + oversize_L;
+      bat_L_2 = battery_multistar_s3_50_L_2() + oversize_L;
+      bat_W = battery_multistar_s3_50_W() + oversize_W;
+      bat_H = battery_multistar_s3_50_H() + oversize_H;
+
+      
+      bat_X = bat_L/2;
+      bat_XT = bat_X + bat_L_2 - bat_L;
+      bat_Y = bat_W/2;
+
+      bat_Z_T = bat_H/2;
+      bat_Z_B = -bat_Z_T;
+
+      /*
+      10 points:
+      Top
+      * tip, * box xy, box x-y, box -x-y, box -xy
+      bottom
+      * tip, * box xy, box x-y, box -x-y, box -xy
+      */
+      green()
+      polyhedron( 
+      points = [
+          [ bat_XT, 0,   bat_Z_T],
+          [ bat_X, bat_Y,bat_Z_T],
+          [-bat_X, bat_Y,bat_Z_T],
+          [-bat_X,-bat_Y,bat_Z_T],
+          [ bat_X,-bat_Y,bat_Z_T],
+
+          [ bat_XT, 0,    bat_Z_B],
+          [ bat_X, bat_Y, bat_Z_B],
+          [-bat_X, bat_Y, bat_Z_B],
+          [-bat_X,-bat_Y, bat_Z_B],
+          [ bat_X,-bat_Y, bat_Z_B],
+      ], 
+      faces = [
+        [4, 3, 2, 1, 0],
+        [0, 1, 6, 5],
+        [1, 2, 7, 6],
+        [2, 3, 8, 7],
+        [3, 4, 9, 8],
+        [4, 0, 5, 9],
+        [5, 6, 7, 8, 9],
+      ]
+    );
+  }

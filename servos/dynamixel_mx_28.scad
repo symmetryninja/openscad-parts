@@ -10,7 +10,7 @@ dm28_horne_hub_arc_R = 30;
 
 
 module dm_mx_28_load_stl() {
-  import("../openscad-parts/servos/MX-28T_R.stl");
+  import("./MX-28T_R.stl");
 }
 
 
@@ -83,7 +83,7 @@ module dm_mx_28_chassis_box() {
     }
   }
 }
-module dm_mx_28_chassis_cutout(include_web=true) {
+module dm_mx_28_chassis_cutout(reduced_bolts = false, include_web=true) {
   union () {
     if (include_web) {
       //horne size slice
@@ -97,31 +97,21 @@ module dm_mx_28_chassis_cutout(include_web=true) {
       bolt_offset_4_Y = -35.8;
 
       //bolts - front
-      translate([bolt_offset,bolt_offset_1_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      translate([-bolt_offset, bolt_offset_1_Y,0]) {
+      Mx() translate([bolt_offset,bolt_offset_1_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
       //bolts - middle
-      translate([bolt_offset, bolt_offset_2_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      translate([-bolt_offset, bolt_offset_2_Y,0]) {
+      if (!reduced_bolts)
+      Mx() translate([bolt_offset, bolt_offset_2_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
       //bolts - end
-      translate([bolt_offset, bolt_offset_3_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      translate([-bolt_offset, bolt_offset_3_Y,0]) {
+      Mx() translate([bolt_offset, bolt_offset_3_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
       // bolts - rear
-      translate([bolt_offset_2, bolt_offset_4_Y,0]) {
-        cylinder(d=2.7, h=60, center = true);
-      }
-      translate([-bolt_offset_2, bolt_offset_4_Y,0]) {
+      if (!reduced_bolts)
+      Mx() translate([bolt_offset_2, bolt_offset_4_Y,0]) {
         cylinder(d=2.7, h=60, center = true);
       }
       // central cutout

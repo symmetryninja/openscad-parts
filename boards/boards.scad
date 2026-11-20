@@ -39,3 +39,39 @@ module computer_boards_opencr1() {
   // we have to import it!
   import("OpenCR_REVF.stl", convexity=10);
 }
+
+
+
+  /** bucky **/
+  module ten_a_bucky() {
+    // green()
+    D() {
+        %T([0, 0, 9]) ccube([37, 47, 15]);
+        green() Tz(1) ccube([37, 47, 2]);
+      #U() {
+        ten_a_bucky_screws();
+      };
+    }
+  }
+
+  module ten_a_bucky_standoffs() {
+    Tz(-4)
+      ten_a_bucky_place_screws() {
+        H() {
+          ccylinder(d=6, h=6);
+          Tz(-2) ccylinder(d=8, h=2);
+        }
+      }
+  }
+
+  module ten_a_bucky_screws(d=3, h=20) {
+    ten_a_bucky_place_screws() {
+      ccylinder(d = d, h = h);
+    }
+  }
+  module ten_a_bucky_place_screws(d=3, h=20) {
+    T([-15, 21, 0]) children();
+    T([14.7, 19, 0]) children();
+    T([15, -21, 0]) children();
+    T([-15, -21, 0]) children();
+  }
